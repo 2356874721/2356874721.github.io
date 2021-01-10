@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="警长的博客">
 <meta property="og:description" content="marginmargin是前端布局中经常用到的一个属性，细细挖掘才发现，这个属性除了常用的一些使用场景以外，还能给我们解决一类问题，提供了新的思路。下面的内容如果你听过，就再做一次梳理，没接触过就进行一次学习，大家共同进步。 margin是什么每天都在用margin这个属性，你有认真的思考过它到底是一个什么东西吗？w3c是这样定义margin的：”CSS 边距属性定义元素周围的空间。通过使用单独的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-margin/1.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-margin/2.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-margin/3.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-margin/4.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/20/css-margin/1.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/20/css-margin/2.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/20/css-margin/3.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/20/css-margin/4.png">
 <meta property="article:published_time" content="2020-07-20T03:28:19.000Z">
 <meta property="article:modified_time" content="2020-08-08T15:13:03.092Z">
 <meta property="article:author" content="sheriff">
 <meta property="article:tag" content="margin">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-margin/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/2020/07/20/css-margin/1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/07/20/css-margin/">
 
@@ -232,15 +232,15 @@
 <h3 id="margin与padding"><a href="#margin与padding" class="headerlink" title="margin与padding"></a>margin与padding</h3><p>开发中要实现相同的布局，往往利用margin和padding都能实现，那么我们到底什么时候用margin，什么时候用padding呢？简单的总结一下。<br>使用margin的情况：<br>1）、在border外侧增加间距(css盒模型，margin在border的外侧)<br>2）、这个间距不需要背景颜色(margin区域是透明的)<br>3）、垂直方向上两个元素的间距需要抵消(需要利用margin外边距合并这个特性时)<br>对应的padding也有以下3点：<br>1）、在border内侧增加间距<br>2）、间距需要背景颜色<br>3）、垂直方向上两个元素的间距是二者之和</p>
 <h2 id="margin合并问题"><a href="#margin合并问题" class="headerlink" title="margin合并问题"></a>margin合并问题</h2><p>“简单地说，外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。”<br>外边距合并有以下几种情况：</p>
 <h3 id="两个相邻的兄弟元素"><a href="#两个相邻的兄弟元素" class="headerlink" title="两个相邻的兄弟元素"></a>两个相邻的兄弟元素</h3><p>当一个元素出现在另一个元素上面时，第一个元素的下外边距与第二个元素的上外边距会发生合并。</p>
-<img src="/2356874721.github.io/.com//2020/07/20/css-margin/1.png" class>
+<img src="/2356874721.github.io/2020/07/20/css-margin/1.png" class>
 <p>解决：<br>1.给下面的元素加上一层父级元素并加上overflow:hidden;<br>2.给两个都加一层父级再加bfc</p>
 <h3 id="父元素与其第一个子元素"><a href="#父元素与其第一个子元素" class="headerlink" title="父元素与其第一个子元素"></a>父元素与其第一个子元素</h3><p>当一个元素包含在另一个元素中时(假设没有内边距或边框把外边距分隔开)，它们会发生外边距合并。这种情况就是我们经常遇见的，给子元素设置外边距，父元素会一起掉下去的情况，就是因为发生了外边距合并。</p>
-<img src="/2356874721.github.io/.com//2020/07/20/css-margin/2.png" class>
+<img src="/2356874721.github.io/2020/07/20/css-margin/2.png" class>
 <p>解决：<br>1.给父级设置边框或内边距<br>2.触发bfc(块级格式上下文),改变父级的渲染规则</p>
 <h3 id="一个有上下外边距的空元素"><a href="#一个有上下外边距的空元素" class="headerlink" title="一个有上下外边距的空元素"></a>一个有上下外边距的空元素</h3><p>假设有一个空元素，它有外边距，但是没有边框或填充。在这种情况下，上外边距与下外边距就碰到了一起，它们会发生合并。</p>
-<img src="/2356874721.github.io/.com//2020/07/20/css-margin/3.png" class>
+<img src="/2356874721.github.io/2020/07/20/css-margin/3.png" class>
 <h3 id="相邻兄弟元素，其中一个是空元素"><a href="#相邻兄弟元素，其中一个是空元素" class="headerlink" title="相邻兄弟元素，其中一个是空元素"></a>相邻兄弟元素，其中一个是空元素</h3><p>空元素的上下边距先合并，再和外部的合并。</p>
-<img src="/2356874721.github.io/.com//2020/07/20/css-margin/4.png" class>
+<img src="/2356874721.github.io/2020/07/20/css-margin/4.png" class>
 <h2 id="margin在块级元素、内联元素中的区别"><a href="#margin在块级元素、内联元素中的区别" class="headerlink" title="margin在块级元素、内联元素中的区别"></a>margin在块级元素、内联元素中的区别</h2><p>margin可以作用到块级元素上，也能作用到内联元素上，区别是作用在块级元素时，上下左右四个方向都生效，内联元素只能是水平方向，但是内联元素中有一类元素很特殊，margin能够在上下左右四个方向都生效，就是可替换元素。</p>
 <h3 id="可替换元素"><a href="#可替换元素" class="headerlink" title="可替换元素"></a>可替换元素</h3><p>可替换元素可以简单的理解为，它所要展示的内容，是由标签本身的某个属性决定的，如：img | input | select | textarea | button | label 等。以上虽然也属于内联元素，但margin依旧可以影响到他的上下左右。</p>
 <h3 id="不可替换元素"><a href="#不可替换元素" class="headerlink" title="不可替换元素"></a>不可替换元素</h3><p>与可替换元素相对的就是不可替换元素，如：span 等，margin只能影响到它的左右方向。</p>

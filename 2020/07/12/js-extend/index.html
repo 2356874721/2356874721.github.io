@@ -27,9 +27,9 @@
 <meta property="og:site_name" content="警长的博客">
 <meta property="og:description" content="原型原型是function对象的一个属性，它定义了构造函数制造出的对象的公共祖先。通过该构造函数产生的对象，可以继承原型上的属性和方法。原型也是一个对象。 原型的应用原型最重要的应用就是提取公有属性。这样写的好处是，方法挂在原型上，好处是每次实例化对象的时候，不用重复的创建函数。 12345678function Person(name)&amp;#123;  this.name &#x3D; name&amp;#125;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/12/js-extend/1.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/12/js-extend/2.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/12/js-extend/3.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/12/js-extend/1.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/12/js-extend/2.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/12/js-extend/3.png">
 <meta property="article:published_time" content="2020-07-12T04:06:01.000Z">
 <meta property="article:modified_time" content="2020-08-08T15:13:03.098Z">
 <meta property="article:author" content="sheriff">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="原型链">
 <meta property="article:tag" content="继承">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/12/js-extend/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/2020/07/12/js-extend/1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/07/12/js-extend/">
 
@@ -236,7 +236,7 @@
 <h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person.hands = <span class="string">'no'</span></span><br><span class="line">这样并不能改变原型上的属性，而是给自己加了一个hands属性</span><br><span class="line">修改原型的属性，只能是</span><br><span class="line">Person.prototype.hands = <span class="string">'no'</span></span><br><span class="line">即后代不能改原型上的属性</span><br></pre></td></tr></table></figure>
 <h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>先去自己的构造函数中找，没有的话去原型上找</p>
 <h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>构造器，person.constructor返回的是Person，那么constructor肯定不是person的属性，只能是继承过来的，所以打印原型Person.prototype看一下，里面有一个constructor，还有一个_ <em>proto</em> _</p>
-<img src="/2356874721.github.io/.com//2020/07/12/js-extend/1.png" class>
+<img src="/2356874721.github.io/2020/07/12/js-extend/1.png" class>
 <h2 id="proto"><a href="#proto" class="headerlink" title="_ proto _"></a>_ <em>proto</em> _</h2><p>隐式的属性，系统内部的属性<br>_ <em>proto</em> _ 里面存放的就是原型Person.prototype，那么_ <em>proto</em> _ 放原型有什么用呢<br>我们知道当我们执行new Person()时，首先创建了一个空对象obj，给obj添加一个属性_ <em>proto</em> _ ，用来存放原型Person.prototype，查找属性时，先找person自己的，没有的话就会访问_ <em>proto</em> _ 这个属性，去_ <em>proto</em> _ 对应值Person.prototype上面去找，person能够找到原型的根本就在于_ <em>proto</em> _ 。<br>上述文字大致描述的就是如下的代码：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line">  this.obj = &#123;&#125;</span><br><span class="line">  obj._ proto_ = Person.prototype</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下面来看几个练习</p>
@@ -254,9 +254,9 @@
 <p>实例化对象的另一种写法：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var person = new Person</span><br><span class="line">var person = Object.create(Person.prototype)</span><br></pre></td></tr></table></figure>
 <p>绝大多数的对象都会继承自Object.prototype，绝大多数是什么意思，难道还有不继承Object.prototype的吗？答案是当然。<br>Object.create()创建的对象，没有参数时：</p>
-<img src="/2356874721.github.io/.com//2020/07/12/js-extend/2.png" class>
+<img src="/2356874721.github.io/2020/07/12/js-extend/2.png" class>
 <p>因此参数必须是一个对象或者null，Object.create(null)，没有原型<strong>proto</strong>，自己往上添加是不行的，系统不识别</p>
-<img src="/2356874721.github.io/.com//2020/07/12/js-extend/3.png" class>
+<img src="/2356874721.github.io/2020/07/12/js-extend/3.png" class>
 <h2 id="call、apply"><a href="#call、apply" class="headerlink" title="call、apply"></a>call、apply</h2><p>call和apply的作用只有一个，就是改变this指向</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">person</span></span>()&#123;&#125;</span><br><span class="line">person()</span><br><span class="line">调用函数时，底层其实是在执行person.call()</span><br></pre></td></tr></table></figure>
 <h3 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;&#125;</span><br><span class="line">Person.call(obj,<span class="string">'sheriff'</span>,<span class="string">'26'</span>)</span><br><span class="line">console.log(obj)</span><br></pre></td></tr></table></figure>

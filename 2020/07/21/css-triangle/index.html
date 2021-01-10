@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="警长的博客">
 <meta property="og:description" content="我们如何用css画三角形呢？可以借助border，首先来看个例子 1234567div&amp;#123;  width: 0;  height: 0;  border-width: 100px 100px 100px 100px;  border-color:  blue red blue red;  border-style: solid;&amp;#125; 这样一段代码过后，就会看到如下图形  那么代码中">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/21/css-triangle/1.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/21/css-triangle/2.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/21/css-triangle/3.png">
-<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/21/css-triangle/4.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/21/css-triangle/1.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/21/css-triangle/2.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/21/css-triangle/3.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2020/07/21/css-triangle/4.png">
 <meta property="article:published_time" content="2020-07-21T14:13:15.000Z">
 <meta property="article:modified_time" content="2020-08-08T15:13:03.094Z">
 <meta property="article:author" content="sheriff">
 <meta property="article:tag" content="三角形">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/21/css-triangle/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/2020/07/21/css-triangle/1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/07/21/css-triangle/">
 
@@ -228,15 +228,15 @@
         <p>我们如何用css画三角形呢？可以借助border，首先来看个例子</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>:  blue red blue red;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样一段代码过后，就会看到如下图形</p>
-<img src="/2356874721.github.io/.com//2020/07/21/css-triangle/1.png" class>
+<img src="/2356874721.github.io/2020/07/21/css-triangle/1.png" class>
 <p>那么代码中border-width: 100px 100px 100px 100px都对应的是哪里呢？</p>
-<img src="/2356874721.github.io/.com//2020/07/21/css-triangle/2.png" class>
+<img src="/2356874721.github.io/2020/07/21/css-triangle/2.png" class>
 <p>所以当我们只想要一个三角形，比如上面的蓝色的三角形，我们就可以把bottom设为0，并且把左右两边设置透明</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">0</span> <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>:  blue  transparent transparent transparent;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="/2356874721.github.io/.com//2020/07/21/css-triangle/3.png" class>
+<img src="/2356874721.github.io/2020/07/21/css-triangle/3.png" class>
 <p>因此可以画一个等腰直角三角形</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">100px</span> <span class="number">0px</span> <span class="number">0</span> <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>:  blue  transparent transparent transparent;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="/2356874721.github.io/.com//2020/07/21/css-triangle/4.png" class>
+<img src="/2356874721.github.io/2020/07/21/css-triangle/4.png" class>
     </div>
 
     
