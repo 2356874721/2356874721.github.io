@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/2356874721.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/2356874721.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/2356874721.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/2356874721.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/2356874721.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/2356874721.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/2356874721.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、圣杯的由来圣杯最早出现在公元前33年，是耶稣受难前逾越节的晚餐上，耶稣与众门徒使用的一个葡萄酒的杯子。 相传以色列人在埃及受尽苦役，上帝耶和华召见摩西，让其带领以色列人逃离埃及，前往迦南美地。摩西召见以色列的长老们前来，告诉他们：你们要按照家口取出羊羔，在逾越节这天把羊羔宰了，拿一把牛膝草，蘸盆里的血，打在门楣上和左右的门框上，并且谁也不可出自己的房门，一直到早晨。因为耶和华要巡行击杀埃及人，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="圣杯布局、双飞翼布局">
+<meta property="og:url" content="http://yoursite.com/2020/07/15/css-holygrail-twinwing/index.html">
+<meta property="og:site_name" content="警长的博客">
+<meta property="og:description" content="一、圣杯的由来圣杯最早出现在公元前33年，是耶稣受难前逾越节的晚餐上，耶稣与众门徒使用的一个葡萄酒的杯子。 相传以色列人在埃及受尽苦役，上帝耶和华召见摩西，让其带领以色列人逃离埃及，前往迦南美地。摩西召见以色列的长老们前来，告诉他们：你们要按照家口取出羊羔，在逾越节这天把羊羔宰了，拿一把牛膝草，蘸盆里的血，打在门楣上和左右的门框上，并且谁也不可出自己的房门，一直到早晨。因为耶和华要巡行击杀埃及人，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/1.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/2.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/3.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/4.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/5.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/6.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/7.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/8.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/9.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/10.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/11.png">
+<meta property="article:published_time" content="2020-07-15T12:25:39.000Z">
+<meta property="article:modified_time" content="2020-08-08T15:13:03.076Z">
+<meta property="article:author" content="sheriff">
+<meta property="article:tag" content="三行三列布局">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/15/css-holygrail-twinwing/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>圣杯布局、双飞翼布局 | 警长的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/2356874721.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">警长的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活 记录成长</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/2356874721.github.io/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/2356874721.github.io/archives/" rel="section"><i class="archives fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/2356874721.github.io/categories/" rel="section"><i class="categories fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/2356874721.github.io/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/2356874721.github.io/about/" rel="section"><i class="about fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/15/css-holygrail-twinwing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          圣杯布局、双飞翼布局
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-15 20:25:39" itemprop="dateCreated datePublished" datetime="2020-07-15T20:25:39+08:00">2020-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、圣杯的由来"><a href="#一、圣杯的由来" class="headerlink" title="一、圣杯的由来"></a>一、圣杯的由来</h2><p>圣杯最早出现在公元前33年，是耶稣受难前逾越节的晚餐上，耶稣与众门徒使用的一个葡萄酒的杯子。</p>
+<p>相传以色列人在埃及受尽苦役，上帝耶和华召见摩西，让其带领以色列人逃离埃及，前往迦南美地。摩西召见以色列的长老们前来，告诉他们：你们要按照家口取出羊羔，在逾越节这天把羊羔宰了，拿一把牛膝草，蘸盆里的血，打在门楣上和左右的门框上，并且谁也不可出自己的房门，一直到早晨。因为<a href="https://baike.baidu.com/item/耶和华" target="_blank" rel="noopener">耶和华</a>要巡行击杀埃及人，他看见血在门楣上和左右的门框上，就必越过那门，不会进你们的房屋。日后，你们到了迦南美地，也要遵守这个礼仪，如果你们的儿女问你们说：‘行这礼是甚么意思？’你们就说：‘这是献给耶和华逾越节的祭。当年以色列人在埃及的时候，耶和华要击杀埃及人，通过门楣上的血，越过以色列人的房屋，救了我们各家。’”</p>
+<p>传说耶稣受难就是为了在逾越节这一天，给上帝耶和华献祭，从此以色列人就再也不必宰杀羔羊。在耶稣受难后的第三天，耶稣复活，这也是复活节的由来。后来人就认为耶稣在受难前使用的那个杯子有一种神奇的能力，如果找到这个杯子，喝下杯子里面的水，就能返老还童、死而复生并且获得永生，这就是传说中的圣杯。</p>
+<h2 id="二、圣杯布局"><a href="#二、圣杯布局" class="headerlink" title="二、圣杯布局"></a>二、圣杯布局</h2><p>言归正传进入正题，通过上面的小故事，有助于我们很好的理解到底什么是圣杯布局。你可以简单的理解为这种布局像圣杯的形象一样，分为中间的杯身主体和左右两边的杯把儿，即它是一个三列布局，遵循左右两端固定中间自适应的原则。具体遵循的原则有以下几点：</p>
+<p>• 头部和足部占屏幕所有宽度</p>
+<p>• 头、足之间是一个三列布局</p>
+<p>• 三列布局中两侧宽度固定，中间自适应</p>
+<p>• 允许三列中的任意一列最高，即头足之间的高度由三列中的最高一列的高度决定</p>
+<p>• 中间一列要求在浏览器中最先渲染(内容区最重要，是用户最想看见的部分)</p>
+<p>接下来它的具体实现方式：</p>
+<h3 id="建立上、中、下基本结构"><a href="#建立上、中、下基本结构" class="headerlink" title="建立上、中、下基本结构"></a>建立上、中、下基本结构</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="加入中间三列"><a href="#加入中间三列" class="headerlink" title="加入中间三列"></a>加入中间三列</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在未加样式之前，页面是这个样子的：header、footer已经在预定位置，center、left、right在中间，接下来要做的就是把center、left、right按照中、左、右的顺序放置。</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/1.png" class>
+
+<h3 id="加入浮动样式"><a href="#加入浮动样式" class="headerlink" title="加入浮动样式"></a>加入浮动样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.content</span> &gt; <span class="selector-tag">div</span>&#123;</span><br><span class="line">	<span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时发现.content内部浮动，内部元素脱离文档流，.content的位置释放掉了，导致footer挤上去了，所以要给.footer加清除浮动</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.footer</span>&#123;</span><br><span class="line">	<span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来设置两侧宽度，以及预留两侧的空间</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.left</span>,<span class="selector-class">.right</span>&#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span>&#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">0</span> <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时页面样式如下：</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/2.png" class>
+
+<h3 id="将left放到指定位置"><a href="#将left放到指定位置" class="headerlink" title="将left放到指定位置"></a>将left放到指定位置</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">	<span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/3.png" class>
+
+<p>这时你一定会有疑问，设置margin-left:-100%之后，left为什么上去了？？是啊，我也一样，仔细思考了下，终于明白了这是为什么，请往下看。</p>
+<p>首先要明确一点，margin-left:-100%，这个百分比是相对于谁的？答案是父元素。没错，不管是margin还是padding，百分比都是相对于父元素的width，注意一定是width哦，不是height什么的。搞清楚这一点你是不是就明白上面的问题了呢？left元素从下面移到上面，正好是一个content的宽度啊！！！</p>
+<p>接下来的问题就简单了，再把left向左移动自身宽度就到达指定位置了。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/4.png" class>
+
+<h3 id="将right放到指定位置"><a href="#将right放到指定位置" class="headerlink" title="将right放到指定位置"></a>将right放到指定位置</h3><p>同样利用负外边距来实现</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/5.png" class>
+
+<p>将right移动到指定位置还有另外一种写法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">	<span class="attribute">margin-right</span>: -<span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此，圣杯布局就完成了，此时是不是感觉岁月静好，仔细思考下，上面的思路是不是还不够完善。试想一下，两侧宽度是固定的，当屏幕足够小的时候，中间的内容区是不是会被挤没了，因此要设置一个最小宽度，来保证中间最为重要的内容区可以被用户看到。最小宽度的算法如下：<br>$$<br>minWidth = leftWidth * 2 + rightWidth<br>$$<br>看到这里，你是不是又感到一片迷茫呢?最小宽度不就是两个侧边栏的width之和就行了吗？2倍是什么鬼啊？ 请把我们的思绪往前倒一倒，还记得我们为了让left到指定位置，给它加了position:relative吗？如下图，就是我们设置了margin-left:-100%之后的位置，也就是相对定位的起始位置，正是由于relative没有脱离文档流，即时它移走了，但位置依然保留。</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/6.png" class>
+
+<p>所以在left向左移动300px之后，它的位置依然在，你可以想象成下图的样子，红框就是left的原本位置，这个位置依然属于left，谁也抢不走。</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/7.png" class>
+
+<p>当页面缩放到下面这个程度时，即left原本位置同center等宽的时候，这个时候就是页面的最小宽度了，如果页面宽度再小，left本身宽度+原本位置宽度+right宽度页面就放不下了，浮动元素就会发生换行，从而布局就被破坏了。</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/8.png" class>
+
+<h2 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h2><p>双飞翼布局的提出，就是为了解决圣杯布局中不设置最小宽度布局混乱的问题，而直接导致页面这个问题的原因，就是设置相对定位导致的，因此双飞翼布局就抛弃掉了相对定位的方式。首先来看下双飞翼布局的结构，它的基本结构与圣杯布局的基本结构一样，区别在于对于内容区中间三列的处理。</p>
+<h3 id="加入中间三列-1"><a href="#加入中间三列-1" class="headerlink" title="加入中间三列"></a>加入中间三列</h3><p>center增加一个包裹层</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center-wrap item"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left item"</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right item"</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="加入样式"><a href="#加入样式" class="headerlink" title="加入样式"></a>加入样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: bisque;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> <span class="selector-tag">div</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span> <span class="selector-class">.item</span>&#123;</span><br><span class="line">	<span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.header</span>,<span class="selector-class">.footer</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: brown;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: blueviolet;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center-wrap</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: orange;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center</span>&#123;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">0</span> <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.footer</span>&#123;</span><br><span class="line">	<span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上将left、right移动到指定位置，同圣杯布局一致。不同之处在于，圣杯布局利用.content的padding来预留两侧栏的位置，而双飞翼是利用.center-wrap的外边距来预留位置。</p>
+<h2 id="flex方式"><a href="#flex方式" class="headerlink" title="flex方式"></a>flex方式</h2><p>除了浮动，我们还可以利用flex来实现这种类似布局，当然这种实现方式可能违背了优先渲染中间区域的原则，但是原理比较简单，没有最小宽度的问题，在开发中也可以是很好的选择。</p>
+<p>页面的基本结构与浮动方式一模一样，不同的地方在于，中间三列我们按照left、center、right的顺序放置如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>设置为三列设置的样式如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.content</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>,<span class="selector-class">.right</span>&#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center</span>&#123;</span><br><span class="line">	<span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="grid方式"><a href="#grid方式" class="headerlink" title="grid方式"></a>grid方式</h2><p>这种方式目前对浏览器的兼容还不够好，但也介绍一下，开阔下视野，多知道点儿东西没有坏处。</p>
+<h3 id="基础结构"><a href="#基础结构" class="headerlink" title="基础结构"></a>基础结构</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="加入样式-1"><a href="#加入样式-1" class="headerlink" title="加入样式"></a>加入样式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">.wrap&#123;</span><br><span class="line">  background-color: bisque;</span><br><span class="line">  height: 400px;</span><br><span class="line">  display: grid;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.content&#123;</span><br><span class="line">  grid-row:2;</span><br><span class="line">  grid-column:1&#x2F;5;</span><br><span class="line">  display: grid;</span><br><span class="line">  grid-template-columns: 300px auto 300px;</span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">	background-color: blueviolet;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">	background-color: green;</span><br><span class="line">&#125;</span><br><span class="line">.center&#123;</span><br><span class="line">	background-color: orange;</span><br><span class="line">&#125;</span><br><span class="line">.header,.footer&#123;</span><br><span class="line">	background-color: brown;</span><br><span class="line">&#125;</span><br><span class="line">.header&#123;</span><br><span class="line">  grid-row:1;</span><br><span class="line">  grid-column:1&#x2F;5;</span><br><span class="line">&#125;</span><br><span class="line">.footer&#123;</span><br><span class="line">  grid-row:3;</span><br><span class="line">  grid-column:1&#x2F;5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终实现的效果如下图：</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/9.png" class>
+
+<p>display:grid: 声明其内部元素遵循grid网格布局，加到父元素身上</p>
+<p>grid-row:2: 占据父元素的第二行，加到子元素身上</p>
+<p>grid-column:1/5: 占据父元素中的第一个格到第五个格子</p>
+<p>grid-template-columns: 300px auto 300px: 内部元素每列的尺寸，即left=300px;right=300px，剩下的就是center的尺寸</p>
+<p>关于网格可以在进一步解释下，grid-column:1/5中的1/5不是5份里面占1份的意思，而是从第一个格子到第五个格子，你可以简单的理解为是网格线的索引，只不过这个索引是从1开始的，如下图所示就是从【1】到【5】之间的部分。</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/10.png" class>
+
+<h2 id="table方式"><a href="#table方式" class="headerlink" title="table方式"></a>table方式</h2><h3 id="基础结构-1"><a href="#基础结构-1" class="headerlink" title="基础结构"></a>基础结构</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="加入样式-2"><a href="#加入样式-2" class="headerlink" title="加入样式"></a>加入样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: bisque;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> <span class="selector-tag">div</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: table;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span> <span class="selector-tag">div</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>: table-cell;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.header</span>,<span class="selector-class">.footer</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: brown;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: blueviolet;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="absolute方式"><a href="#absolute方式" class="headerlink" title="absolute方式"></a>absolute方式</h2><p>主要区别是在中间内容区域的处理上，利用绝对定位，来把left和right放到指定位置</p>
+<h3 id="基础结构-2"><a href="#基础结构-2" class="headerlink" title="基础结构"></a>基础结构</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="加入样式-3"><a href="#加入样式-3" class="headerlink" title="加入样式"></a>加入样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: bisque;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> <span class="selector-tag">div</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.header</span>,<span class="selector-class">.footer</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: brown;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: blueviolet;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: green;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center</span>&#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现的效果如下图，需要注意的一点就是采用这种方式需要给页面加最小宽度</p>
+<img src="/2356874721.github.io/.com//2020/07/15/css-holygrail-twinwing/11.png" class>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>零零总总的写了两天了，办法总比困难多，以上算是自己学习的一个过程吧。里面有些内容可能还是介绍的比较浅显，也可能是自己理解的还不够深入，下一篇深入的学习下margin负边距这个东西吧。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/2356874721.github.io/tags/%E4%B8%89%E8%A1%8C%E4%B8%89%E5%88%97%E5%B8%83%E5%B1%80/" rel="tag"># 三行三列布局</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2020/07/14/js-event-loop/" rel="prev" title="js事件执行机制">
+      <i class="fa fa-chevron-left"></i> js事件执行机制
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2020/07/18/js-symbol/" rel="next" title="Symbol">
+      Symbol <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、圣杯的由来"><span class="nav-number">1.</span> <span class="nav-text">一、圣杯的由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、圣杯布局"><span class="nav-number">2.</span> <span class="nav-text">二、圣杯布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立上、中、下基本结构"><span class="nav-number">2.1.</span> <span class="nav-text">建立上、中、下基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入中间三列"><span class="nav-number">2.2.</span> <span class="nav-text">加入中间三列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入浮动样式"><span class="nav-number">2.3.</span> <span class="nav-text">加入浮动样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将left放到指定位置"><span class="nav-number">2.4.</span> <span class="nav-text">将left放到指定位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将right放到指定位置"><span class="nav-number">2.5.</span> <span class="nav-text">将right放到指定位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双飞翼布局"><span class="nav-number">3.</span> <span class="nav-text">双飞翼布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加入中间三列-1"><span class="nav-number">3.1.</span> <span class="nav-text">加入中间三列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入样式"><span class="nav-number">3.2.</span> <span class="nav-text">加入样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flex方式"><span class="nav-number">4.</span> <span class="nav-text">flex方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grid方式"><span class="nav-number">5.</span> <span class="nav-text">grid方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础结构"><span class="nav-number">5.1.</span> <span class="nav-text">基础结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入样式-1"><span class="nav-number">5.2.</span> <span class="nav-text">加入样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table方式"><span class="nav-number">6.</span> <span class="nav-text">table方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础结构-1"><span class="nav-number">6.1.</span> <span class="nav-text">基础结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入样式-2"><span class="nav-number">6.2.</span> <span class="nav-text">加入样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#absolute方式"><span class="nav-number">7.</span> <span class="nav-text">absolute方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础结构-2"><span class="nav-number">7.1.</span> <span class="nav-text">基础结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入样式-3"><span class="nav-number">7.2.</span> <span class="nav-text">加入样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sheriff</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/2356874721.github.io/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/2356874721.github.io/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/2356874721.github.io/tags/">
+          
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sheriff</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/2356874721.github.io/lib/anime.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/2356874721.github.io/js/utils.js"></script>
+
+<script src="/2356874721.github.io/js/motion.js"></script>
+
+
+<script src="/2356874721.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/2356874721.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

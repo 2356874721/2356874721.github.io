@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/2356874721.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/2356874721.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/2356874721.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/2356874721.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/2356874721.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/2356874721.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/2356874721.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="同源策略浏览器同源策略，只要协议、域名、端口号，有一个不一致，就会产生跨域 浏览器不支持跨域的原因主要是为了安全1、cookie、localStorage不能支持跨域，假如登录了银行的网站，银行就给我的浏览器注入了一个cookie，我又访问了一个恶意网站，这个网站就有拿到我的cookie，冒充我登录银行2、DOM元素不支持跨域  iframe，自己的页面嵌入了别人的页面，我如果可以操作iframe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域解决方案">
+<meta property="og:url" content="http://yoursite.com/2020/07/26/js-cross-domain/index.html">
+<meta property="og:site_name" content="警长的博客">
+<meta property="og:description" content="同源策略浏览器同源策略，只要协议、域名、端口号，有一个不一致，就会产生跨域 浏览器不支持跨域的原因主要是为了安全1、cookie、localStorage不能支持跨域，假如登录了银行的网站，银行就给我的浏览器注入了一个cookie，我又访问了一个恶意网站，这个网站就有拿到我的cookie，冒充我登录银行2、DOM元素不支持跨域  iframe，自己的页面嵌入了别人的页面，我如果可以操作iframe">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-26T05:22:51.000Z">
+<meta property="article:modified_time" content="2020-08-08T15:13:03.098Z">
+<meta property="article:author" content="sheriff">
+<meta property="article:tag" content="跨域">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/26/js-cross-domain/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>跨域解决方案 | 警长的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/2356874721.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">警长的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活 记录成长</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/2356874721.github.io/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/2356874721.github.io/archives/" rel="section"><i class="archives fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/2356874721.github.io/categories/" rel="section"><i class="categories fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/2356874721.github.io/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/2356874721.github.io/about/" rel="section"><i class="about fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/26/js-cross-domain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          跨域解决方案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-26 13:22:51" itemprop="dateCreated datePublished" datetime="2020-07-26T13:22:51+08:00">2020-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>浏览器同源策略，只要协议、域名、端口号，有一个不一致，就会产生跨域</p>
+<h2 id="浏览器不支持跨域的原因"><a href="#浏览器不支持跨域的原因" class="headerlink" title="浏览器不支持跨域的原因"></a>浏览器不支持跨域的原因</h2><p>主要是为了安全<br>1、cookie、localStorage不能支持跨域，假如登录了银行的网站，银行就给我的浏览器注入了一个cookie，我又访问了一个恶意网站，这个网站就有拿到我的cookie，冒充我登录银行<br>2、DOM元素不支持跨域  iframe，自己的页面嵌入了别人的页面，我如果可以操作iframe里面的元素的话，那么嵌入的网站的新户名、密码等信息就有可能会暴露<br>3、ajax请求，接口不能对外开放</p>
+<h2 id="为什么还要实现跨域"><a href="#为什么还要实现跨域" class="headerlink" title="为什么还要实现跨域"></a>为什么还要实现跨域</h2><p>跨域是由前后端分离导致的，在smarty时代，前后端代码混在一起，因此部署的时候也只能部署到一台服务器上，使用的域名也相同，就不会有跨域问题。<br>前后端分离以后，代码虽然分离了，但是仍然可以把代码部署到同一台服务器，也不会造成跨域。<br>前后端分离，后端大多是业务逻辑等，前端是资源，因此为了更好的维护，使前端页面更快地加载出来，可以把前端单独部署到一台web服务器上，因此引出了跨域问题，目前大多数项目中都是跨域请求前后端分离项目中，前端部署到一台服务器，后端部署到一台服务器，肯定会产生跨域</p>
+<h2 id="实现跨域的方法"><a href="#实现跨域的方法" class="headerlink" title="实现跨域的方法"></a>实现跨域的方法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsonp/cors/postMessage/<span class="built_in">document</span>.domain/<span class="built_in">window</span>.name/location.hash/http-proxy/nginx/websocket</span><br></pre></td></tr></table></figure>
+<h2 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h2><p>script标签跨域</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://www.baidu.com/sugrec?pre=1&amp;p=3&amp;ie=utf-8&amp;json=1&amp;prod=pc&amp;from=pc_web&amp;sugsid=1431,21119,31069,31660,32046,31322,30823,31848,26350&amp;wd=a&amp;req=2&amp;bs=%E7%99%BE%E5%BA%A6&amp;csor=4&amp;pwd=111&amp;cb=show"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>服务器返回的是一个函数的执行，即show({回传的数据})</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 回调函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>jsonp存在的问题：<br>1.只能发送get请求<br>2.xss攻击，接口返回的值可能带有恶意攻击，如resolve(alert(11111))</p>
+<h2 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h2><p>后端设置：Access-Control-Allow-Origin 访问控制允许源<br>请求头里面拿到请求源：req.headers.origin   Origin:<a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a><br>设置一个白名单，如果访问源是白名单里面的，那么就设置头Access-Control-Allow-Origin<br>还有一种是前端设置请求头</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xhr.setRequestHeader(</span><br><span class="line">  <span class="string">'lwj'</span>,<span class="string">'aa'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>此时浏览器也不让访问：Access-Control-Allow-Headers<br>因此服务端也要设置一下允许的请求头，常见的请求头：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Origin'</span>,origin) <span class="comment">// 允许的源  origin如果是*，则不能携带cookie等凭证</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Headers'</span>,<span class="string">'lwj'</span>) <span class="comment">// 允许的请求头</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Methods'</span>,<span class="string">'PUT'</span>) <span class="comment">// 允许的请求方式</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Credentials'</span>,<span class="literal">true</span>) <span class="comment">// 允许携带cookie</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Max-Age'</span>,<span class="number">6</span>) <span class="comment">// OPTION预检请求间隔时间，6s中不在发</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Expose-Headers'</span>,<span class="string">'name'</span>) <span class="comment">// 允许返回的头   (index):30 Refused to get unsafe header "name"</span></span><br></pre></td></tr></table></figure>
+<p>前端携带cookie：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'name:Mr.Q'</span></span><br><span class="line">xhr.withCredentials = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h2><p>两个页面的通信</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=<span class="string">"http://localhost:4000/2.html"</span> frameborder=<span class="string">"0"</span> id=<span class="string">"frame"</span> onload=<span class="string">"load()"</span>&gt;&lt;<span class="regexp">/iframe&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  function load()&#123;</span></span><br><span class="line"><span class="regexp">    let frame = document.getElementById('frame')</span></span><br><span class="line"><span class="regexp">    frame.contentWindow.postMessage('我爱你','http:/</span><span class="regexp">/localhost:4000') /</span><span class="regexp">/ frame.contentWindow.postMessage(数据，给哪个域传数据)</span></span><br><span class="line"><span class="regexp">    window.onmessage = function(e)&#123;</span></span><br><span class="line"><span class="regexp">      console.log(e.data)</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e.data)</span><br><span class="line">  e.source.postMessage(<span class="string">'我不爱你'</span>,<span class="string">'http://localhost:3000'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame.contentWindow.postMessage(数据，域名)</span><br></pre></td></tr></table></figure>
+<p>接数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; <span class="comment">// e.data&#125;</span></span><br></pre></td></tr></table></figure>
+<p>发数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.source.postMessage(数据，域名)</span><br></pre></td></tr></table></figure>
+<p>接数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; <span class="comment">// e.data&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>本质上也是借助于iframe标签<br>涉及a,b,c三个页面，a,b是同域：<a href="http://localhost:3000，c是独立域">http://localhost:3000，c是独立域</a>: <a href="http://localhost:4000，那么a怎么拿c的数据？">http://localhost:4000，那么a怎么拿c的数据？</a><br>步骤：a引用c，c把数据放到window.name上，把a引用的地址改成b</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">页面a</span><br><span class="line">&lt;iframe src=<span class="string">"http://localhost:4000/c.html"</span> frameborder=<span class="string">"0"</span> id=<span class="string">"frame"</span> onload=<span class="string">"load()"</span>&gt;&lt;<span class="regexp">/iframe&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let flag = true</span></span><br><span class="line"><span class="regexp">  function load()&#123;</span></span><br><span class="line"><span class="regexp">    if (flag)&#123;</span></span><br><span class="line"><span class="regexp">      let frame = document.getElementById('frame')</span></span><br><span class="line"><span class="regexp">      frame.src = 'http:/</span><span class="regexp">/localhost:3000/</span>b.html<span class="string">'</span></span><br><span class="line"><span class="string">      flag = false</span></span><br><span class="line"><span class="string">    &#125;else&#123;</span></span><br><span class="line"><span class="string">      console.log(frame.contentWindow.name)</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">页面c</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">window</span>.name = <span class="string">'我爱你'</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>涉及a,b,c三个页面，a,b是同域：<a href="http://localhost:3000，c是独立域">http://localhost:3000，c是独立域</a>: <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a><br>步骤：a引入c，把给c的值放到hash上，c收到hash值，c把hash传给b，b把hash放到a的hash上</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a:</span><br><span class="line">&lt;iframe src=<span class="string">"http://localhost:4000/3.html#iloveu"</span> frameborder=<span class="string">"0"</span>&gt;&lt;<span class="regexp">/iframe&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  window.onhashchange = function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log(location.hash)</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c:</span><br><span class="line"><span class="built_in">console</span>.log(location.hash)</span><br><span class="line"><span class="keyword">let</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>)</span><br><span class="line">iframe.src = <span class="string">'http://localhost:3000/2.html#idonotloveu'</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(iframe)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b:</span><br><span class="line"><span class="built_in">window</span>.parent.parent.location.hash = location.hash</span><br></pre></td></tr></table></figure>
+<h2 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h2><p>解决的是一级域名和二级域名之间的关系</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a：http:<span class="comment">//a.test.cn:3000/1.html  引入b</span></span><br><span class="line">&lt;div&gt;我是<span class="number">1.</span>html&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;iframe src="http:/</span><span class="regexp">/b.test.cn:3000/</span><span class="number">2.</span>html<span class="string">" frameborder="</span><span class="number">0</span><span class="string">" id="</span>frame<span class="string">" onload="</span>load()<span class="string">"&gt;&lt;/iframe&gt;</span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">  document.domain = 'test.cn'</span></span><br><span class="line"><span class="string">  function load()&#123;</span></span><br><span class="line"><span class="string">    console.log(frame.contentWindow.name)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;我是<span class="number">2.</span>html&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  document.domain = 'test.cn'</span></span><br><span class="line"><span class="regexp">  var name = 'lwj'</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="webSocket"><a href="#webSocket" class="headerlink" title="webSocket"></a>webSocket</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws:localhost:3000'</span>)</span><br><span class="line">  socket.onopen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    socket.send(<span class="string">'我爱你'</span>) <span class="comment">// 发送数据</span></span><br><span class="line">  &#125;</span><br><span class="line">  socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; <span class="comment">// 接收数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(e.data)</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">let</span> app = express()</span><br><span class="line"><span class="keyword">let</span> WebSocket = <span class="built_in">require</span>(<span class="string">'ws'</span>)</span><br><span class="line"><span class="keyword">let</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123;<span class="attr">port</span>:<span class="number">3000</span>&#125;) <span class="comment">// 监听3000端口</span></span><br><span class="line">wss.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">ws</span>)</span>&#123;</span><br><span class="line">  ws.on(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data) <span class="comment">// 接收请求</span></span><br><span class="line">    ws.send(<span class="string">'我不爱你'</span>) <span class="comment">//发送数据</span></span><br><span class="line">  &#125;) </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/2356874721.github.io/tags/%E8%B7%A8%E5%9F%9F/" rel="tag"># 跨域</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2020/07/25/vue-first-page-optimize/" rel="prev" title="vue首屏优化">
+      <i class="fa fa-chevron-left"></i> vue首屏优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2020/07/29/interview-first/" rel="next" title="面试总结(字节)">
+      面试总结(字节) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#同源策略"><span class="nav-number">1.</span> <span class="nav-text">同源策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器不支持跨域的原因"><span class="nav-number">2.</span> <span class="nav-text">浏览器不支持跨域的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么还要实现跨域"><span class="nav-number">3.</span> <span class="nav-text">为什么还要实现跨域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现跨域的方法"><span class="nav-number">4.</span> <span class="nav-text">实现跨域的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jsonp"><span class="nav-number">5.</span> <span class="nav-text">jsonp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cors"><span class="nav-number">6.</span> <span class="nav-text">cors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#postMessage"><span class="nav-number">7.</span> <span class="nav-text">postMessage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-name"><span class="nav-number">8.</span> <span class="nav-text">window.name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash"><span class="nav-number">9.</span> <span class="nav-text">hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document-domain"><span class="nav-number">10.</span> <span class="nav-text">document.domain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webSocket"><span class="nav-number">11.</span> <span class="nav-text">webSocket</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sheriff</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/2356874721.github.io/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/2356874721.github.io/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/2356874721.github.io/tags/">
+          
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sheriff</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/2356874721.github.io/lib/anime.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/2356874721.github.io/js/utils.js"></script>
+
+<script src="/2356874721.github.io/js/motion.js"></script>
+
+
+<script src="/2356874721.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/2356874721.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

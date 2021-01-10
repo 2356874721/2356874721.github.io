@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/2356874721.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/2356874721.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/2356874721.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/2356874721.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/2356874721.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/2356874721.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/2356874721.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="BFC与IFC什么是FCFC即格式化上下文(Formatting Context)，指的是页面上一块独立的区域，这块区域有自己的渲染规则，他决定内部元素的布局方式以及和其他元素的相互关系及作用。你可以通俗的理解为，他是属于你的一块田野，里面种什么、怎么种、种在哪里，与别人无关，完全由你自己说了算。 什么是Box通常来说页面上存在许多Box，元素的display属性决定了盒子的类型，而不同类型的Bo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BFC与IFC">
+<meta property="og:url" content="http://yoursite.com/2020/07/20/css-bfc-ifc/index.html">
+<meta property="og:site_name" content="警长的博客">
+<meta property="og:description" content="BFC与IFC什么是FCFC即格式化上下文(Formatting Context)，指的是页面上一块独立的区域，这块区域有自己的渲染规则，他决定内部元素的布局方式以及和其他元素的相互关系及作用。你可以通俗的理解为，他是属于你的一块田野，里面种什么、怎么种、种在哪里，与别人无关，完全由你自己说了算。 什么是Box通常来说页面上存在许多Box，元素的display属性决定了盒子的类型，而不同类型的Bo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/1.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/2.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/3.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/4.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/5.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/6.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/7.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/8.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/9.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/10.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/11.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/12.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/13.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/14.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/15.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/16.png">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/17.png">
+<meta property="article:published_time" content="2020-07-20T03:06:57.000Z">
+<meta property="article:modified_time" content="2020-08-08T15:13:03.044Z">
+<meta property="article:author" content="sheriff">
+<meta property="article:tag" content="BFC">
+<meta property="article:tag" content="IFC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/20/css-bfc-ifc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>BFC与IFC | 警长的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/2356874721.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">警长的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活 记录成长</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/2356874721.github.io/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/2356874721.github.io/archives/" rel="section"><i class="archives fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/2356874721.github.io/categories/" rel="section"><i class="categories fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/2356874721.github.io/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/2356874721.github.io/about/" rel="section"><i class="about fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/css-bfc-ifc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BFC与IFC
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 11:06:57" itemprop="dateCreated datePublished" datetime="2020-07-20T11:06:57+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="BFC与IFC"><a href="#BFC与IFC" class="headerlink" title="BFC与IFC"></a>BFC与IFC</h2><h3 id="什么是FC"><a href="#什么是FC" class="headerlink" title="什么是FC"></a>什么是FC</h3><p>FC即格式化上下文(Formatting Context)，指的是页面上一块独立的区域，这块区域有自己的渲染规则，他决定内部元素的布局方式以及和其他元素的相互关系及作用。你可以通俗的理解为，他是属于你的一块田野，里面种什么、怎么种、种在哪里，与别人无关，完全由你自己说了算。</p>
+<h3 id="什么是Box"><a href="#什么是Box" class="headerlink" title="什么是Box"></a>什么是Box</h3><p>通常来说页面上存在许多Box，元素的display属性决定了盒子的类型，而不同类型的Box就会有不同的FC。</p>
+<p>Block Level(块级)盒子形成BFC，比如display值为block、list-item、table的元素。</p>
+<p>Inline Level(行级)盒子形成IFC，比如dislpay值为inline、inline-block、inline-table的元素。</p>
+<h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h3><p>BFC块级格式化上下文(Block Formatting Context)，是一块独立的块级渲染区域，来约束内部的块级盒子布局。</p>
+<h4 id="1、BFC内部遵循的规则"><a href="#1、BFC内部遵循的规则" class="headerlink" title="1、BFC内部遵循的规则"></a><strong>1、BFC内部遵循的规则</strong></h4><p>a)、内部的Box在垂直方向一个挨着一个排列</p>
+<p>b)、BFC是独立的，内部元素不会影响到外边</p>
+<p>c)、每个元素的左外边距与包含块的左边界相接触(从左到右)，即使浮动元素也是如此(意思是说BFC内的元素不会超出)</p>
+<p>d)、BFC与float元素不会发生重叠</p>
+<p>e)、计算BFC的高度也包含float元素</p>
+<p>f)、垂直方向的距离由margin决定，属于同一个BFC的相邻Box的margin会发生重叠(这里的重叠应该特指垂直方向，因为每个Box单独占一行，重叠的部分只有垂直方向)</p>
+<h4 id="2、怎么生成BFC"><a href="#2、怎么生成BFC" class="headerlink" title="2、怎么生成BFC"></a><strong>2、怎么生成BFC</strong></h4><p>生成BFC有以下几种方法：</p>
+<p>a)、float的值不是none时，即：float:left || right || inherit</p>
+<p>b)、overflow的值不是visible时，即：overflow:hidden || scroll || auto || inherit</p>
+<p>c)、display的值是inline-block、table-cell、table-caption、flex、inline-flex</p>
+<p>d)、position的值是absolute、fixed</p>
+<p>简单的对比一下几种方法，a)和d)是会让此BFC脱离文档流，应用时应该注意是否对后面的其他FC的位置是否有影响，b)和c)没有脱离文档流，display为inline-block、table-cell、inline-flex时，BFC的宽度由内部元素撑开，display为flex时，宽度自动充满父元素，table-caption会使内部元素垂直排列。</p>
+<h4 id="3、BFC的作用"><a href="#3、BFC的作用" class="headerlink" title="3、BFC的作用"></a><strong>3、BFC的作用</strong></h4><p>说了这么多，BFC有什么作用呢？</p>
+<p><strong>a)、清除浮动</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HTML:</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">CSS</span>:</span><br><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: chartreuse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> &gt; <span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">background-color</span>: chocolate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码得到的结果非常简单，.wrap的背景色没有展现出来，因为内部元素浮动，造成.wrap的高度塌陷，使得height为0。那我们这么解决这个问题呢？这里既然说的是BFC的一系列东东，自然跟它脱不了干系，如果你仔细阅读了这篇文档，其实你已经有答案了，根据BFC内部遵循的规则，也就是1 e)这一条，BFC的高度是会把float元素也计算在内的，.wrap的高度之所以是0，不就是因为计算高度的时候没有计算内部的三个浮动的div的高度吗？我们只要让.wrap变成一个BFC就可以了，生成BFC的方法有四种，根据实际情况选取一种，我们常用的就是overflow:hidden</p>
+<p><strong>b)、垂直margin合并问题</strong></p>
+<p>HTML和a)中的结构一模一样，CSS如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: chartreuse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> &gt; <span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: chocolate;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下图所示，在垂直方向上，两个相邻的margin合并了，并且取了大的那个。</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/1.png" class>
+
+<p>这时在阅读一遍BFC的规则，b)说垂直方向的距离由margin决定，同一个BFC的margin会合并，那么我们让他们属于不同的BFC就好了，解决办法是给第二个div包裹一层，让其成为一个独立的BFC，这样BFC之间就不会相互影响了，如下图：</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/2.png" class>
+
+<p><strong>c)、float元素布局遮挡问题</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTML:</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item1"</span>&gt;</span>11111111111<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item2"</span>&gt;</span>哈哈哈哈哈哈哈哈哈哈哈哈哈哈<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">CSS</span>:</span><br><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">  <span class="attribute">background-color</span>: chocolate;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: darkgreen;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述结构是一个两列布局，左边一列浮动，效果如下：</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/3.png" class>
+
+<p>可以看到当左边一列产生浮动，并且高度小于右侧高度时，右侧内容就会与左侧浮动区域发生重叠，解决办法是让右侧成为一个独立的BFC。</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/4.png" class>
+
+<h2 id="IFC"><a href="#IFC" class="headerlink" title="IFC"></a>IFC</h2><p>IFC内联格式化上下文(Block Formatting Context)</p>
+<h4 id="IFC内部遵循的规则"><a href="#IFC内部遵循的规则" class="headerlink" title="IFC内部遵循的规则"></a>IFC内部遵循的规则</h4><p>a)、子元素水平方向横向排列，并且垂直方向起点为元素顶部</p>
+<p>b)、子元素只会计算横向样式空间，垂直方向样式空间不会被计算(如：margin)</p>
+<p>c)、在垂直方向上，利用vertical-align来实现不同形式来对齐(top、middle、baseline、bottom等)</p>
+<p>d)、使用text-align来实现水平居中</p>
+<h4 id="怎么生成IFC"><a href="#怎么生成IFC" class="headerlink" title="怎么生成IFC"></a>怎么生成IFC</h4><p>生成IFC非常简单，只要块级元素中仅包含内联元素，就会形成一个IFC。</p>
+<h4 id="IFC的作用"><a href="#IFC的作用" class="headerlink" title="IFC的作用"></a>IFC的作用</h4><p>利用IFC我们可以解释一些开发中常见的现象</p>
+<p><strong>a)、垂直方向上margin不生效问题</strong></p>
+<p>结构如下图所示，给span元素加margin，可以看到只有水平方向生效了，因为IFC内部元素只会计算水平的样式空间，垂直的不计算。</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/5.png" class>
+
+<p><strong>b)、块级元素水平居中问题</strong></p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/6.png" class>
+
+<p>如上图，我们想要.ele元素在wrap内水平居中，除了常用写法margin:0 auto,我们还可以利用IFC来解决，先使.ele形成一个IFC，再给.wrap设置text-align:center即可。</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/7.png" class>
+
+<p><strong>c)、垂直方向对齐问题</strong></p>
+<p>说到垂直居中就不得不说vertical-align，开发中比较常用的是vertical-align:middle，下面就从middle开始介绍下吧。</p>
+<p>如下图，从上至下的线分别代表上行线高度、大写字母高度、中线、基线、下行线，小写字母x的下边缘就是基线的位置。</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/8.png" class>
+
+<p>vertical-align:middle，middle指的就是x-height二分之一的位置，可以近似的理解为x交叉点那个位置，由于字体等因素，比如微软雅黑字体比较下沉，对应的字母x的交叉位置就偏下，所以说middle并不是绝对居中的。那么vertical-align都有哪些具体值和属性呢？</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/9.png" class>
+
+<p>1、长度：如vertical-align:2px 元素相对于基线，向上移动2px</p>
+<p>2、百分值：说到百分比牵扯到相对于哪个属性，这里是相对于此元素所继承的line-height的值，如</p>
+<p>line-height:20px,vertical-align:10% 等价于 vertical-align:2px</p>
+<p>3、vertical-align的不同属性值</p>
+<p>   1）、baseline：子元素的baseline与父元素的baseline对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/10.png" class>
+
+<p> 2）、middle：子元素的二分之一x-height与父元素二分之一x-height对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/11.png" class>
+
+<p> 3）、text-top：将元素顶端与父元素字体顶端对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/12.png" class>
+
+<p> 4）、text-bottom：将元素底端与父元素字体底端对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/13.png" class>
+
+<p> 5）、sub：子元素的baseline与父元素下标位置对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/14.png" class>
+
+<p>6）、super：子元素的baseline与父元素的上标位置对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/15.png" class>
+
+<p>7）、top：将元素盒子的顶部与其所在行的最高元素的顶端对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/16.png" class>
+
+<p> 8）、bottom：将元素盒子的底部与其所在行的最低元素底端对齐</p>
+<img src="/2356874721.github.io/.com//2020/07/20/css-bfc-ifc/17.png" class>
+
+<p>开发中为什么我的vertical-align不生效呢？</p>
+<p>注意：只有当元素是inline-block或者inline时，vertical-align才生效</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/2356874721.github.io/tags/BFC/" rel="tag"># BFC</a>
+              <a href="/2356874721.github.io/tags/IFC/" rel="tag"># IFC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2020/07/20/css-clear-float/" rel="prev" title="清除浮动">
+      <i class="fa fa-chevron-left"></i> 清除浮动
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2020/07/20/css-margin/" rel="next" title="margin">
+      margin <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC与IFC"><span class="nav-number">1.</span> <span class="nav-text">BFC与IFC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是FC"><span class="nav-number">1.1.</span> <span class="nav-text">什么是FC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Box"><span class="nav-number">1.2.</span> <span class="nav-text">什么是Box</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC"><span class="nav-number">1.3.</span> <span class="nav-text">BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、BFC内部遵循的规则"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、BFC内部遵循的规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、怎么生成BFC"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、怎么生成BFC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、BFC的作用"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、BFC的作用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IFC"><span class="nav-number">2.</span> <span class="nav-text">IFC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IFC内部遵循的规则"><span class="nav-number">2.0.1.</span> <span class="nav-text">IFC内部遵循的规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么生成IFC"><span class="nav-number">2.0.2.</span> <span class="nav-text">怎么生成IFC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IFC的作用"><span class="nav-number">2.0.3.</span> <span class="nav-text">IFC的作用</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sheriff</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/2356874721.github.io/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/2356874721.github.io/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/2356874721.github.io/tags/">
+          
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sheriff</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/2356874721.github.io/lib/anime.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/2356874721.github.io/js/utils.js"></script>
+
+<script src="/2356874721.github.io/js/motion.js"></script>
+
+
+<script src="/2356874721.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/2356874721.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
