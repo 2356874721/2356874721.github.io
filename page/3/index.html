@@ -161,6 +161,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/css-clear-float/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/20/css-clear-float/" class="post-title-link" itemprop="url">清除浮动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 10:41:04" itemprop="dateCreated datePublished" datetime="2020-07-20T10:41:04+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>float取值有：left | right | none | inherit</strong></p>
+<p><strong>使用浮动带来的问题：</strong>元素脱离文档流，位置释放，就没有内容撑着父元素了，导致父元素高度塌陷，影响布局</p>
+<p>解决办法如下：</p>
+<h2 id="父元素height写死"><a href="#父元素height写死" class="headerlink" title="父元素height写死"></a>父元素height写死</h2><p>优点：简单、代码少、容易掌握 </p>
+<p>缺点：要给出精确的高度，如果高度和父级div不一样时，会产生问题 </p>
+<h2 id="父级元素也一起浮动"><a href="#父级元素也一起浮动" class="headerlink" title="父级元素也一起浮动"></a>父级元素也一起浮动</h2><p>使父元素和子元素在同一个文档流里面</p>
+<p>缺点：不建议使用，会产生新的浮动问题</p>
+<h2 id="overflow-hidden"><a href="#overflow-hidden" class="headerlink" title="overflow: hidden"></a>overflow: hidden</h2><p>父元素设置overflow: hidden;zoom: 1</p>
+<p>zoom: 1是兼容ie</p>
+<p>优点：简单、代码少、浏览器支持好 </p>
+<p>缺点：不能和position配合使用，因为超出的尺寸的会被隐藏。</p>
+<h2 id="父级div定义-overflow-auto"><a href="#父级div定义-overflow-auto" class="headerlink" title="父级div定义 overflow:auto"></a><strong>父级div定义 overflow:auto</strong></h2><p>优点：简单、代码少、浏览器支持好 </p>
+<p>缺点：内部宽高超过父级div时，会出现滚动条。 </p>
+<h2 id="结尾处加空div标签-并设置clear-both"><a href="#结尾处加空div标签-并设置clear-both" class="headerlink" title="结尾处加空div标签 并设置clear:both"></a>结尾处加空div标签 并设置clear:both</h2><p>优点：简单、代码少、浏览器支持好、不容易出现怪问题 </p>
+<p>缺点：不少初学者不理解原理；如果页面浮动布局多，就要增加很多空div，让人感觉很不好</p>
+<h2 id="父级div定义-伪类-after-和-zoom"><a href="#父级div定义-伪类-after-和-zoom" class="headerlink" title="父级div定义 伪类:after 和 zoom"></a><strong>父级div定义 伪类:after 和 zoom</strong></h2><p>.clearfloat:after{display:block;clear:both;content:””;visibility:hidden;height:0} </p>
+<p>.clearfloat{zoom:1}</p>
+<p>优点：浏览器支持好、不容易出现怪问题</p>
+<p>缺点：代码多、不少初学者不理解原理，要两句代码结合使用才能让主流浏览器都支持。 </p>
+<p>建议：推荐使用，建议定义公共类，以减少CSS代码。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/18/css-position/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1157,86 +1250,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/11/js-debounce-throttle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/11/js-debounce-throttle/" class="post-title-link" itemprop="url"> 防抖、节流</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-11 18:42:14" itemprop="dateCreated datePublished" datetime="2020-07-11T18:42:14+08:00">2020-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h2><p>防抖，所谓防抖，就是指触发事件后，在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。</p>
-<h3 id="非立即执行防抖函数"><a href="#非立即执行防抖函数" class="headerlink" title="非立即执行防抖函数"></a>非立即执行防抖函数</h3><p>非立即执行防抖函数，触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> debounce(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> timeout</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span>(timeout) clearTimeout(timeout)</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      fn.apply(this,arguments)</span><br><span class="line">    &#125;,delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="立即执行防抖函数"><a href="#立即执行防抖函数" class="headerlink" title="立即执行防抖函数"></a>立即执行防抖函数</h3><p>立即执行防抖函数，是指触发事件后函数会立即执行一次，然后 n 秒内不触发事件才能继续执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> debounce(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> timeout</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span>(timeout) clearTimeout(timeout)</span><br><span class="line">    <span class="built_in">let</span> canCall = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      timeout = null</span><br><span class="line">    &#125;,delay)</span><br><span class="line">    <span class="keyword">if</span>(canCall)&#123;</span><br><span class="line">      fn.apply(this,arguments)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h2><p>持续触发并不会执行多次，到一定时间再去执行</p>
-<h3 id="时间戳版本"><a href="#时间戳版本" class="headerlink" title="时间戳版本"></a>时间戳版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> throttle(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> pre = 0</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="built_in">let</span> now = Date.now()</span><br><span class="line">    <span class="keyword">if</span>(now - pre &gt; delay)&#123;</span><br><span class="line">      fn.apply(this,arguments)</span><br><span class="line">      pre = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="定时器版本"><a href="#定时器版本" class="headerlink" title="定时器版本"></a>定时器版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> throttle(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> timeout</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span>(!timeout)&#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        timeout = null</span><br><span class="line">        fn.apply(this,arguments)</span><br><span class="line">      &#125;,delay)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1306,20 +1319,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/2356874721.github.io/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1355,7 +1368,14 @@
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
