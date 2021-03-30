@@ -161,6 +161,645 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/30/http-05/" class="post-title-link" itemprop="url">05 | 常说的“四层”和“七层”到底是什么？“五层”“六层”哪去了？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-30 21:40:06 / 修改时间：21:45:41" itemprop="dateCreated datePublished" datetime="2021-03-30T21:40:06+08:00">2021-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在工作中你一定经常听别人谈起什么“四层负载均衡”“七层负载均衡”，什么“二层转发”“三层路由”，那么你真正理解这些层次的含义吗？</p>
+<p>网络分层的知识教科书上都有，但很多都是“泛泛而谈”，只有“学术价值”，于是就容易和实际应用“脱节”，造成的后果就是“似懂非懂”，真正用的时候往往会“一头雾水”。所以，今天我就从 HTTP 应用的角度，帮你把这些模糊的概念弄清楚。</p>
+<h3 id="TCP-IP-网络分层模型"><a href="#TCP-IP-网络分层模型" class="headerlink" title="TCP/IP 网络分层模型"></a>TCP/IP 网络分层模型</h3><p>还是先从 TCP/IP 协议开始讲起，一是因为它非常经典，二是因为它是目前事实上的网络通信标准，研究它的实用价值最大。</p>
+<p>TCP/IP 当初的设计者真的是非常聪明，创造性地提出了“<strong>分层</strong>”的概念，把复杂的网络通信划分出多个层次，再给每一个层次分配不同的职责，层次内只专心做自己的事情就好，用“分而治之”的思想把一个“大麻烦”拆分成了数个“小麻烦”，从而解决了网络通信的难题。你应该对 TCP/IP 的协议栈有所了解吧，这里我再贴一下层次图。</p>
+<img src="/2356874721.github.io/2021/03/30/http-05/5-1.png" class>
+
+<p><strong>TCP/IP 协议总共有四层</strong>，就像搭积木一样，每一层需要下层的支撑，同时又支撑着上层，任何一层被抽掉都可能会导致整个协议栈坍塌。我们来仔细地看一下这个精巧的积木架构，注意<strong>它的层次顺序是“从下往上”数的</strong>，所以<strong>第一层就是最下面的一层</strong>。</p>
+<p>第一层叫“<strong>链接层</strong>”（link layer），负责在以太网、WiFi 这样的底层网络上发送原始数据包，工作在<strong>网卡</strong>这个层次，使用 <strong>MAC 地址来标记网络上的设备</strong>，所以有时候也叫 <strong>MAC 层</strong>。</p>
+<p>第二层叫“<strong>网际层</strong>”或者“<strong>网络互连层</strong>”（internet layer），IP 协议就处在这一层。因为 IP 协议定义了“IP 地址”的概念，所以就可以<strong>在“链接层”的基础上，用 IP 地址取代 MAC 地址，把许许多多的局域网、广域网连接成一个虚拟的巨大网络，在这个网络里找设备时只要把 IP 地址再“翻译”成 MAC 地址就可以了</strong>。</p>
+<p>第三层叫“<strong>传输层</strong>”（transport layer），这个层次协议的<strong>职责是保证数据在 IP 地址标记的两点之间“可靠”地传输</strong>，是 <strong>TCP</strong> 协议工作的层次，另外还有它的一个“小伙伴”UDP。TCP 是一个<strong>有状态</strong>的协议，需要<strong>先与对方建立连接然后才能发送数据</strong>，而且<strong>保证数据不丢失不重复</strong>。而 <strong>UDP</strong> 则比较简单，它<strong>无状态</strong>，<strong>不用事先建立连接就可以任意发送数据，但不保证数据一定会发到对方</strong>。两个协议的另一个重要区别在于数据的形式。TCP 的数据是<strong>连续</strong>的“<strong>字节流</strong>”，有<strong>先后顺序</strong>，而 UDP 则是<strong>分散的小数据包</strong>，是<strong>顺序发</strong>，<strong>乱序收</strong>。</p>
+<p>关于 TCP 和 UDP 可以展开讨论的话题还有很多，比如最经典的“<strong>三次握手</strong>”和“<strong>四次挥手</strong>”，一时半会很难说完，好在与 HTTP 的关系不是太大，以后遇到了再详细讲解。</p>
+<p>第四层叫“<strong>应用层</strong>”（application layer），由于下面的三层把基础打得非常好，所以在这一层就“百花齐放”了，<strong>有各种面向具体应用的协议</strong>。例如 Telnet、SSH、FTP、SMTP 等等，当然还有我们的 HTTP。</p>
+<p><strong><u>MAC 层的传输单位是帧（frame），IP 层的传输单位是包（packet），TCP 层的传输单位是段（segment），HTTP 的传输单位则是消息或报文（message）。但这些名词并没有什么本质的区分，可以统称为数据包。</u></strong></p>
+<h3 id="OSI-网络分层模型"><a href="#OSI-网络分层模型" class="headerlink" title="OSI 网络分层模型"></a>OSI 网络分层模型</h3><p>看完 TCP/IP 协议栈，你可能要问了，“它只有四层，那常说的七层怎么没见到呢？”</p>
+<p>别着急，这就是今天要说的第二个网络分层模型：<strong>OSI，全称是“开放式系统互联通信参考模型”（Open System Interconnection Reference Model）</strong>。</p>
+<p>TCP/IP 发明于 1970 年代，当时除了它还有很多其他的网络协议，整个网络世界比较混乱。这个时候国际标准组织（ISO）注意到了这种现象，感觉“野路子”太多，就想要来个“大一统”。于是设计出了一个新的网络分层模型，想用这个新框架来统一既存的各种网络协议。</p>
+<p>OSI 模型分成了七层，部分层次与 TCP/IP 很像，从下到上分别是：</p>
+<img src="/2356874721.github.io/2021/03/30/http-05/5-2.png" class>
+
+<p>第一层：<strong>物理层</strong>，网络的物理形式，例如电缆、光纤、网卡、集线器等等；</p>
+<p>第二层：<strong>数据链路层</strong>，它基本相当于 TCP/IP 的<strong>链接层</strong>；</p>
+<p>第三层：<strong>网络层</strong>，相当于 TCP/IP 里的<strong>网际层</strong>；</p>
+<p>第四层：<strong>传输层</strong>，相当于 TCP/IP 里的<strong>传输层</strong>；</p>
+<p>第五层：<strong>会话层</strong>，维护网络中的连接状态，即保持会话和同步；</p>
+<p>第六层：<strong>表示层</strong>，把数据转换为合适、可理解的语法和语义；</p>
+<p>第七层：<strong>应用层</strong>，面向具体的应用传输数据。</p>
+<p>至此，我们常说的“四层”“七层”就出现了。不过国际标准组织心里也很清楚，TCP/IP 等协议已经在许多网络上实际运行，再推翻重来是不可能的。所以，OSI 分层模型在发布的时候就明确地表明是一个“参考”，不是强制标准，意思就是说，“你们以后该干什么还干什么，我不管，但面子上还是要按照我说的来”。</p>
+<p>但 OSI 模型也是有优点的。对比一下就可以看出，TCP/IP 是一个纯软件的栈，没有网络应有的最根基的电缆、网卡等物理设备的位置。而 OSI 则补足了这个缺失<strong>，在理论层面上描述网络更加完整</strong>。</p>
+<p>还有一个重要的形式上的优点：OSI 为每一层标记了明确了编号，最底层是一层，最上层是七层，而 TCP/IP 的层次从来只有名字而没有编号。显然，在交流的时候说“七层”要比“应用层”更简单快捷，特别是英文，对比一下“Layer seven”与“application layer”。</p>
+<p>综合以上几点，在 OSI 模型之后，“四层”“七层”这样的说法就逐渐流行开了。不过在实际工作中你一定要注意，这种说法只是“理论上”的层次，并不是与现实完全对应。</p>
+<h3 id="两个分层模型的映射关系"><a href="#两个分层模型的映射关系" class="headerlink" title="两个分层模型的映射关系"></a>两个分层模型的映射关系</h3><p>现在我们有了两个网络分层模型：TCP/IP 和 OSI，新的问题又出现了，一个是四层模型，一个是七层模型，这两者应该如何互相映射或者说互相解释呢？好在 OSI 在设计之初就参考了 TCP/IP 等多个协议，可以比较容易但不是很精确地实现对应关系。</p>
+<img src="/2356874721.github.io/2021/03/30/http-05/5-3.png" class>
+
+<p>第一层：物理层，TCP/IP 里无对应；</p>
+<p>第二层：<strong>数据链路层</strong>，对应 TCP/IP 的<strong>链接层</strong>；</p>
+<p>第三层：<strong>网络层</strong>，对应 TCP/IP 的<strong>网际层</strong>；</p>
+<p>第四层：<strong>传输层</strong>，对应 TCP/IP 的<strong>传输层</strong>；</p>
+<p>第五、六、七层：统一对应到 TCP/IP 的<strong>应用层</strong>。</p>
+<p>所以你看，这就是“理想与现实”之间的矛盾。理想很美好，有七层，但现实很残酷，只有四层，“多余”的五层、六层就这样“消失”了。</p>
+<p>但这也有一定的实际原因。<strong>OSI 的分层模型在四层以上分的太细，而 TCP/IP 实际应用时的会话管理、编码转换、压缩等和具体应用经常联系的很紧密，很难分开</strong>。例如，HTTP 协议就同时包含了连接管理和数据格式定义。</p>
+<p>到这里，你应该能够明白一开始那些“某某层”的概念了。</p>
+<p>所谓的“<strong>四层负载均衡</strong>”就是指工作在<strong>传输层</strong>上，基于 TCP/IP 协议的特性，例如 IP 地址、端口号等实现对后端服务器的负载均衡。</p>
+<p>所谓的“<strong>七层负载均衡</strong>”就是指工作在<strong>应用层</strong>上，看到的是 HTTP 协议，解析 HTTP 报文里的 URI、主机名、资源类型等数据，再用适当的策略转发给后端服务器。</p>
+<h3 id="TCP-IP-协议栈的工作方式"><a href="#TCP-IP-协议栈的工作方式" class="headerlink" title="TCP/IP 协议栈的工作方式"></a>TCP/IP 协议栈的工作方式</h3><p>TCP/IP 协议栈是如何工作的呢？你可以把 HTTP 利用 TCP/IP 协议栈传输数据想象成一个发快递的过程。</p>
+<p>假设你想把一件毛绒玩具送给朋友，但你要先拿个塑料袋套一下，这件玩具就相当于 HTTP 协议里要传输的内容，比如 HTML，然后 HTTP 协议为它加一个 HTTP 专用附加数据。</p>
+<p>你把玩具交给快递小哥，为了保护货物，他又加了层包装再贴了个标签，相当于在 TCP 层给数据再次打包，加上了 TCP 头。</p>
+<p>接着快递小哥下楼，把包裹放进了三轮车里，运到集散点，然后再装进更大的卡车里，相当于在 IP 层、MAC 层对 TCP 数据包加上了 IP 头、MAC 头。</p>
+<p>之后经过漫长的运输，包裹到达目的地，要卸货再放进另一位快递员的三轮车，就是在 IP 层、MAC 层传输后拆包。</p>
+<p>快递员到了你朋友的家门口，撕掉标签，去除了 TCP 层的头，你朋友再拆掉塑料袋包装，也就是 HTTP 头，最后就拿到了玩具，也就是真正的 HTML 页面。</p>
+<p>这个比喻里省略了很多 TCP/IP 协议里的细节，比如建连、路由、数据切分与重组、错误检查等，但核心的数据传输过程是差不多的。</p>
+<p><strong><u>HTTP 协议的传输过程就是这样通过协议栈逐层向下，每一层都添加本层的专有数据，层层打包，然后通过下层发送出去。</u></strong></p>
+<p><strong><u>接收数据则是相反的操作，从下往上穿过协议栈，逐层拆包，每层去掉本层的专有头，上层就会拿到自己的数据。</u></strong></p>
+<p><strong>但下层的传输过程对于上层是完全“透明”的，上层也不需要关心下层的具体实现细节</strong>，所以就 HTTP 层次来看，它不管下层是不是 TCP/IP 协议，看到的只是一个可靠的传输链路，只要把数据加上自己的头，对方就能原样收到。</p>
+<p>我为这个过程画了一张图，你可以对照着加深理解。</p>
+<img src="/2356874721.github.io/2021/03/30/http-05/5-4.png" class>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这次我们学习了 HTTP 所在的网络分层模型，它是工作中常用的交流语言，在这里简单小结一下今天的内容。</p>
+<ol>
+<li>TCP/IP 分为四层，核心是二层的 IP 和三层的 TCP，HTTP 在第四层；</li>
+<li>OSI 分为七层，基本对应 TCP/IP，TCP 在第四层，HTTP 在第七层；</li>
+<li>OSI 可以映射到 TCP/IP，但这期间一、五、六层消失了；</li>
+<li>日常交流的时候我们通常使用 OSI 模型，用四层、七层等术语；</li>
+<li>HTTP 利用 TCP/IP 协议栈逐层打包再拆包，实现了数据传输，但下面的细节并不可见。</li>
+<li>有一个辨别四层和七层比较好的（但不是绝对的）小窍门，“两个凡是”：<strong>凡是由操作系统负责处理的就是四层或四层以下，否则，凡是需要由应用程序（也就是你自己写代码）负责处理的就是七层。</strong></li>
+</ol>
+<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
+<li><p>你能用自己的话解释一下“二层转发”“三层路由”吗？</p>
+<p>二层转发：二层应该指数据链路层，工作在二层的设备，通过查找到目标MAC地址，进行数据转发；</p>
+<p>三层路由：三层应该指网络层，工作在三层的设备，通过解析数据包头信息，找到目标IP地址，转发数据</p>
+</li>
+<li><p>你认为上一讲中的 DNS 协议位于哪一层呢？</p>
+<p>应用层</p>
+</li>
+<li><p>你认为 CDN 工作在那一层呢？</p>
+<p>应用层</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/30/http-04/" class="post-title-link" itemprop="url">04 | HTTP世界全览（下）：与HTTP相关的各种协议</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-30 21:40:03 / 修改时间：21:45:49" itemprop="dateCreated datePublished" datetime="2021-03-30T21:40:03+08:00">2021-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在上一讲中，我介绍了与 HTTP 相关的浏览器、服务器、CDN、网络爬虫等应用技术。今天要讲的则是比较偏向于理论的各种 HTTP 相关协议，重点是 TCP/IP、DNS、URI、HTTPS 等，希望能够帮你理清楚它们与 HTTP 的关系。</p>
+<img src="/2356874721.github.io/2021/03/30/http-04/4-1.png" class>
+
+<h3 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h3><p>TCP/IP 协议实际上是<strong>一系列网络通信协议的统称</strong>，其中最核心的两个协议是 TCP 和 IP，其他的还有 <strong>UDP、ICMP、ARP</strong> 等等，共同构成了一个复杂但有层次的协议栈。</p>
+<p>这个协议栈有<strong>四层，最上层是“应用层”，最下层是“链接层”</strong>，TCP 和 IP 则在中间：TCP 属于“<strong>传输层</strong>”，IP 属于“<strong>网际层</strong>”。协议的层级关系模型非常重要，我会在下一讲中再专门讲解，这里先暂时放一放。</p>
+<p><strong><u>IP 协议是“Internet Protocol”的缩写，主要目的是解决寻址和路由问题，以及如何在两点间传送数据包。</u></strong>IP 协议使用“<strong>IP 地址</strong>”的概念来定位互联网上的每一台计算机。可以对比一下现实中的电话系统，你拿着的手机相当于互联网上的计算机，而要打电话就必须接入电话网，由通信公司给你分配一个号码，这个号码就相当于 IP 地址。</p>
+<p>现在我们使用的 IP 协议大多数是 v4 版，地址是四个用“.”分隔的数字，例如“192.168.0.1”，总共有 2^32，大约 42 亿个可以分配的地址。看上去好像很多，但互联网的快速发展让地址的分配管理很快就“捉襟见肘”。所以，就又出现了 v6 版，使用 8 组“:”分隔的数字作为地址，容量扩大了很多，有 2^128 个，在未来的几十年里应该是足够用了。</p>
+<p><strong><u>TCP 协议是“Transmission Control Protocol”的缩写，意思是“传输控制协议”，它位于 IP 协议之上，基于 IP 协议提供可靠的、字节流形式的通信，是 HTTP 协议得以实现的基础。</u></strong></p>
+<p><strong>“可靠”是指保证数据不丢失，“字节流”是指保证数据完整</strong>，<strong>所以在 TCP 协议的两端可以如同操作文件一样访问传输的数据，就像是读写在一个密闭的管道里“流动”的字节。</strong></p>
+<p><strong>HTTP 是一个”传输协议”，但它不关心寻址、路由、数据完整性等传输细节，而要求这些工作都由下层来处理</strong>。因为互联网上最流行的是 TCP/IP 协议，而它刚好满足 HTTP 的要求，所以互联网上的 HTTP 协议就运行在了 TCP/IP 上，HTTP 也就可以更准确地称为“<strong>HTTP over TCP/IP</strong>”。</p>
+<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>在 TCP/IP 协议中使用 IP 地址来标识计算机，数字形式的地址对于计算机来说是方便了，但对于人类来说却既难以记忆又难以输入。</p>
+<p>于是“<strong>域名系统</strong>”（<strong>Domain Name System</strong>）出现了，<strong>用有意义的名字来作为 IP 地址的等价替代</strong>。设想一下，你是愿意记“95.211.80.227”这样枯燥的数字，还是“nginx.org”这样的词组呢？</p>
+<p>在 DNS 中，<strong>“域名”（Domain Name）又称为“主机名”（Host）</strong>，为了更好地标记不同国家或组织的主机，让名字更好记，所以被设计成了一个有层次的结构。</p>
+<p>域名用“.”分隔成多个单词，<strong>级别从左到右逐级升高</strong>，最右边的被称为“顶级域名”。对于顶级域名，可能你随口就能说出几个，例如表示商业公司的“com”、表示教育机构的“edu”，表示国家的“cn”“uk”等，买火车票时的域名还记得吗？是“<a href="http://www.12306.cn”。" target="_blank" rel="noopener">www.12306.cn”。</a></p>
+<p><strong><u>但想要使用 TCP/IP 协议来通信仍然要使用 IP 地址，所以需要把域名做一个转换，“映射”到它的真实 IP，这就是所谓的“域名解析”。</u></strong></p>
+<p>继续用刚才的打电话做个比喻，你想要打电话给小明，但不知道电话号码，就得在手机里的号码簿里一项一项地找，直到找到小明那一条记录，然后才能查到号码。这里的“小明”就相当于域名，而“电话号码”就相当于 IP 地址，这个查找的过程就是域名解析。</p>
+<p>域名解析的实际操作要比刚才的例子复杂很多，因为互联网上的电脑实在是太多了。目前全世界有 13 组根 DNS 服务器，下面再有许多的顶级 DNS、权威 DNS 和更小的本地 DNS，逐层递归地实现域名查询。</p>
+<p>HTTP 协议中并没有明确要求必须使用 DNS，但实际上为了方便访问互联网上的 Web 服务器，通常都会使用 DNS 来定位或标记主机名，间接地把 DNS 与 HTTP 绑在了一起。</p>
+<h3 id="URI-URL"><a href="#URI-URL" class="headerlink" title="URI/URL"></a>URI/URL</h3><p>有了 TCP/IP 和 DNS，是不是我们就可以任意访问网络上的资源了呢？</p>
+<p>还不行，DNS 和 IP 地址只是标记了互联网上的主机，但主机上有那么多文本、图片、页面，到底要找哪一个呢？就像小明管理了一大堆文档，你怎么告诉他是哪个呢？</p>
+<p>所以就出现了 <strong>URI（Uniform Resource Identifier）</strong>，中文名称是 <strong>统一资源标识符</strong>，使用它就能够<strong>唯一地标记互联网上资源</strong>。</p>
+<p>URI 另一个更常用的表现形式是 <strong>URL（Uniform Resource Locator）</strong>， <strong>统一资源定位符</strong>，也就是我们俗称的“网址”，它实际上<strong>是 URI 的一个子集</strong>，不过因为这两者几乎是相同的，差异不大，所以通常不会做严格的区分。</p>
+<p>我就拿 Nginx 网站来举例，看一下 URI 是什么样子的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//nginx.org/en/download.html</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以看到，<strong>URI 主要有三个基本的部分构成</strong>：</p>
+<p><strong>协议名</strong>：即访问该资源应当使用的协议，在这里是“http”；</p>
+<p><strong>主机名</strong>：即互联网上主机的标记，可以是域名或 IP 地址，在这里是“nginx.org”；</p>
+<p><strong>路径</strong>：即资源在主机上的位置，使用“/”分隔多级目录，在这里是“/en/download.html”。</p>
+<p>还是用打电话来做比喻，你通过电话簿找到了小明，让他把昨天做好的宣传文案快递过来。那么这个过程中你就完成了一次 URI 资源访问，“小明”就是“主机名”，“昨天做好的宣传文案”就是“路径”，而“快递”，就是你要访问这个资源的“协议名”。</p>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>在 TCP/IP、DNS 和 URI 的“加持”之下，HTTP 协议终于可以自由地穿梭在互联网世界里，顺利地访问任意的网页了，真的是“好生快活”。</p>
+<p>但且慢，互联网上不仅有“美女”，还有很多的“野兽”。假设你打电话找小明要一份广告创意，很不幸，电话被商业间谍给窃听了，他立刻动用种种手段偷窃了你的快递，就在你还在等包裹的时候，他抢先发布了这份广告，给你的公司造成了无形或有形的损失。</p>
+<p>有没有什么办法能够防止这种情况的发生呢？确实有。你可以使用“加密”的方法，比如这样打电话：</p>
+<p>你：“喂，小明啊，接下来我们改用火星文通话吧。”</p>
+<p>小明：“好啊好啊，就用火星文吧。”</p>
+<p>你：“巴拉巴拉巴拉巴拉……”</p>
+<p>小明：“巴拉巴拉巴拉巴拉……”</p>
+<p>如果你和小明说的火星文只有你们两个才懂，那么即使窃听到了这段谈话，他也不会知道你们到底在说什么，也就无从破坏你们的通话过程。HTTPS 就相当于这个比喻中的“火星文”，它的全称是“<strong>HTTP over SSL/TLS</strong>”，<strong>也就是运行在 SSL/TLS 协议上的 HTTP</strong>。</p>
+<p>注意它的名字，这里是 <strong>SSL/TLS</strong>，而不是 TCP/IP，它是一个<strong>负责加密通信的安全协议</strong>，<strong>建立在 TCP/IP 之上，所以也是个可靠的传输协议</strong>，可以被用作 HTTP 的下层。</p>
+<p>因为 <u><strong>HTTPS 相当于“HTTP+SSL/TLS+TCP/IP”</strong></u>，其中的“HTTP”和“TCP/IP”我们都已经明白了，只要再了解一下 SSL/TLS，HTTPS 也就能够轻松掌握。</p>
+<p>SSL 的全称是“<strong>Secure Socket Layer</strong>”，由网景公司发明，当发展到 3.0 时被标准化，改名为 <strong>TLS，即“Transport Layer Security”</strong>，但由于历史的原因还是有很多人称之为 SSL/TLS，或者直接简称为 SSL。</p>
+<p>SSL 使用了许多密码学最先进的研究成果，综合了对称加密、非对称加密、摘要算法、数字签名、数字证书等技术，能够在不安全的环境中为通信的双方创建出一个秘密的、安全的传输通道，为 HTTP 套上一副坚固的盔甲。</p>
+<p>你可以在今后上网时留心看一下浏览器地址栏，如果有一个小锁头标志，那就表明网站启用了安全的 HTTPS 协议，而 URI 里的协议名，也从“http”变成了“https”。</p>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>代理（Proxy）是 HTTP 协议中请求方和应答方中间的一个环节，作为“中转站”，<strong>既可以转发客户端的请求，也可以转发服务器的应答</strong>。</p>
+<p>代理有很多的种类，常见的有：</p>
+<p><strong>匿名代理</strong>：完全“隐匿”了被代理的机器，外界看到的只是代理服务器；</p>
+<p><strong>透明代理</strong>：顾名思义，它在传输过程中是“透明开放”的，外界既知道代理，也知道客户端；</p>
+<p><strong>正向代理</strong>：靠近客户端，代表客户端向服务器发送请求；</p>
+<p><strong>反向代理</strong>：靠近服务器端，代表服务器响应客户端的请求；</p>
+<p>上一讲提到的 CDN，实际上就是一种代理，它代替源站服务器响应客户端的请求，通常扮演着透明代理和反向代理的角色。</p>
+<p>由于代理在传输过程中插入了一个“中间层”，所以可以在这个环节做很多有意思的事情，比如：</p>
+<p><strong>负载均衡</strong>：把访问请求均匀分散到多台机器，实现访问集群化；</p>
+<p><strong>内容缓存</strong>：暂存上下行的数据，减轻后端的压力；</p>
+<p><strong>安全防护</strong>：隐匿 IP, 使用 WAF 等工具抵御网络攻击，保护被代理的机器；</p>
+<p><strong>数据处理</strong>：提供压缩、加密等额外的功能。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这次我介绍了与 HTTP 相关的各种协议，在这里简单小结一下今天的内容。</p>
+<ol>
+<li>TCP/IP 是网络世界最常用的协议，HTTP 通常运行在 TCP/IP 提供的可靠传输基础上；</li>
+<li>DNS 域名是 IP 地址的等价替代，需要用域名解析实现到 IP 地址的映射；</li>
+<li>URI 是用来标记互联网上资源的一个名字，由“协议名 + 主机名 + 路径”构成，俗称 URL；</li>
+<li>HTTPS 相当于“HTTP+SSL/TLS+TCP/IP”，为 HTTP 套了一个安全的外壳；</li>
+<li>代理是 HTTP 传输过程中的“中转站”，可以实现缓存加速、负载均衡等功能。</li>
+</ol>
+<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
+<li><p>DNS 与 URI 有什么关系？</p>
+<p>DNS专门用于域名解析，作用是简化人类记忆数据的复杂度。URI专门用于标识互联网世界中的资源，作用是帮助找到对应的互联网中资源。互联网中的电脑通过IP地址来表示，DNS可以把一个域名变成一个IP地址，IP地址是标识资源的一部分，仅定位了具体的电脑，还有继续定位在电脑上的具体位置。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/30/http-03/" class="post-title-link" itemprop="url">03 | HTTP世界全览（上）：与HTTP相关的各种概念</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-30 21:38:14 / 修改时间：21:45:54" itemprop="dateCreated datePublished" datetime="2021-03-30T21:38:14+08:00">2021-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <img src="/2356874721.github.io/2021/03/30/http-03/3-1.png" class>
+
+<p>图左边的部分是与 HTTP 有关系的各种协议，比较偏向于理论；而右边的部分是与 HTTP 有关系的各种应用技术，偏向于实际应用。</p>
+<p>我希望借助这张图帮你澄清与 HTTP 相关的各种概念和角色，让你在实际工作中清楚它们在链路中的位置和作用，知道发起一个 HTTP 请求会有哪些角色参与，会如何影响请求的处理，做到“手中有粮，心中不慌”。</p>
+<p>因为那张图比较大，所以我会把左右两部分拆开来分别讲，今天先讲右边的部分，也就是与 HTTP 相关的各种应用，着重介绍互联网、浏览器、Web 服务器等常见且重要的概念。</p>
+<img src="/2356874721.github.io/2021/03/30/http-03/3-2.png" class>
+
+<h3 id="网络世界"><a href="#网络世界" class="headerlink" title="网络世界"></a>网络世界</h3><p>互联网世界更像是由数不清的大小岛屿组成的“千岛之国”。</p>
+<p>互联网的正式名称是 <strong>Internet</strong>，里面存储着无穷无尽的信息资源，我们通常所说的“上网”实际上访问的只是互联网的一个子集“<strong>万维网</strong>”（World Wide Web），它基于 HTTP 协议，传输 HTML 等超文本资源，能力也就被限制在 HTTP 协议之内。</p>
+<p>互联网上还有许多<strong>万维网之外的资源</strong>，例如常用的<strong>电子邮件、BT 和 Magnet 点对点下载、FTP 文件下载、SSH 安全登录、各种即时通信服务</strong>等等，它们需要用各自的专有协议来访问。</p>
+<p>不过由于 HTTP 协议非常灵活、易于扩展，而且“超文本”的表述能力很强，所以很多其他原本不属于 HTTP 的资源也可以“包装”成 HTTP 来访问，这就是我们为什么能够总看到各种“网页应用”——例如“微信网页版”“邮箱网页版”——的原因。</p>
+<p><strong>综合起来看，现在的互联网 90% 以上的部分都被万维网，也就是 HTTP 所覆盖，所以把互联网约等于万维网或 HTTP 应该也不算大错。</strong></p>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>上网就要用到浏览器，常见的浏览器有 Google 的 Chrome、Mozilla 的 Firefox、Apple 的 Safari、Microsoft 的 IE 和 Edge，还有小众的 Opera 以及国内的各种“换壳”的“极速”“安全”浏览器。</p>
+<p>那么你想过没有，所谓的“浏览器”到底是个什么东西呢？浏览器的正式名字叫<strong>“Web Browser</strong>”，顾名思义，就是<strong>检索、查看互联网上网页资源的应用程序</strong>，名字里的 Web，实际上指的就是“World Wide Web”，也就是万维网。</p>
+<p><strong>浏览器本质上是一个 HTTP 协议中的请求方</strong>，使用 HTTP 协议获取网络上的各种资源。当然，为了让我们更好地检索查看网页，它还集成了很多额外的功能。</p>
+<p>例如，HTML 排版引擎用来展示页面，JavaScript 引擎用来实现动态化效果，甚至还有开发者工具用来调试网页，以及五花八门的各种插件和扩展。</p>
+<p><strong>在 HTTP 协议里，浏览器的角色被称为“User Agent”即“用户代理</strong>”，<strong>意思是作为访问者的“代理”来发起 HTTP 请求</strong>。不过在不引起混淆的情况下，我们通常都简单地称之为“<strong>客户端</strong>”。</p>
+<h3 id="Web-服务器"><a href="#Web-服务器" class="headerlink" title="Web 服务器"></a>Web 服务器</h3><p>刚才说的浏览器是 HTTP 里的请求方，那么在协议另一端的<strong>应答方（响应方）</strong>又是什么呢？这个你一定也很熟悉，答案就是<strong>服务器</strong>，Web Server。</p>
+<p>Web 服务器是一个很大也很重要的概念，它是 <strong>HTTP 协议里响应请求的主体</strong>，通常也<strong>把控着绝大多数的网络资源</strong>，<strong>在网络世界里处于强势地位</strong>。</p>
+<p>当我们谈到“Web 服务器”时有两个层面的含义：硬件和软件。</p>
+<h4 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h4><p>硬件含义就是<strong>物理形式或“云”形式的机器</strong>，在大多数情况下它可能不是一台服务器，而是利用反向代理、负载均衡等技术组成的庞大<strong>集群</strong>。但从外界看来，它仍然表现为一台机器，但这个形象是“虚拟的”。</p>
+<h4 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h4><p>软件含义的 Web 服务器可能我们更为关心，它就是<strong>提供 Web 服务的应用程序</strong>，通常会运行在硬件含义的服务器上。它利用强大的硬件能力响应海量的客户端 HTTP 请求，处理磁盘上的网页、图片等静态文件，或者把请求转发给后面的 Tomcat、Node.js 等业务应用，返回动态的信息。</p>
+<p>比起层出不穷的各种 Web 浏览器，Web 服务器就要少很多了，一只手的手指头就可以数得过来。</p>
+<p><strong>Apache</strong> 是老牌的服务器，功能相当完善，相关的资料很多，学习门槛低，是许多创业者建站的入门产品。<strong>Nginx</strong> 是 Web 服务器里的后起之秀，特点是高性能、高稳定，且易于扩展。自 2004 年推出后就不断蚕食 Apache 的市场份额，在高流量的网站里更是不二之选。此外，还有 Windows 上的 <strong>IIS</strong>、Java 的 <strong>Jetty/Tomcat</strong> 等，因为性能不是很高，所以在互联网上应用得较少。</p>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>浏览器和服务器是 HTTP 协议的两个端点，那么，在这两者之间还有别的什么东西吗？当然有了。浏览器通常不会直接连到服务器，中间会经过“重重关卡”，其中的一个重要角色就叫做 CDN。</p>
+<p>CDN，全称是“<strong>Content Delivery Network</strong>”，翻译过来就是“<strong>内容分发网络</strong>”。它应用了 HTTP 协议里的<strong>缓存</strong>和<strong>代理</strong>技术，<strong>代替源站响应客户端的请求</strong>。</p>
+<p>CDN 有什么好处呢？</p>
+<p><u><strong>简单来说，它可以缓存源站的数据，让浏览器的请求不用“千里迢迢”地到达源站服务器，直接在“半路”就可以获取响应。如果 CDN 的调度算法很优秀，更可以找到离用户最近的节点，大幅度缩短响应时间。</strong></u></p>
+<p>CDN 也是现在互联网中的一项重要基础设施，<strong>除了基本的网络加速外，还提供负载均衡、安全防护、边缘计算、跨运营商网络等功能</strong>，能够成倍地“放大”源站服务器的服务能力，很多云服务商都把 CDN 作为产品的一部分。</p>
+<h3 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h3><p>前面说到过浏览器，它是一种用户代理，代替我们访问互联网。</p>
+<p>但 <strong>HTTP 协议并没有规定用户代理后面必须是“真正的人类”</strong>，它也完全可以是“<strong>机器人</strong>”，这些“机器人”的正式名称就叫做“爬虫”（Crawler），<strong>实际上是一种可以自动访问 Web 资源的应用程序</strong>。</p>
+<p>“爬虫”这个名字非常形象，它们就像是一只只不知疲倦的、辛勤的蚂蚁，在无边无际的网络上爬来爬去，不停地在网站间奔走，搜集抓取各种信息。</p>
+<p>据估计，互联网上至少有 50% 的流量都是由爬虫产生的，某些特定领域的比例还会更高，也就是说，如果你的网站今天的访问量是十万，那么里面至少有五六万是爬虫机器人，而不是真实的用户。</p>
+<p>爬虫是怎么来的呢？</p>
+<p>绝大多数是由各大搜索引擎“放”出来的，抓取网页存入庞大的数据库，再建立关键字索引，这样我们才能够在搜索引擎中快速地搜索到互联网角落里的页面。</p>
+<p>爬虫也有不好的一面，它会<strong>过度消耗网络资源，占用服务器和带宽，影响网站对真实数据的分析，甚至导致敏感信息泄漏</strong>。所以，又出现了“反爬虫”技术，通过各种手段来限制爬虫。其中一项就是“君子协定”robots.txt，约定哪些该爬，哪些不该爬。无论是“爬虫”还是“反爬虫”，用到的基本技术都是两个，一个是 HTTP，另一个就是 HTML。</p>
+<h3 id="HTML-WebService-WAF"><a href="#HTML-WebService-WAF" class="headerlink" title="HTML/WebService/WAF"></a>HTML/WebService/WAF</h3><p>到现在我已经说完了图中右边的五大部分，而左边的 HTML、WebService、WAF 等由于与 HTTP 技术上实质关联不太大，所以就简略地介绍一下，不再过多展开。</p>
+<p><strong>HTML 是 HTTP 协议传输的主要内容之一</strong>，它描述了超文本页面，用各种“标签”定义文字、图片等资源和排版布局，最终由浏览器“渲染”出可视化页面。HTML 目前有两个主要的标准，HTML4 和 HTML5。广义上的 HTML 通常是指 HTML、JavaScript、CSS 等前端技术的组合，能够实现比传统静态页面更丰富的动态页面。</p>
+<p><strong>Web Service 是一种由 W3C 定义的应用服务开发规范</strong>，使用 client-server 主从架构，通常使用 WSDL 定义服务接口，使用 HTTP 协议传输 XML 或 SOAP 消息，也就是说，它是一个基于 Web（HTTP）的服务架构技术，既可以运行在内网，也可以在适当保护后运行在外网。因为采用了 HTTP 协议传输数据，所以在 Web Service 架构里服务器和客户端可以采用不同的操作系统或编程语言开发。例如服务器端用 Linux+Java，客户端用 Windows+C#，具有跨平台跨语言的优点。</p>
+<p><strong>WAF</strong> 是近几年比较“火”的一个词，意思是“<strong>网络应用防火墙</strong>”。与硬件“防火墙”类似，它是应用层面的“防火墙”，专门检测 HTTP 流量，是防护 Web 应用的安全技术。WAF 通常位于 Web 服务器之前，可以阻止如 SQL 注入、跨站脚本等攻击，目前应用较多的一个开源项目是 ModSecurity，它能够完全集成进 Apache 或 Nginx。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>今天我详细介绍了与 HTTP 有关系的各种应用技术，在这里简单小结一下要点。</p>
+<ol>
+<li>互联网上绝大部分资源都使用 HTTP 协议传输；</li>
+<li>浏览器是 HTTP 协议里的请求方，即 User Agent；</li>
+<li>服务器是 HTTP 协议里的应答方，常用的有 Apache 和 Nginx；</li>
+<li>CDN 位于浏览器和服务器之间，主要起到缓存加速的作用；</li>
+<li>爬虫是另一类 User Agent，是自动访问网络资源的程序。</li>
+</ol>
+<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
+<li><p>你觉得 CDN 在对待浏览器和爬虫时会有差异吗？为什么？</p>
+<p>CDN在对待浏览器和爬虫时没有差异，都被视为User Agent</p>
+</li>
+<li><p>你怎么理解 WebService 与 Web Server 这两个非常相似的词？</p>
+<p>Webservice是服务，Web Server是服务器</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/30/http-02/" class="post-title-link" itemprop="url">02 | HTTP是什么？HTTP又不是什么？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-30 21:37:25 / 修改时间：21:37:58" itemprop="dateCreated datePublished" datetime="2021-03-30T21:37:25+08:00">2021-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="HTTP-是什么"><a href="#HTTP-是什么" class="headerlink" title="HTTP 是什么"></a>HTTP 是什么</h3><p>咱们中国有个成语“人如其名”，意思是一个人的性格和特点是与他的名字相符的。</p>
+<p>先看一下 HTTP 的名字：“<strong>超文本传输协议</strong>”，它可以拆成<strong>三个部分</strong>，分别是：“<strong>超文本</strong>”“<strong>传输</strong>”和“<strong>协议</strong>”。我们从后往前来逐个解析，理解了这三个词，我们也就明白了什么是 HTTP。</p>
+<h4 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h4><p>首先，HTTP 是一个<strong>协议</strong>。那么“协议”有什么特点呢？</p>
+<p>第一点，<strong>协议必须要有两个或多个参与者</strong>，也就是“协”。如果只有你一个人，那你自然可以想干什么就干什么，想怎么玩就怎么玩，不会干涉其他人，其他人也不会干涉你，也就不需要所谓的“协议”。但是，一旦有了两个以上的参与者出现，为了保证最基本的顺畅交流，协议就自然而然地出现了。</p>
+<p>第二点，<strong>协议是对参与者的一种行为约定和规范</strong>，也就是“议”。协议意味着有多个参与者为了达成某个共同的目的而站在了一起，除了要无疑义地沟通交流之外，还必须明确地规定各方的“责、权、利”，<strong>约定该做什么不该做什么，先做什么后做什么，做错了怎么办，有没有补救措施等等</strong>。</p>
+<p>好，到这里，你应该能够明白 HTTP 的第一层含义了。</p>
+<p><strong>HTTP 是一个用在计算机世界里的协议。它使用计算机能够理解的语言确立了一种计算机之间交流通信的规范，以及相关的各种控制和错误处理方式。</strong></p>
+<h4 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h4><p>接下来我们看 HTTP 字面里的第二部分：“传输”。</p>
+<p>HTTP 是一个“传输协议”，所谓的“传输”（Transfer）其实很好理解，就是把一堆东西从 A 点搬到 B 点，或者从 B 点搬到 A 点，即“A&lt;===&gt;B”。别小看了这个简单的动作，它也至少包含了两项重要的信息。</p>
+<p>第一点，HTTP 协议是一个“<strong>双向协议</strong>”。也就是说，有两个最基本的参与者 A 和 B，从 A 开始到 B 结束，<strong>数据在 A 和 B 之间双向而不是单向流动</strong>。通常我们把先发起传输动作的 A 叫做<strong>请求方</strong>，把后接到传输的 B 叫做<strong>应答方</strong>或者<strong>响应方</strong>。拿我们最常见的上网冲浪来举例子，浏览器就是请求方 A，网易、新浪这些网站就是应答方 B。双方约定用 HTTP 协议来通信，于是浏览器把一些数据发送给网站，网站再把一些数据发回给浏览器，最后展现在屏幕上，你就可以看到各种有意思的新闻、视频了。</p>
+<p>第二点，数据虽然是在 A 和 B 之间传输，但并没有限制只有 A 和 B 这两个角色，<strong>允许中间有“中转”或者“接力”</strong>。这样，传输方式就从“A&lt;===&gt;B”，变成了“A&lt;=&gt;X&lt;=&gt;Y&lt;=&gt;Z&lt;=&gt;B”，A 到 B 的传输过程中可以存在任意多个“<strong>中间人</strong>”，而这些<strong>中间人也都遵从 HTTP 协议</strong>，只要不打扰基本的数据传输，就可以添加任意的额外功能，例如安全认证、数据压缩、编码转换等等，优化整个传输过程。</p>
+<p>说到这里，你差不多应该能够明白 HTTP 的第二层含义了。</p>
+<p><strong>HTTP 是一个在计算机世界里专门用来在两点之间传输数据的约定和规范。</strong></p>
+<h4 id="超文本"><a href="#超文本" class="headerlink" title="超文本"></a>超文本</h4><p>既然 HTTP 是一个“传输协议”，那么它传输的“超文本”到底是什么呢？我还是用两点来进一步解释。</p>
+<p>所谓“<strong>文本</strong>”（Text），就表示 HTTP 传输的<strong>不是</strong> TCP/UDP 这些底层协议里被切分的<strong>杂乱无章的二进制包</strong>（datagram），<strong>而是完整的、有意义的数据</strong>，<strong>可以被浏览器、服务器这样的上层应用程序处理</strong>。在互联网<strong>早期</strong>，“文本”只是简单的<strong>字符文字</strong>，但发展到现在，“文本”的涵义已经被大大地扩展了，<strong>图片、音频、视频、</strong>甚至是<strong>压缩包</strong>，在 HTTP 眼里都可以算做是“文本”。</p>
+<p>所谓“<strong>超文本</strong>”，就是“<strong>超越了普通文本的文本</strong>”，它是<strong>文字、图片、音频和视频等的混合体</strong>，最关键的是含有“<strong>超链接</strong>”，<strong>能够从一个“超文本”跳跃到另一个“超文本”，形成复杂的非线性、网状的结构关系</strong>。对于“超文本”，我们最熟悉的就应该是 <strong>HTML</strong> 了，它本身只是纯文字文件，但内部用很多标签定义了对图片、音频、视频等的链接，再经过浏览器的解释，呈现在我们面前的就是一个含有多种视听信息的页面。</p>
+<p>OK，经过了对 HTTP 里这三个名词的详细解释，下次你就可以给出比“超文本传输协议”这七个字更准确更有技术含量的答案：<u><strong>“HTTP 是一个在计算机世界里专门在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范”</strong></u>。</p>
+<h3 id="HTTP-不是什么"><a href="#HTTP-不是什么" class="headerlink" title="HTTP 不是什么"></a>HTTP 不是什么</h3><p>现在你对“HTTP 是什么？”应该有了比较清晰的认识，紧接着的问题就是“HTTP 不是什么？”，等价的问题是“HTTP 不能干什么？”。想想看，你能回答出来吗？</p>
+<p>因为 HTTP 是一个协议，是一种计算机间通信的规范，所以它<strong>不存在“单独的实体”</strong>。它不是浏览器、手机 APP 那样的应用程序，也不是 Windows、Linux 那样的操作系统，更不是 Apache、Nginx、Tomcat 那样的 Web 服务器。</p>
+<p>但 HTTP 又与应用程序、操作系统、Web 服务器密切相关，在它们之间的通信过程中存在，而且是一种“<strong>动态的存在</strong>”，是发生在网络连接、传输超文本数据时的一个“<strong>动态过程</strong>”。</p>
+<h4 id="HTTP-不是互联网"><a href="#HTTP-不是互联网" class="headerlink" title="HTTP 不是互联网"></a>HTTP 不是互联网</h4><p>互联网（Internet）是遍布于全球的许多网络互相连接而形成的一个巨大的国际网络，在它上面存放着各式各样的资源，也对应着各式各样的协议，例如超文本资源使用 HTTP，普通文件使用 FTP，电子邮件使用 SMTP 和 POP3 等。但毫无疑问，HTTP 是构建互联网的一块重要拼图，而且是占比最大的那一块。</p>
+<h4 id="HTTP-不是编程语言"><a href="#HTTP-不是编程语言" class="headerlink" title="HTTP 不是编程语言"></a>HTTP 不是编程语言</h4><p>编程语言是人与计算机沟通交流所使用的语言，而 HTTP 是计算机与计算机沟通交流的语言，我们无法使用 HTTP 来编程，但可以反过来，用编程语言去实现 HTTP，告诉计算机如何用 HTTP 来与外界通信。</p>
+<p>很多流行的编程语言都支持编写 HTTP 相关的服务或应用，例如使用 Java 在 Tomcat 里编写 Web 服务，使用 PHP 在后端实现页面模板渲染，使用 JavaScript 在前端实现动态页面更新，你是否也会其中的一两种呢？</p>
+<h4 id="HTTP-不是-HTML"><a href="#HTTP-不是-HTML" class="headerlink" title="HTTP 不是 HTML"></a>HTTP 不是 HTML</h4><p>这个可能要特别强调一下，<strong>千万不要把 HTTP 与 HTML 混为一谈</strong>，虽然这两者经常是同时出现。</p>
+<p><strong>HTML 是超文本的载体，是一种标记语言</strong>，使用各种标签描述文字、图片、超链接等资源，并且可以嵌入 CSS、JavaScript 等技术实现复杂的动态效果。单论次数，<strong>在互联网上 HTTP 传输最多的可能就是 HTML，但要是论数据量，HTML 可能要往后排了，图片、音频、视频这些类型的资源显然更大</strong>。</p>
+<h4 id="HTTP-不是一个孤立的协议"><a href="#HTTP-不是一个孤立的协议" class="headerlink" title="HTTP 不是一个孤立的协议"></a>HTTP 不是一个孤立的协议</h4><p>在互联网世界里，<strong>HTTP 通常跑在 TCP/IP 协议栈之上，依靠 IP 协议实现寻址和路由、TCP 协议实现可靠数据传输、DNS 协议实现域名查找、SSL/TLS 协议实现安全通信</strong>。此外，还有一些协议依赖于 HTTP，例如 WebSocket、HTTPDNS 等。这些协议相互交织，构成了一个协议网，而 <strong>HTTP 则处于中心地位</strong>。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>HTTP 是一个用在计算机世界里的协议，它确立了一种计算机之间交流通信的规范，以及相关的各种控制和错误处理方式。</li>
+<li>HTTP 专门用来在两点之间传输数据，不能用于广播、寻址或路由。</li>
+<li>HTTP 传输的是文字、图片、音频、视频等超文本数据。</li>
+<li>HTTP 是构建互联网的重要基础技术，它没有实体，依赖许多其他的技术来实现，但同时许多技术也都依赖于它。</li>
+</ol>
+<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
+<li><p>有一种流行的说法：“HTTP 是用于从互联网服务器传输超文本到本地浏览器的协议”，你认为这种说法对吗？对在哪里，又错在哪里？</p>
+<p>HTTP 是一个在计算机世界里专门在两点之间传输数据的约定和规范。HTTP 协议是一个“<strong>双向协议</strong>”，可以是服务器向服务器、浏览器向服务器、服务器向浏览器。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/30/http-01/" class="post-title-link" itemprop="url">01 | 时势与英雄：HTTP的前世今生</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-30 21:36:13 / 修改时间：21:47:32" itemprop="dateCreated datePublished" datetime="2021-03-30T21:36:13+08:00">2021-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>HTTP 协议是怎么来的？它最开始是什么样子的？又是如何一步一步发展到今天，几乎“统治”了整个互联网世界的呢？</p>
+<h3 id="史前时期"><a href="#史前时期" class="headerlink" title="史前时期"></a>史前时期</h3><p>20 世纪 60 年代，美国国防部高等研究计划署（ARPA）建立了 <strong>ARPA</strong> 网，它有四个分布在各地的节点，被认为是如今互联网的“<strong>始祖</strong>”。</p>
+<p>在 70 年代，<strong>基于对 ARPA 网的实践和思考，研究人员发明出了著名的 TCP/IP 协议</strong>。由于具有良好的分层结构和稳定的性能，TCP/IP 协议迅速战胜其他竞争对手流行起来，并在 80 年代中期进入了 <strong>UNIX</strong> 系统内核，促使更多的计算机接入了互联网。</p>
+<h3 id="创世纪"><a href="#创世纪" class="headerlink" title="创世纪"></a>创世纪</h3><p>1989 年，任职于欧洲核子研究中心（CERN）的<strong>蒂姆·伯纳斯 - 李（Tim Berners-Lee）</strong>发表了一篇<strong>论文</strong>，提出了在互联网上构建<strong>超链接文档系统</strong>的构想。这篇论文中他确立了<strong>三项关键技术</strong>。</p>
+<p><strong>URI：即统一资源标识符，作为互联网上资源的唯一身份；</strong></p>
+<p><strong>HTML：即超文本标记语言，描述超文本文档；</strong></p>
+<p><strong>HTTP：即超文本传输协议，用来传输超文本。</strong></p>
+<p>这三项技术在如今的我们看来已经是稀松平常，但在当时却是了不得的大发明。基于它们，就可以把超文本系统完美地运行在互联网上，让各地的人们能够自由地共享信息，蒂姆把这个系统称为“<strong>万维网</strong>”（World Wide Web），也就是我们现在所熟知的 <strong>Web</strong>。</p>
+<p>所以在这一年，我们的英雄“<strong>HTTP”诞生</strong>了，从此开始了它伟大的征途。</p>
+<h3 id="HTTP-0-9"><a href="#HTTP-0-9" class="headerlink" title="HTTP/0.9"></a>HTTP/0.9</h3><p>20 世纪 90 年代初期的互联网世界非常简陋，计算机处理能力低，存储容量小，网速很慢，还是一片“信息荒漠”。网络上绝大多数的资源都是纯文本，很多通信协议也都使用纯文本，所以 HTTP 的设计也不可避免地受到了时代的限制。</p>
+<p>这一时期的 HTTP 被定义为 0.9 版，结构比较简单，为了便于服务器和客户端处理，它也采用了<strong>纯文本</strong>格式。蒂姆·伯纳斯 - 李最初设想的系统里的<strong>文档</strong>都是<strong>只读</strong>的，所以只允许用“<strong>GET</strong>”动作从服务器上获取 HTML 文档，并且<strong>在响应请求之后立即关闭连接</strong>，功能非常有限。</p>
+<p>HTTP/0.9 虽然很简单，但它作为一个“<strong>原型</strong>”，充分验证了 Web 服务的可行性，而“简单”也正是它的优点，蕴含了进化和扩展的可能性，因为：</p>
+<p><strong>“把简单的系统变复杂”，要比“把复杂的系统变简单”容易得多。</strong></p>
+<h3 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP/1.0"></a>HTTP/1.0</h3><p>1993 年，NCSA（美国国家超级计算应用中心）开发出了 Mosaic，是第一个可以<strong>图文混排</strong>的浏览器，随后又在 1995 年开发出了服务器软件 <strong>Apache</strong>，简化了 HTTP 服务器的搭建工作。</p>
+<p>同一时期，计算机多媒体技术也有了新的发展：1992 年发明了 <strong>jpeg</strong> 图像格式，1995 年发明了 <strong>MP3</strong> 音乐格式。</p>
+<p>这些新软件新技术一经推出立刻就吸引了广大网民的热情，更的多的人开始使用互联网，研究 HTTP 并提出改进意见，甚至实验性地往协议里添加各种特性，<strong>从用户需求的角度促进了 HTTP 的发展</strong>。</p>
+<p>于是在这些已有实践的基础上，经过一系列的草案，HTTP/1.0 版本在 1996 年正式发布。它在多方面增强了 0.9 版，形式上已经和我们现在的 HTTP 差别不大了，例如：</p>
+<p><strong>增加了 HEAD、POST 等新方法；</strong></p>
+<p><strong>增加了响应状态码，标记可能的错误原因；</strong></p>
+<p><strong>引入了协议版本号概念；</strong></p>
+<p><strong>引入了 HTTP Header（头部）的概念，让 HTTP 处理请求和响应更加灵活；</strong></p>
+<p><strong>传输的数据不再仅限于文本。</strong></p>
+<p>但 <strong>HTTP/1.0 并不是一个“标准”</strong>，只是记录已有实践和模式的一份<strong>参考文档</strong>，<strong>不具有实际的约束力</strong>，相当于一个“备忘录”。所以 HTTP/1.0 的发布对于当时正在蓬勃发展的互联网来说并没有太大的实际意义，各方势力仍然按照自己的意图继续在市场上奋力拼杀。</p>
+<h3 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h3><p>1995 年，网景的 Netscape Navigator 和微软的 Internet Explorer 开始了著名的“<strong>浏览器大战</strong>”，都希望在互联网上占据主导地位。</p>
+<p>这场战争的结果你一定早就知道了，最终微软的 IE 取得了决定性的胜利，而网景则“败走麦城”（但后来却凭借 Mozilla Firefox 又扳回一局）。</p>
+<p>“浏览器大战”的是非成败我们放在一边暂且不管，不可否认的是，它再一次极大地推动了 Web 的发展，HTTP/1.0 也在这个过程中经受了实践检验。于是在“浏览器大战”结束之后的 <strong>1999 年</strong>，<strong>HTTP/1.1 发布了 RFC 文档，编号为 2616，正式确立了延续十余年的传奇</strong>。</p>
+<p>从版本号我们就可以看到，<strong>HTTP/1.1 是对 HTTP/1.0 的小幅度修正。但一个重要的区别是：它是一个</strong>“<strong>正式的标准</strong>”，而不是一份可有可无的“参考文档”。这意味着今后互联网上所有的浏览器、服务器、网关、代理等等，只要用到 HTTP 协议，就必须严格遵守这个标准，相当于是互联网世界的一个“立法”。</p>
+<p><strong>HTTP/1.1 主要的变更点有：</strong></p>
+<p><strong>增加了 PUT、DELETE 等新的方法；</strong></p>
+<p><strong>增加了缓存管理和控制；</strong></p>
+<p><strong>明确了连接管理，允许持久连接；</strong></p>
+<p><strong>允许响应数据分块（chunked），利于传输大文件；</strong></p>
+<p><strong>强制要求 Host 头，让互联网主机托管成为可能</strong></p>
+<h3 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h3><p>HTTP/1.1 发布之后，整个互联网世界呈现出了爆发式的增长，度过了十多年的“快乐时光”，更涌现出了 Facebook、Twitter、淘宝、京东等互联网新贵。</p>
+<p>这期间也出现了一些对 HTTP 不满的意见，主要就是<strong>连接慢</strong>，无法跟上迅猛发展的互联网，但 HTTP/1.1 标准一直“岿然不动”，无奈之下人们只好发明各式各样的“小花招”来缓解这些问题，比如以前常见的切图、JS 合并等网页优化手段。</p>
+<p>终于有一天，搜索巨头 Google 忍不住了，决定“揭竿而起”，就像马云说的“如果银行不改变，我们就改变银行”。那么，它是怎么“造反”的呢？</p>
+<p>Google 首先开发了自己的浏览器 <strong>Chrome</strong>，然后推出了新的 <strong>SPDY</strong> 协议，并在 Chrome 里应用于自家的服务器，如同十多年前的网景与微软一样，<strong>从实际的用户方来“倒逼”HTTP 协议的变革</strong>，这也开启了<strong>第二次的“浏览器大战”</strong>。</p>
+<p>历史再次重演，不过这次的胜利者是 Google，Chrome 目前的全球的占有率超过了 60%。“挟用户以号令天下”，Google 借此顺势把 SPDY 推上了标准的宝座，<strong>互联网标准化组织以 SPDY 为基础开始制定新版本的 HTTP 协议，最终在 2015 年发布了 HTTP/2，RFC 编号 7540</strong>。</p>
+<p>HTTP/2 的制定充分考虑了<strong>现今互联网的现状：宽带、移动、不安全</strong>，在高度兼容 HTTP/1.1 的同时在性能改善方面做了很大努力，主要的特点有：</p>
+<p><strong>二进制协议，不再是纯文本；</strong></p>
+<p><strong>可发起多个请求，废弃了 1.1 里的管道；</strong></p>
+<p><strong>使用专用算法压缩头部，减少数据传输量；</strong></p>
+<p><strong>允许服务器主动向客户端推送数据；</strong></p>
+<p><strong>增强了安全性，“事实上”要求加密通信</strong></p>
+<p>虽然 HTTP/2 到今天已经六岁，也衍生出了 gRPC 等新协议，但由于 <strong>HTTP/1.1 实在是太过经典和强势</strong>，目前它的普及率还比较低，<strong>大多数网站使用的仍然还是 20 年前的 HTTP/1.1</strong>。</p>
+<h3 id="HTTP-3"><a href="#HTTP-3" class="headerlink" title="HTTP/3"></a>HTTP/3</h3><p>看到这里，你可能会问了：“HTTP/2 这么好，是不是就已经完美了呢？”答案是否定的，这一次还是 Google，而且它要“革自己的命”。</p>
+<p>在 HTTP/2 还处于草案之时，<strong>Google</strong> 又发明了一个新的协议，叫做 <strong>QUIC</strong>，而且还是相同的“套路”，继续在 Chrome 和自家服务器里试验着“玩”，依托它的庞大用户量和数据量，持续地推动 QUIC 协议成为互联网上的“既成事实”。</p>
+<p>“功夫不负有心人”，当然也是因为 QUIC 确实自身素质过硬。</p>
+<p>在 2018 年，互联网标准化组织 <strong>IETF</strong> 提议将“<strong>HTTP over QUIC</strong>”更名为“<strong>HTTP/3</strong>”并获得<strong>批准</strong>。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>在这里简单小结一下今天的内容：</p>
+<ol>
+<li>HTTP 协议始于三十年前蒂姆·伯纳斯 - 李的一篇论文；</li>
+<li>HTTP/0.9 是个简单的文本协议，只能获取文本资源；</li>
+<li>HTTP/1.0 确立了大部分现在使用的技术，但它不是正式标准；</li>
+<li>HTTP/1.1 是目前互联网上使用最广泛的协议，功能也非常完善；</li>
+<li>HTTP/2 基于 Google 的 SPDY 协议，注重性能改善，但还未普及；</li>
+<li>HTTP/3 基于 Google 的 QUIC 协议，是将来的发展方向。</li>
+</ol>
+<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
+<li><p>你认为推动 HTTP 发展的原动力是什么？</p>
+<p>协议标准不同于原理，原理是相对稳定的，而标准则需要<strong>与时俱进</strong>，随着业务和技术发展中出现的新问题一起变化。在实际商业应用、竞争和实践中反复打磨，让协议标准适应不断发展变化的实际业务问题，而不是让日渐庞大复杂的业务去适应受限于特定时空因素的标准。<br>标准的诞生和发展一方面是基于具体业务需要和技术发展，另一方面是为了统一游戏规则，让各厂商的软硬件产品可以方便地“互联”，降低“沟通”和“翻译”的成本，提高网络互联的开放性。</p>
+</li>
+<li><p>你是怎么理解 HTTP（超文本传输协议）的？</p>
+<p>超文本传输协议＝超文本＋传输＋协议，协议即约定，<strong>HTTP就是约定超文本怎么传输的</strong>。初心就是分享信息，所以，简单、开放、有求有应，只针对文本，后来出现了音频、视频、动画、图片、超链接等，比纯文本复杂了一些，不过初心不改，所以，原则未变，只是需要调整一下适应这些正当其时的需求而已。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/27/algorithm-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -700,453 +1339,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/26/js-cross-domain/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/26/js-cross-domain/" class="post-title-link" itemprop="url">跨域解决方案</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-26 13:22:51" itemprop="dateCreated datePublished" datetime="2020-07-26T13:22:51+08:00">2020-07-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>浏览器同源策略，只要协议、域名、端口号，有一个不一致，就会产生跨域</p>
-<h2 id="浏览器不支持跨域的原因"><a href="#浏览器不支持跨域的原因" class="headerlink" title="浏览器不支持跨域的原因"></a>浏览器不支持跨域的原因</h2><p>主要是为了安全<br>1、cookie、localStorage不能支持跨域，假如登录了银行的网站，银行就给我的浏览器注入了一个cookie，我又访问了一个恶意网站，这个网站就有拿到我的cookie，冒充我登录银行<br>2、DOM元素不支持跨域  iframe，自己的页面嵌入了别人的页面，我如果可以操作iframe里面的元素的话，那么嵌入的网站的新户名、密码等信息就有可能会暴露<br>3、ajax请求，接口不能对外开放</p>
-<h2 id="为什么还要实现跨域"><a href="#为什么还要实现跨域" class="headerlink" title="为什么还要实现跨域"></a>为什么还要实现跨域</h2><p>跨域是由前后端分离导致的，在smarty时代，前后端代码混在一起，因此部署的时候也只能部署到一台服务器上，使用的域名也相同，就不会有跨域问题。<br>前后端分离以后，代码虽然分离了，但是仍然可以把代码部署到同一台服务器，也不会造成跨域。<br>前后端分离，后端大多是业务逻辑等，前端是资源，因此为了更好的维护，使前端页面更快地加载出来，可以把前端单独部署到一台web服务器上，因此引出了跨域问题，目前大多数项目中都是跨域请求前后端分离项目中，前端部署到一台服务器，后端部署到一台服务器，肯定会产生跨域</p>
-<h2 id="实现跨域的方法"><a href="#实现跨域的方法" class="headerlink" title="实现跨域的方法"></a>实现跨域的方法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsonp/cors/postMessage/<span class="built_in">document</span>.domain/<span class="built_in">window</span>.name/location.hash/http-proxy/nginx/websocket</span><br></pre></td></tr></table></figure>
-<h2 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h2><p>script标签跨域</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://www.baidu.com/sugrec?pre=1&amp;p=3&amp;ie=utf-8&amp;json=1&amp;prod=pc&amp;from=pc_web&amp;sugsid=1431,21119,31069,31660,32046,31322,30823,31848,26350&amp;wd=a&amp;req=2&amp;bs=%E7%99%BE%E5%BA%A6&amp;csor=4&amp;pwd=111&amp;cb=show"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>服务器返回的是一个函数的执行，即show({回传的数据})</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 回调函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>jsonp存在的问题：<br>1.只能发送get请求<br>2.xss攻击，接口返回的值可能带有恶意攻击，如resolve(alert(11111))</p>
-<h2 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h2><p>后端设置：Access-Control-Allow-Origin 访问控制允许源<br>请求头里面拿到请求源：req.headers.origin   Origin:<a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a><br>设置一个白名单，如果访问源是白名单里面的，那么就设置头Access-Control-Allow-Origin<br>还有一种是前端设置请求头</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xhr.setRequestHeader(</span><br><span class="line">  <span class="string">'lwj'</span>,<span class="string">'aa'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>此时浏览器也不让访问：Access-Control-Allow-Headers<br>因此服务端也要设置一下允许的请求头，常见的请求头：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Origin'</span>,origin) <span class="comment">// 允许的源  origin如果是*，则不能携带cookie等凭证</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Headers'</span>,<span class="string">'lwj'</span>) <span class="comment">// 允许的请求头</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Methods'</span>,<span class="string">'PUT'</span>) <span class="comment">// 允许的请求方式</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Allow-Credentials'</span>,<span class="literal">true</span>) <span class="comment">// 允许携带cookie</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Max-Age'</span>,<span class="number">6</span>) <span class="comment">// OPTION预检请求间隔时间，6s中不在发</span></span><br><span class="line">res.setHeader(<span class="string">'Access-Control-Expose-Headers'</span>,<span class="string">'name'</span>) <span class="comment">// 允许返回的头   (index):30 Refused to get unsafe header "name"</span></span><br></pre></td></tr></table></figure>
-<p>前端携带cookie：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'name:Mr.Q'</span></span><br><span class="line">xhr.withCredentials = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h2><p>两个页面的通信</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=<span class="string">"http://localhost:4000/2.html"</span> frameborder=<span class="string">"0"</span> id=<span class="string">"frame"</span> onload=<span class="string">"load()"</span>&gt;&lt;<span class="regexp">/iframe&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  function load()&#123;</span></span><br><span class="line"><span class="regexp">    let frame = document.getElementById('frame')</span></span><br><span class="line"><span class="regexp">    frame.contentWindow.postMessage('我爱你','http:/</span><span class="regexp">/localhost:4000') /</span><span class="regexp">/ frame.contentWindow.postMessage(数据，给哪个域传数据)</span></span><br><span class="line"><span class="regexp">    window.onmessage = function(e)&#123;</span></span><br><span class="line"><span class="regexp">      console.log(e.data)</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e.data)</span><br><span class="line">  e.source.postMessage(<span class="string">'我不爱你'</span>,<span class="string">'http://localhost:3000'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>发数据：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame.contentWindow.postMessage(数据，域名)</span><br></pre></td></tr></table></figure>
-<p>接数据：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; <span class="comment">// e.data&#125;</span></span><br></pre></td></tr></table></figure>
-<p>发数据：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.source.postMessage(数据，域名)</span><br></pre></td></tr></table></figure>
-<p>接数据：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; <span class="comment">// e.data&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h2><p>本质上也是借助于iframe标签<br>涉及a,b,c三个页面，a,b是同域：<a href="http://localhost:3000，c是独立域">http://localhost:3000，c是独立域</a>: <a href="http://localhost:4000，那么a怎么拿c的数据？">http://localhost:4000，那么a怎么拿c的数据？</a><br>步骤：a引用c，c把数据放到window.name上，把a引用的地址改成b</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">页面a</span><br><span class="line">&lt;iframe src=<span class="string">"http://localhost:4000/c.html"</span> frameborder=<span class="string">"0"</span> id=<span class="string">"frame"</span> onload=<span class="string">"load()"</span>&gt;&lt;<span class="regexp">/iframe&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let flag = true</span></span><br><span class="line"><span class="regexp">  function load()&#123;</span></span><br><span class="line"><span class="regexp">    if (flag)&#123;</span></span><br><span class="line"><span class="regexp">      let frame = document.getElementById('frame')</span></span><br><span class="line"><span class="regexp">      frame.src = 'http:/</span><span class="regexp">/localhost:3000/</span>b.html<span class="string">'</span></span><br><span class="line"><span class="string">      flag = false</span></span><br><span class="line"><span class="string">    &#125;else&#123;</span></span><br><span class="line"><span class="string">      console.log(frame.contentWindow.name)</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">页面c</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">window</span>.name = <span class="string">'我爱你'</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>涉及a,b,c三个页面，a,b是同域：<a href="http://localhost:3000，c是独立域">http://localhost:3000，c是独立域</a>: <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a><br>步骤：a引入c，把给c的值放到hash上，c收到hash值，c把hash传给b，b把hash放到a的hash上</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a:</span><br><span class="line">&lt;iframe src=<span class="string">"http://localhost:4000/3.html#iloveu"</span> frameborder=<span class="string">"0"</span>&gt;&lt;<span class="regexp">/iframe&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  window.onhashchange = function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log(location.hash)</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c:</span><br><span class="line"><span class="built_in">console</span>.log(location.hash)</span><br><span class="line"><span class="keyword">let</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>)</span><br><span class="line">iframe.src = <span class="string">'http://localhost:3000/2.html#idonotloveu'</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(iframe)</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b:</span><br><span class="line"><span class="built_in">window</span>.parent.parent.location.hash = location.hash</span><br></pre></td></tr></table></figure>
-<h2 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h2><p>解决的是一级域名和二级域名之间的关系</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a：http:<span class="comment">//a.test.cn:3000/1.html  引入b</span></span><br><span class="line">&lt;div&gt;我是<span class="number">1.</span>html&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;iframe src="http:/</span><span class="regexp">/b.test.cn:3000/</span><span class="number">2.</span>html<span class="string">" frameborder="</span><span class="number">0</span><span class="string">" id="</span>frame<span class="string">" onload="</span>load()<span class="string">"&gt;&lt;/iframe&gt;</span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">  document.domain = 'test.cn'</span></span><br><span class="line"><span class="string">  function load()&#123;</span></span><br><span class="line"><span class="string">    console.log(frame.contentWindow.name)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;我是<span class="number">2.</span>html&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  document.domain = 'test.cn'</span></span><br><span class="line"><span class="regexp">  var name = 'lwj'</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="webSocket"><a href="#webSocket" class="headerlink" title="webSocket"></a>webSocket</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws:localhost:3000'</span>)</span><br><span class="line">  socket.onopen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    socket.send(<span class="string">'我爱你'</span>) <span class="comment">// 发送数据</span></span><br><span class="line">  &#125;</span><br><span class="line">  socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123; <span class="comment">// 接收数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(e.data)</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">let</span> app = express()</span><br><span class="line"><span class="keyword">let</span> WebSocket = <span class="built_in">require</span>(<span class="string">'ws'</span>)</span><br><span class="line"><span class="keyword">let</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123;<span class="attr">port</span>:<span class="number">3000</span>&#125;) <span class="comment">// 监听3000端口</span></span><br><span class="line">wss.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">ws</span>)</span>&#123;</span><br><span class="line">  ws.on(<span class="string">'message'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data) <span class="comment">// 接收请求</span></span><br><span class="line">    ws.send(<span class="string">'我不爱你'</span>) <span class="comment">//发送数据</span></span><br><span class="line">  &#125;) </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/25/vue-first-page-optimize/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/25/vue-first-page-optimize/" class="post-title-link" itemprop="url">vue首屏优化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-25 18:49:35" itemprop="dateCreated datePublished" datetime="2020-07-25T18:49:35+08:00">2020-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>vue如何优化首页的加载速度？首页的白屏是什么原因引起的？以及如何优化</p>
-<h2 id="SPA页面加载过程"><a href="#SPA页面加载过程" class="headerlink" title="SPA页面加载过程"></a>SPA页面加载过程</h2><p>1.拉取html(FP:html加载下来了)</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>2.拉取静态资源 css/js<br>这里的js如果没有任何处理的话，拉下来的js就非常大，因此造成之后的过程就非常慢<br>3.解析js，生成html代码(FCP：css/js静态资源加载下来了，这个过程非常快)</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"body"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>4.ajax请求 0.5s<br>解析的js里面发现有ajax请求，那么就去请求ajax<br>从这往上，全是白屏<br>5.数据填充(FMP:数据请求回来了)</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"body"</span>&gt;</span>sheriff<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>lee<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h2><p>FP：第一帧像素落点<br>FCP：首次内容绘制<br>FMP：首次有效绘制</p>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>1.骨架屏，在FP阶段加入页面的大结构，让用户提前看到页面的大体架构，SPA才会有白屏的问题，只有首页才会有白屏的问题<br>2.动态加载路由，提取公共库<br>路由懒加载：用到的时候再加载，不用不加载<br>可以把首页的js打到main.js里面，vue等库抽离出来，打成vue.js<br>首页加载的时候就只加载main.js和vue.js<br>切换路由的时候，会动态加载第二个页面的js，而此时vue.js已经有了，不会在下载了<br><code>用到的插件：babel-plugin-syntax-dynamic-import</code><br>路由懒加载写法：<br>•vue异步组件实现路由懒加载<br><code>component：resolve=&gt;([&#39;需要加载的路由的地址&#39;，resolve])</code><br>•es提出的import(推荐使用这种方式)<br><code>const HelloWorld = （）=&gt;import(&#39;需要加载的模块地址&#39;)</code><br>提取公共库：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">config.optimization = &#123;</span><br><span class="line">  splitChunks: &#123;</span><br><span class="line">    cacheGroups: &#123;</span><br><span class="line">      <span class="comment">// 拆出view-design</span></span><br><span class="line">      iview: &#123;</span><br><span class="line">        name: <span class="string">'view-design'</span>,</span><br><span class="line">        test: <span class="function"><span class="params">module</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="regexp">/node_modules\/view-design/</span>.test(<span class="built_in">module</span>.context)</span><br><span class="line">        &#125;,</span><br><span class="line">        chunks: <span class="string">'initial'</span>,</span><br><span class="line">        priority: <span class="number">30</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 然后把node_modlues下的剩余引用合并到vendors</span></span><br><span class="line">      vendors: &#123;</span><br><span class="line">        name: <span class="string">'vendors'</span>,</span><br><span class="line">        test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">        chunks: <span class="string">'all'</span>,</span><br><span class="line">        priority: <span class="number">10</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.ssr 预渲染 同构<br>ssr:服务端渲染(php,jsp)<br>同构:一套代码，多端使用(服务端，客户端,vue react nuxt)<br>预渲染:预先渲染，webpack把vue打包出来的项目拿到无头浏览器中去执行，执行完之后，就获取到html页面的内容，之后再吐到html文件中，再把html放到CDN上，用户再去拉页面的时候，相当于把ajax请求拿到FP阶段执行</p>
-<p>4.webpack打包抽离，静态资源输出</p>
-<p>5.资源请求时间片的处理</p>
-<p>6.CDN</p>
-<p>7.quickLink<br>在浏览器空闲的时候，预先加载我可能要访问的页面</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prefetch</span><br><span class="line">&lt;link rel=<span class="string">"prefetch"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>preload</p>
-<p>preconnect</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/25/js-flat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/25/js-flat/" class="post-title-link" itemprop="url">数组扁平化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-25 14:32:01" itemprop="dateCreated datePublished" datetime="2020-07-25T14:32:01+08:00">2020-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>实现数组的扁平化有许多方法，下面就试试如何将这个数组扁平化<br><code>var arr = [1,2,[3,1,[66,7,[9,10,[111]]]]] // 5维数组</code></p>
-<h2 id="es6的flat方法"><a href="#es6的flat方法" class="headerlink" title="es6的flat方法"></a>es6的flat方法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = arr.flat(<span class="literal">Infinity</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="转换成字符串"><a href="#转换成字符串" class="headerlink" title="转换成字符串"></a>转换成字符串</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.toString().split(<span class="string">','</span>).map(<span class="function"><span class="params">item</span>=&gt;</span><span class="built_in">parseInt</span>(item))</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr = <span class="built_in">JSON</span>.stringify(arr) <span class="comment">// [1,2,[3,1,[66,7,[9,10,[111]]]]]</span></span><br><span class="line">arr = arr.replace(<span class="regexp">/\[|\]/g</span>,<span class="string">''</span>).split(<span class="string">','</span>).map(<span class="function"><span class="params">item</span>=&gt;</span><span class="built_in">parseInt</span>(item))</span><br></pre></td></tr></table></figure>
-<h2 id="循环校验是不是数组"><a href="#循环校验是不是数组" class="headerlink" title="循环校验是不是数组"></a>循环校验是不是数组</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(arr.some(<span class="function"><span class="params">item</span>=&gt;</span><span class="built_in">Array</span>.isArray(item)))&#123; <span class="comment">// some是指有一项符合，就返回true， every是只每一项都要符合，才返回true</span></span><br><span class="line">  arr = [].concat(...arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="递归方式"><a href="#递归方式" class="headerlink" title="递归方式"></a>递归方式</h2><p>判断每一项是不是数组，如果是数组，就再往下判断，如果不是，就push到结果中</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFlat</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> resArr = []</span><br><span class="line">  <span class="keyword">let</span> fn = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i &lt; arr.length;i ++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(arr[i]))&#123;</span><br><span class="line">        fn(arr[i])</span><br><span class="line">        <span class="keyword">continue</span> <span class="comment">// 跳出当前循环</span></span><br><span class="line">      &#125;</span><br><span class="line">      resArr.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  fn(arr)</span><br><span class="line">  <span class="keyword">return</span> resArr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/25/html-label/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/25/html-label/" class="post-title-link" itemprop="url">html标签语义化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-25 13:50:14" itemprop="dateCreated datePublished" datetime="2020-07-25T13:50:14+08:00">2020-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>怎么理解html语义化标签，这是面试中经常会问的问题，那么html语义化到底是什么意思呢</p>
-<h2 id="html语义化"><a href="#html语义化" class="headerlink" title="html语义化"></a>html语义化</h2><p>简单的来说就是用正确的标签做正确的事情<br>例如：段落用 p 标签，标题用 h 系列标签，边栏用 aside 标签，主要内容用 main 标签。</p>
-<h2 id="使用语义化标签的好处"><a href="#使用语义化标签的好处" class="headerlink" title="使用语义化标签的好处"></a>使用语义化标签的好处</h2><p>•增强可读性，对开发者更友好，便于团队的开发和维护。<br>•在没有CSS的情况下也能较好地呈现网页的内容结构与代码结构。<br>•有利于 SEO ，可以让搜索引擎爬虫更好地获取到更多有效信息，搜索引擎的爬虫依赖于标签来确定上下文和各个关键字的权重，有效提升网页的搜索量。<br>•方便其他设备解析（如屏幕阅读器，盲人阅读器，移动设备），以意义的方式来渲染网页。</p>
-<h2 id="html5标签"><a href="#html5标签" class="headerlink" title="html5标签"></a>html5标签</h2><p>HTML5新增了哪些语义化标签呢？</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">header | footer | nav | aside | article | section | h1~h6 | address | details | dialog | mark | time | hgroup</span><br><span class="line"><span class="selector-tag">hgroup</span> :元素代表“网页”或“<span class="selector-tag">section</span>”的标题，当元素有多个层级时，该元素可以将<span class="selector-tag">h1</span>到<span class="selector-tag">h6</span>元素放在其内，譬如文章的主标题和副标题的组合</span><br></pre></td></tr></table></figure>
-<h2 id="html5新特性"><a href="#html5新特性" class="headerlink" title="html5新特性"></a>html5新特性</h2><p>•绘画canvas<br>•用于媒介回放的 video和audio元素<br>•本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失<br>•sessionStorage的数据在浏览器关闭后自动删除<br>•表单控件，calendar、date、time、email、url、search<br>•新的技术webworker、websocket、Geolocation</p>
-<h2 id="html5常用的api"><a href="#html5常用的api" class="headerlink" title="html5常用的api"></a>html5常用的api</h2><p>•页面可见性API——Page Visibility<br>•API全屏API——Full Screen<br>•访问摄像头和麦克风——getUserMedia API<br>•电池API——Battery API<br>•预加载——Link Prefetching<br>•监听屏幕旋转变化接口: ——orientationchange<br>•手机震动: ——window.navigator.vibrate(200)<br>•当前语言: ——navigator.language<br>•联网状态: ——navigator.onLine<br>•页面可编辑: ——contentEditable<br>•浏览器活跃窗口监听: ——window.onblur &amp; window.onfocus</p>
-<h2 id="如何看待html5"><a href="#如何看待html5" class="headerlink" title="如何看待html5"></a>如何看待html5</h2><p>•渐进增强<br>试想，如果HTML5否定了之前的HTML文档，各种大大小小的网站都要重写，那么HTML5带来的就不是惊喜而是惊吓！实际上，HTML5的一个核心的理念就是保持一切新特性与原有功能保持过渡。<br>•简单至上<br>简单至上，尽可能简化，简化了DOCTYPE和字符集声明;强化了HTML5API，使页面设计更加简单;以浏览器的原生能力代替复杂的JavaScript代码。</p>
-<h2 id="hmtl5和html的区别"><a href="#hmtl5和html的区别" class="headerlink" title="hmtl5和html的区别"></a>hmtl5和html的区别</h2><p>•在文档类型声明上</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//W3C//DTD XHTML 1.0 Transitional//EN"</span> <span class="meta-string">"</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>由这两者对比可见：在文档声明上，html有很长的一段代码，并且很难记住这段代码，想必很多人都是靠工具直接生成的吧？而html5却是不同，只有简简单单的声明，这也方便人们的记忆，更加精简。<br>•在结构语义上<br>html5新增了好多语义化的标签<br>•强大的api</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/25/css-repaint-reflow/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/25/css-repaint-reflow/" class="post-title-link" itemprop="url">重绘与回流</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-25 10:47:39" itemprop="dateCreated datePublished" datetime="2020-07-25T10:47:39+08:00">2020-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前端性能优化中经常会谈到重绘和回流这两个概念，首先我们来看下重绘和回流什么时候发生，以及重绘和回流是什么</p>
-<h2 id="页面渲染的流程"><a href="#页面渲染的流程" class="headerlink" title="页面渲染的流程"></a>页面渲染的流程</h2><p>1.浏览器把html解析成一颗DOM树，根节点是document，DOM树上包含displsy:none这样的节点<br>2.DOM转换成render树，render树能够识别样式，每一个节点都有自己的样式，render树上已经没有了display:none这样的节点了<br>3.render树构建完毕，浏览器就根据渲染好的render数来渲染页面<br><code>reflow:当render tree中的一部分（或全部）因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流（其实我觉得叫重新布局更简单明了些）。每个页面至少需要一次回流，就是在页面第一次加载的时候。</code><br><code>repaint:当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的，比如background-color。则就叫称为重绘。</code><br>通过上述定义，可以很明显看出，重绘的代价要比回流小，毕竟重绘只涉及样式的改变，不涉及到布局。回流必将引起重绘，而重绘不一定会引起回流。<br>那么什么操作会引起回流、重绘呢</p>
-<h2 id="引起回流、重绘的操作"><a href="#引起回流、重绘的操作" class="headerlink" title="引起回流、重绘的操作"></a>引起回流、重绘的操作</h2><p>任何对render tree中元素的操作都会引起回流或者重绘<br>•页面初始化布局<br>•添加、删除元素（回流+重绘)<br>•隐藏元素，display:none(回流+重绘)，visibility:hidden(只重绘，不回流)<br>•窗口大小变化，浏览器字体大小等<br>•对style的操作，如:padding margin border color fontsize等等<br>我们知道了引起回流和重绘的原因，那么怎么减少回流和重绘呢？</p>
-<h2 id="减少回流、重绘"><a href="#减少回流、重绘" class="headerlink" title="减少回流、重绘"></a>减少回流、重绘</h2><p>•不要一个一个改变元素的样式属性，最好直接改变<code>className</code>，但<code>className</code>是预先定义好的样式，不是动态的，如果你要动态改变一些样式，则使用<code>cssText</code>来改变</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"><span class="keyword">var</span> left = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> top = <span class="number">1</span></span><br><span class="line">el.style.left = left + <span class="string">"px"</span></span><br><span class="line">el.style.top  = top  + <span class="string">"px"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较好的写法 </span></span><br><span class="line">el.className += <span class="string">" className1"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较好的写法 </span></span><br><span class="line">el.style.cssText += <span class="string">"; left: "</span> + left + <span class="string">"px; top: "</span> + top + <span class="string">"px;"</span></span><br></pre></td></tr></table></figure>
-<p>•让要操作的元素进行”离线处理”，使用documentFragment或div等元素进行缓存操作，这个主要用于添加元素的时候，大家应该都用过，就是先把所有要添加到元素添加到1个div(这个div也是新加的)，最后才把这个div append到body中。<br>•频繁用到的DOM节点用变量进行缓存<br>•将复杂的元素绝对定位或固定定位，使它脱离文档流</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/2356874721.github.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/2356874721.github.io/page/4/">4</a><a class="extend next" rel="next" href="/2356874721.github.io/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/2356874721.github.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/2356874721.github.io/page/5/">5</a><a class="extend next" rel="next" href="/2356874721.github.io/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1212,20 +1408,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/2356874721.github.io/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
