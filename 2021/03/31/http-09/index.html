@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/2356874721.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/2356874721.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/2356874721.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/2356874721.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/2356874721.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/2356874721.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/2356874721.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="HTTP 的报文结构是由 header+body 构成，请求头里有请求方法和请求目标，响应头里有状态码和原因短语，今天要说的就是请求头里的请求方法。 标准请求方法HTTP 协议里为什么要有“请求方法”这个东西呢？ 这就要从 HTTP 协议设计时的定位说起了。还记得吗？蒂姆·伯纳斯 - 李最初设想的是要用 HTTP 协议构建一个超链接文档系统，使用 URI 来定位这些文档，也就是资源。那么，该怎么在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09 | 应该如何理解请求方法？">
+<meta property="og:url" content="http://yoursite.com/2021/03/31/http-09/index.html">
+<meta property="og:site_name" content="警长的博客">
+<meta property="og:description" content="HTTP 的报文结构是由 header+body 构成，请求头里有请求方法和请求目标，响应头里有状态码和原因短语，今天要说的就是请求头里的请求方法。 标准请求方法HTTP 协议里为什么要有“请求方法”这个东西呢？ 这就要从 HTTP 协议设计时的定位说起了。还记得吗？蒂姆·伯纳斯 - 李最初设想的是要用 HTTP 协议构建一个超链接文档系统，使用 URI 来定位这些文档，也就是资源。那么，该怎么在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2356874721.github.io/2021/03/31/http-09/9-1.jpeg">
+<meta property="article:published_time" content="2021-03-31T10:16:50.000Z">
+<meta property="article:modified_time" content="2021-04-08T13:05:16.479Z">
+<meta property="article:author" content="sheriff">
+<meta property="article:tag" content="请求方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2356874721.github.io/2021/03/31/http-09/9-1.jpeg">
+
+<link rel="canonical" href="http://yoursite.com/2021/03/31/http-09/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>09 | 应该如何理解请求方法？ | 警长的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/2356874721.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">警长的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活 记录成长</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/2356874721.github.io/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/2356874721.github.io/archives/" rel="section"><i class="archives fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/2356874721.github.io/categories/" rel="section"><i class="categories fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/2356874721.github.io/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/2356874721.github.io/about/" rel="section"><i class="about fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/31/http-09/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          09 | 应该如何理解请求方法？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-31 18:16:50" itemprop="dateCreated datePublished" datetime="2021-03-31T18:16:50+08:00">2021-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-08 21:05:16" itemprop="dateModified" datetime="2021-04-08T21:05:16+08:00">2021-04-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>HTTP 的报文结构是由 header+body 构成，请求头里有请求方法和请求目标，响应头里有状态码和原因短语，今天要说的就是请求头里的请求方法。</p>
+<h3 id="标准请求方法"><a href="#标准请求方法" class="headerlink" title="标准请求方法"></a>标准请求方法</h3><p>HTTP 协议里为什么要有“请求方法”这个东西呢？</p>
+<p>这就要从 HTTP 协议设计时的定位说起了。还记得吗？蒂姆·伯纳斯 - 李最初设想的是要用 HTTP 协议构建一个超链接文档系统，使用 URI 来定位这些文档，也就是资源。那么，该怎么在协议里操作这些资源呢？</p>
+<p>很显然，需要有某种“动作的指示”，告诉操作这些资源的方式。所以，就这么出现了“请求方法”。它的<strong>实际含义就是客户端发出了一个“动作指令”，要求服务器端对 URI 定位的资源执行这个动作</strong>。</p>
+<p>目前 HTTP/1.1 规定了八种方法，单词都必须是大写的形式，我先简单地列把它们列出来，后面再详细讲解。</p>
+<ol>
+<li>GET：获取资源，可以理解为读取或者下载数据；</li>
+<li>HEAD：获取资源的元信息；</li>
+<li>POST：向资源提交数据，相当于写入或上传数据；</li>
+<li>PUT：类似 POST；</li>
+<li>DELETE：删除资源；</li>
+<li>CONNECT：建立特殊的连接隧道；</li>
+<li>OPTIONS：列出可对资源实行的方法；</li>
+<li>TRACE：追踪请求 - 响应的传输路径。</li>
+</ol>
+<img src="/2356874721.github.io/2021/03/31/http-09/9-1.jpeg" class>
+
+<p>看看这些方法，是不是有点像对文件或数据库的“增删改查”操作，只不过这些动作操作的目标不是本地资源，而是远程服务器上的资源，所以只能由客户端“请求”或者“指示”服务器来完成。</p>
+<p>既然请求方法是一个“指示”，那么客户端自然就没有决定权，<strong>服务器掌控着所有资源，也就有绝对的决策权力</strong>。<strong>它收到 HTTP 请求报文后，看到里面的请求方法，可以执行也可以拒绝，或者改变动作的含义，毕竟 HTTP 是一个“协议”，两边都要“商量着来”</strong>。</p>
+<p>比如，你发起了一个 GET 请求，想获取“/orders”这个文件，但这个文件保密级别比较高，不是谁都能看的，服务器就可以有如下的几种响应方式：</p>
+<ol>
+<li>假装这个文件不存在，直接返回一个 404 Not found 报文；</li>
+<li>稍微友好一点，明确告诉你有这个文件，但不允许访问，返回一个 403 Forbidden；</li>
+<li>再宽松一些，返回 405 Method Not Allowed，然后用 Allow 头告诉你可以用 HEAD 方法获取文件的元信息。</li>
+</ol>
+<h3 id="GET-HEAD"><a href="#GET-HEAD" class="headerlink" title="GET/HEAD"></a>GET/HEAD</h3><p>GET 方法应该是 HTTP 协议里最知名的请求方法了，也应该是用的最多的，自 0.9 版出现并一直被保留至今，是名副其实的“元老”。它的含义是<strong>请求从服务器获取资源</strong>，这个资源既可以是静态的文本、页面、图片、视频，也可以是由 PHP、Java 动态生成的页面或者其他格式的数据。。</p>
+<p>HEAD 方法与 GET 方法类似，也是请求从服务器获取资源，服务器的处理机制也是一样的，<strong>但服务器不会返回请求的实体数据，只会传回响应头，也就是资源的“元信息”</strong>。HEAD 方法可以看做是 GET 方法的一个“简化版”或者“轻量版”。因为它的响应头与 GET 完全相同，所以<strong>可以用在很多并不真正需要资源的场合，避免传输 body 数据的浪费</strong>。比如，想要检查一个文件是否存在，只要发个 HEAD 请求就可以了，没有必要用 GET 把整个文件都取下来。再比如，要检查文件是否有最新版本，同样也应该用 HEAD，服务器会在响应头里把文件的修改时间传回来。</p>
+<h3 id="POST-PUT"><a href="#POST-PUT" class="headerlink" title="POST/PUT"></a>POST/PUT</h3><p>GET 和 HEAD 方法是从服务器获取数据，而 POST 和 PUT 方法则是相反操作，<strong>向 URI 指定的资源提交数据，数据就放在报文的 body 里</strong>。</p>
+<p>POST 也是一个经常用到的请求方法，使用频率应该是仅次于 GET，应用的场景也非常多，只要向服务器发送数据，用的大多数都是 POST。</p>
+<p>PUT 的作用与 POST 类似，也可以向服务器提交数据，但与 POST 存在微妙的不同，<strong>通常 POST 表示的是“新建”“create”的含义，而 PUT 则是“修改”“update”的含义</strong>。</p>
+<p>在实际应用中，PUT 用到的比较少。而且，因为它与 POST 的语义、功能太过近似，有的服务器甚至就直接禁止使用 PUT 方法，只用 POST 方法上传数据。</p>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p>DELETE 方法<strong>指示服务器删除资源</strong>，因为这个动作危险性太大，所以通常服务器不会执行真正的删除操作，而是对资源做一个删除标记。当然，更多的时候服务器就直接不处理 DELETE 请求。</p>
+<h3 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h3><p>CONNECT 是一个比较特殊的方法，<strong>要求服务器为客户端和另一台远程服务器建立一条特殊的连接隧道，这时 Web 服务器在中间充当了代理的角色</strong>。</p>
+<h3 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h3><p>OPTIONS 方法<strong>要求服务器列出可对资源实行的操作方法，在响应头的 Allow 字段里返回</strong>。它的功能很有限，用处也不大，有的服务器（例如 Nginx）干脆就没有实现对它的支持。</p>
+<h3 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h3><p>TRACE 方法<strong>多用于对 HTTP 链路的测试或诊断</strong>，可以显示出请求 - 响应的传输路径。它的本意是好的，但存在漏洞，会泄漏网站的信息，所以 Web 服务器通常也是禁止使用。</p>
+<h3 id="扩展方法"><a href="#扩展方法" class="headerlink" title="扩展方法"></a>扩展方法</h3><p>虽然 HTTP/1.1 里规定了八种请求方法，但它并没有限制我们只能用这八种方法，这也体现了 HTTP 协议良好的扩展性，我们可以任意添加请求动作，只要请求方和响应方都能理解就行。</p>
+<p>此外，还有一些得到了实际应用的请求方法（WebDAV），例如 MKCOL、COPY、MOVE、LOCK、UNLOCK、PATCH 等。如果有合适的场景，你也可以把它们应用到自己的系统里，比如用 LOCK 方法锁定资源暂时不允许修改，或者使用 PATCH 方法给资源打个小补丁，部分更新数据。但因为这些方法是非标准的，所以需要为客户端和服务器编写额外的代码才能添加支持。</p>
+<p>当然了，你也完全可以根据实际需求，自己发明新的方法，比如“PULL”拉取某些资源到本地，“PURGE”清理某个目录下的所有缓存数据。</p>
+<h3 id="安全与幂等"><a href="#安全与幂等" class="headerlink" title="安全与幂等"></a>安全与幂等</h3><p>关于请求方法还有两个面试时有可能会问到、比较重要的概念：安全与幂等。</p>
+<p><strong>在 HTTP 协议里，所谓的“安全”是指请求方法不会“破坏”服务器上的资源，即不会对服务器上的资源造成实质的修改。</strong></p>
+<p>按照这个定义，<strong>只有 GET 和 HEAD 方法是“安全”的</strong>，因为它们是“只读”操作，只要服务器不故意曲解请求方法的处理方式，无论 GET 和 HEAD 操作多少次，服务器上的数据都是“安全的”。</p>
+<p>而 <strong>POST/PUT/DELETE 操作会修改服务器上的资源，增加或删除数据，所以是“不安全”的。</strong></p>
+<p>所谓的“<strong>幂等</strong>”实际上是一个数学用语，被借用到了 HTTP 协议里，<strong>意思是多次执行相同的操作，结果也都是相同的，即多次“幂”后结果“相等”。</strong></p>
+<p>很显然，<strong>GET 和 HEAD 既是安全的也是幂等的</strong>，<strong>DELETE</strong> 可以多次删除同一个资源，效果都是“资源不存在”，所以也是幂等的。</p>
+<p>按照 RFC 里的语义，<strong>POST 是“新增或提交数据”，多次提交数据会创建多个资源，所以不是幂等的</strong>；<strong>而 PUT 是“替换或更新数据”，多次更新一个资源，资源还是会第一次更新的状态，所以是幂等的</strong>。</p>
+<p>我对你的建议是，你可以对比一下 SQL 来加深理解：<strong>把 POST 理解成 INSERT，把 PUT 理解成 UPDATE，这样就很清楚了。多次 INSERT 会添加多条记录，而多次 UPDATE 只操作一条记录，而且效果相同</strong>。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>请求方法是客户端发出的、要求服务器执行的、对资源的一种操作；</li>
+<li>请求方法是对服务器的“指示”，真正应如何处理由服务器来决定；</li>
+<li>最常用的请求方法是 GET 和 POST，分别是获取数据和发送数据；</li>
+<li>HEAD 方法是轻量级的 GET，用来获取资源的元信息；</li>
+<li>PUT 基本上是 POST 的同义词，多用于更新数据；</li>
+<li>“安全”与“幂等”是描述请求方法的两个重要属性，具有理论指导意义，可以帮助我们设计系统。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/2356874721.github.io/tags/%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" rel="tag"># 请求方法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2021/03/31/http-08/" rel="prev" title="08 | HTTP报文是什么样子的？">
+      <i class="fa fa-chevron-left"></i> 08 | HTTP报文是什么样子的？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2021/04/01/http-10/" rel="next" title="10 | 你能写出正确的网址吗？">
+      10 | 你能写出正确的网址吗？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准请求方法"><span class="nav-number">1.</span> <span class="nav-text">标准请求方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET-HEAD"><span class="nav-number">2.</span> <span class="nav-text">GET&#x2F;HEAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST-PUT"><span class="nav-number">3.</span> <span class="nav-text">POST&#x2F;PUT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DELETE"><span class="nav-number">4.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CONNECT"><span class="nav-number">5.</span> <span class="nav-text">CONNECT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OPTIONS"><span class="nav-number">6.</span> <span class="nav-text">OPTIONS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRACE"><span class="nav-number">7.</span> <span class="nav-text">TRACE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展方法"><span class="nav-number">8.</span> <span class="nav-text">扩展方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全与幂等"><span class="nav-number">9.</span> <span class="nav-text">安全与幂等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">10.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sheriff</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/2356874721.github.io/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/2356874721.github.io/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/2356874721.github.io/tags/">
+          
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sheriff</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/2356874721.github.io/lib/anime.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/2356874721.github.io/js/utils.js"></script>
+
+<script src="/2356874721.github.io/js/motion.js"></script>
+
+
+<script src="/2356874721.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/2356874721.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -161,6 +161,682 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/30/http-01/" class="post-title-link" itemprop="url">01 | 时势与英雄：HTTP的前世今生</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-30 21:36:13 / 修改时间：21:47:32" itemprop="dateCreated datePublished" datetime="2021-03-30T21:36:13+08:00">2021-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>HTTP 协议是怎么来的？它最开始是什么样子的？又是如何一步一步发展到今天，几乎“统治”了整个互联网世界的呢？</p>
+<h3 id="史前时期"><a href="#史前时期" class="headerlink" title="史前时期"></a>史前时期</h3><p>20 世纪 60 年代，美国国防部高等研究计划署（ARPA）建立了 <strong>ARPA</strong> 网，它有四个分布在各地的节点，被认为是如今互联网的“<strong>始祖</strong>”。</p>
+<p>在 70 年代，<strong>基于对 ARPA 网的实践和思考，研究人员发明出了著名的 TCP/IP 协议</strong>。由于具有良好的分层结构和稳定的性能，TCP/IP 协议迅速战胜其他竞争对手流行起来，并在 80 年代中期进入了 <strong>UNIX</strong> 系统内核，促使更多的计算机接入了互联网。</p>
+<h3 id="创世纪"><a href="#创世纪" class="headerlink" title="创世纪"></a>创世纪</h3><p>1989 年，任职于欧洲核子研究中心（CERN）的<strong>蒂姆·伯纳斯 - 李（Tim Berners-Lee）</strong>发表了一篇<strong>论文</strong>，提出了在互联网上构建<strong>超链接文档系统</strong>的构想。这篇论文中他确立了<strong>三项关键技术</strong>。</p>
+<p><strong>URI：即统一资源标识符，作为互联网上资源的唯一身份；</strong></p>
+<p><strong>HTML：即超文本标记语言，描述超文本文档；</strong></p>
+<p><strong>HTTP：即超文本传输协议，用来传输超文本。</strong></p>
+<p>这三项技术在如今的我们看来已经是稀松平常，但在当时却是了不得的大发明。基于它们，就可以把超文本系统完美地运行在互联网上，让各地的人们能够自由地共享信息，蒂姆把这个系统称为“<strong>万维网</strong>”（World Wide Web），也就是我们现在所熟知的 <strong>Web</strong>。</p>
+<p>所以在这一年，我们的英雄“<strong>HTTP”诞生</strong>了，从此开始了它伟大的征途。</p>
+<h3 id="HTTP-0-9"><a href="#HTTP-0-9" class="headerlink" title="HTTP/0.9"></a>HTTP/0.9</h3><p>20 世纪 90 年代初期的互联网世界非常简陋，计算机处理能力低，存储容量小，网速很慢，还是一片“信息荒漠”。网络上绝大多数的资源都是纯文本，很多通信协议也都使用纯文本，所以 HTTP 的设计也不可避免地受到了时代的限制。</p>
+<p>这一时期的 HTTP 被定义为 0.9 版，结构比较简单，为了便于服务器和客户端处理，它也采用了<strong>纯文本</strong>格式。蒂姆·伯纳斯 - 李最初设想的系统里的<strong>文档</strong>都是<strong>只读</strong>的，所以只允许用“<strong>GET</strong>”动作从服务器上获取 HTML 文档，并且<strong>在响应请求之后立即关闭连接</strong>，功能非常有限。</p>
+<p>HTTP/0.9 虽然很简单，但它作为一个“<strong>原型</strong>”，充分验证了 Web 服务的可行性，而“简单”也正是它的优点，蕴含了进化和扩展的可能性，因为：</p>
+<p><strong>“把简单的系统变复杂”，要比“把复杂的系统变简单”容易得多。</strong></p>
+<h3 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP/1.0"></a>HTTP/1.0</h3><p>1993 年，NCSA（美国国家超级计算应用中心）开发出了 Mosaic，是第一个可以<strong>图文混排</strong>的浏览器，随后又在 1995 年开发出了服务器软件 <strong>Apache</strong>，简化了 HTTP 服务器的搭建工作。</p>
+<p>同一时期，计算机多媒体技术也有了新的发展：1992 年发明了 <strong>jpeg</strong> 图像格式，1995 年发明了 <strong>MP3</strong> 音乐格式。</p>
+<p>这些新软件新技术一经推出立刻就吸引了广大网民的热情，更的多的人开始使用互联网，研究 HTTP 并提出改进意见，甚至实验性地往协议里添加各种特性，<strong>从用户需求的角度促进了 HTTP 的发展</strong>。</p>
+<p>于是在这些已有实践的基础上，经过一系列的草案，HTTP/1.0 版本在 1996 年正式发布。它在多方面增强了 0.9 版，形式上已经和我们现在的 HTTP 差别不大了，例如：</p>
+<p><strong>增加了 HEAD、POST 等新方法；</strong></p>
+<p><strong>增加了响应状态码，标记可能的错误原因；</strong></p>
+<p><strong>引入了协议版本号概念；</strong></p>
+<p><strong>引入了 HTTP Header（头部）的概念，让 HTTP 处理请求和响应更加灵活；</strong></p>
+<p><strong>传输的数据不再仅限于文本。</strong></p>
+<p>但 <strong>HTTP/1.0 并不是一个“标准”</strong>，只是记录已有实践和模式的一份<strong>参考文档</strong>，<strong>不具有实际的约束力</strong>，相当于一个“备忘录”。所以 HTTP/1.0 的发布对于当时正在蓬勃发展的互联网来说并没有太大的实际意义，各方势力仍然按照自己的意图继续在市场上奋力拼杀。</p>
+<h3 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h3><p>1995 年，网景的 Netscape Navigator 和微软的 Internet Explorer 开始了著名的“<strong>浏览器大战</strong>”，都希望在互联网上占据主导地位。</p>
+<p>这场战争的结果你一定早就知道了，最终微软的 IE 取得了决定性的胜利，而网景则“败走麦城”（但后来却凭借 Mozilla Firefox 又扳回一局）。</p>
+<p>“浏览器大战”的是非成败我们放在一边暂且不管，不可否认的是，它再一次极大地推动了 Web 的发展，HTTP/1.0 也在这个过程中经受了实践检验。于是在“浏览器大战”结束之后的 <strong>1999 年</strong>，<strong>HTTP/1.1 发布了 RFC 文档，编号为 2616，正式确立了延续十余年的传奇</strong>。</p>
+<p>从版本号我们就可以看到，<strong>HTTP/1.1 是对 HTTP/1.0 的小幅度修正。但一个重要的区别是：它是一个</strong>“<strong>正式的标准</strong>”，而不是一份可有可无的“参考文档”。这意味着今后互联网上所有的浏览器、服务器、网关、代理等等，只要用到 HTTP 协议，就必须严格遵守这个标准，相当于是互联网世界的一个“立法”。</p>
+<p><strong>HTTP/1.1 主要的变更点有：</strong></p>
+<p><strong>增加了 PUT、DELETE 等新的方法；</strong></p>
+<p><strong>增加了缓存管理和控制；</strong></p>
+<p><strong>明确了连接管理，允许持久连接；</strong></p>
+<p><strong>允许响应数据分块（chunked），利于传输大文件；</strong></p>
+<p><strong>强制要求 Host 头，让互联网主机托管成为可能</strong></p>
+<h3 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h3><p>HTTP/1.1 发布之后，整个互联网世界呈现出了爆发式的增长，度过了十多年的“快乐时光”，更涌现出了 Facebook、Twitter、淘宝、京东等互联网新贵。</p>
+<p>这期间也出现了一些对 HTTP 不满的意见，主要就是<strong>连接慢</strong>，无法跟上迅猛发展的互联网，但 HTTP/1.1 标准一直“岿然不动”，无奈之下人们只好发明各式各样的“小花招”来缓解这些问题，比如以前常见的切图、JS 合并等网页优化手段。</p>
+<p>终于有一天，搜索巨头 Google 忍不住了，决定“揭竿而起”，就像马云说的“如果银行不改变，我们就改变银行”。那么，它是怎么“造反”的呢？</p>
+<p>Google 首先开发了自己的浏览器 <strong>Chrome</strong>，然后推出了新的 <strong>SPDY</strong> 协议，并在 Chrome 里应用于自家的服务器，如同十多年前的网景与微软一样，<strong>从实际的用户方来“倒逼”HTTP 协议的变革</strong>，这也开启了<strong>第二次的“浏览器大战”</strong>。</p>
+<p>历史再次重演，不过这次的胜利者是 Google，Chrome 目前的全球的占有率超过了 60%。“挟用户以号令天下”，Google 借此顺势把 SPDY 推上了标准的宝座，<strong>互联网标准化组织以 SPDY 为基础开始制定新版本的 HTTP 协议，最终在 2015 年发布了 HTTP/2，RFC 编号 7540</strong>。</p>
+<p>HTTP/2 的制定充分考虑了<strong>现今互联网的现状：宽带、移动、不安全</strong>，在高度兼容 HTTP/1.1 的同时在性能改善方面做了很大努力，主要的特点有：</p>
+<p><strong>二进制协议，不再是纯文本；</strong></p>
+<p><strong>可发起多个请求，废弃了 1.1 里的管道；</strong></p>
+<p><strong>使用专用算法压缩头部，减少数据传输量；</strong></p>
+<p><strong>允许服务器主动向客户端推送数据；</strong></p>
+<p><strong>增强了安全性，“事实上”要求加密通信</strong></p>
+<p>虽然 HTTP/2 到今天已经六岁，也衍生出了 gRPC 等新协议，但由于 <strong>HTTP/1.1 实在是太过经典和强势</strong>，目前它的普及率还比较低，<strong>大多数网站使用的仍然还是 20 年前的 HTTP/1.1</strong>。</p>
+<h3 id="HTTP-3"><a href="#HTTP-3" class="headerlink" title="HTTP/3"></a>HTTP/3</h3><p>看到这里，你可能会问了：“HTTP/2 这么好，是不是就已经完美了呢？”答案是否定的，这一次还是 Google，而且它要“革自己的命”。</p>
+<p>在 HTTP/2 还处于草案之时，<strong>Google</strong> 又发明了一个新的协议，叫做 <strong>QUIC</strong>，而且还是相同的“套路”，继续在 Chrome 和自家服务器里试验着“玩”，依托它的庞大用户量和数据量，持续地推动 QUIC 协议成为互联网上的“既成事实”。</p>
+<p>“功夫不负有心人”，当然也是因为 QUIC 确实自身素质过硬。</p>
+<p>在 2018 年，互联网标准化组织 <strong>IETF</strong> 提议将“<strong>HTTP over QUIC</strong>”更名为“<strong>HTTP/3</strong>”并获得<strong>批准</strong>。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>在这里简单小结一下今天的内容：</p>
+<ol>
+<li>HTTP 协议始于三十年前蒂姆·伯纳斯 - 李的一篇论文；</li>
+<li>HTTP/0.9 是个简单的文本协议，只能获取文本资源；</li>
+<li>HTTP/1.0 确立了大部分现在使用的技术，但它不是正式标准；</li>
+<li>HTTP/1.1 是目前互联网上使用最广泛的协议，功能也非常完善；</li>
+<li>HTTP/2 基于 Google 的 SPDY 协议，注重性能改善，但还未普及；</li>
+<li>HTTP/3 基于 Google 的 QUIC 协议，是将来的发展方向。</li>
+</ol>
+<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
+<li><p>你认为推动 HTTP 发展的原动力是什么？</p>
+<p>协议标准不同于原理，原理是相对稳定的，而标准则需要<strong>与时俱进</strong>，随着业务和技术发展中出现的新问题一起变化。在实际商业应用、竞争和实践中反复打磨，让协议标准适应不断发展变化的实际业务问题，而不是让日渐庞大复杂的业务去适应受限于特定时空因素的标准。<br>标准的诞生和发展一方面是基于具体业务需要和技术发展，另一方面是为了统一游戏规则，让各厂商的软硬件产品可以方便地“互联”，降低“沟通”和“翻译”的成本，提高网络互联的开放性。</p>
+</li>
+<li><p>你是怎么理解 HTTP（超文本传输协议）的？</p>
+<p>超文本传输协议＝超文本＋传输＋协议，协议即约定，<strong>HTTP就是约定超文本怎么传输的</strong>。初心就是分享信息，所以，简单、开放、有求有应，只针对文本，后来出现了音频、视频、动画、图片、超链接等，比纯文本复杂了一些，不过初心不改，所以，原则未变，只是需要调整一下适应这些正当其时的需求而已。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/27/algorithm-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/27/algorithm-3/" class="post-title-link" itemprop="url">数组：为什么很多编程语言中数组都从0开始编号？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-27 16:11:43 / 修改时间：16:15:59" itemprop="dateCreated datePublished" datetime="2021-03-27T16:11:43+08:00">2021-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">算法与数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>提到数组，我想你肯定不陌生，甚至还会自信地说，它很简单啊。</p>
+<p>是的，在每一种编程语言中，基本都会有数组这种数据类型。不过，它不仅仅是一种编程语言中的数据类型，还是一种最基础的数据结构。尽管数组看起来非常基础、简单，但是我估计很多人都并没有理解这个基础数据结构的精髓。</p>
+<p>在大部分编程语言中，数组都是从 0 开始编号的，但你是否下意识地想过，为什么数组要从 0 开始编号，而不是从 1 开始呢？ 从 1 开始不是更符合人类的思维习惯吗？</p>
+<p>你可以带着这个问题来学习接下来的内容。</p>
+<h3 id="如何实现随机访问"><a href="#如何实现随机访问" class="headerlink" title="如何实现随机访问"></a>如何实现随机访问</h3><p>什么是数组？我估计你心中已经有了答案。不过，我还是想用专业的话来给你做下解释。<strong>数组（Array）是一种线性表数据结构。它用一组连续的内存空间，来存储一组具有相同类型的数据。</strong></p>
+<p>这个定义里有几个关键词，理解了这几个关键词，我想你就能彻底掌握数组的概念了。</p>
+<p>第一是<strong>线性表（Linear List）</strong>。顾名思义，线性表就是数据排成像一条线一样的结构。每个线性表上的数据最多只有前和后两个方向。其实除了数组，链表、队列、栈等也是线性表结构。</p>
+<img src="/2356874721.github.io/2021/03/27/algorithm-3/3-1.jpeg" class>
+
+<p>而与它相对立的概念是<strong>非线性表</strong>，比如二叉树、堆、图等。之所以叫非线性，是因为，在非线性表中，数据之间并不是简单的前后关系。</p>
+<img src="/2356874721.github.io/2021/03/27/algorithm-3/3-2.jpeg" class>
+
+<p>第二个是<strong>连续的内存空间和相同类型的数据</strong>。正是因为这两个限制，它才有了一个堪称“杀手锏”的特性：“<strong>随机访问</strong>”。<strong>但有利就有弊，这两个限制也让数组的很多操作变得非常低效，比如要想在数组中删除、插入一个数据，为了保证连续性，就需要做大量的数据搬移工作。</strong></p>
+<p>说到数据的访问，那你知道数组是如何实现根据下标随机访问数组元素的吗？</p>
+<p>我们拿一个长度为 10 的 int 类型的数组 int[] a = new int[10]来举例。在我画的这个图中，计算机给数组 a[10]，分配了一块连续内存空间 1000～1039，其中，内存块的首地址为 base_address = 1000。</p>
+<img src="/2356874721.github.io/2021/03/27/algorithm-3/3-3.jpeg" class>
+
+<p>我们知道，计算机会给每个内存单元分配一个地址，计算机通过地址来访问内存中的数据。当计算机需要随机访问数组中的某个元素时，它会首先通过下面的寻址公式，计算出该元素存储的内存地址：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[i]_address = base_address + i * data_type_size</span><br></pre></td></tr></table></figure>
+
+<p>其中 data_type_size 表示数组中每个元素的大小。我们举的这个例子里，数组中存储的是 int 类型数据，所以 data_type_size 就为 4 个字节。</p>
+<p><strong>这里要特别纠正一个“错误”。在面试的时候，常常会问数组和链表的区别，很多人都回答说，“链表适合插入、删除，时间复杂度 O(1)；数组适合查找，查找时间复杂度为 O(1)”。</strong></p>
+<p>实际上，这种表述是不准确的。数组是适合查找操作，但是查找的时间复杂度并不为 O(1)。即便是排好序的数组，你用二分查找，时间复杂度也是 O(logn)。<strong>所以，正确的表述应该是，数组支持随机访问，根据下标随机访问的时间复杂度为 O(1)。</strong></p>
+<h3 id="低效的“插入”和“删除”"><a href="#低效的“插入”和“删除”" class="headerlink" title="低效的“插入”和“删除”"></a>低效的“插入”和“删除”</h3><p>前面概念部分我们提到，数组为了保持内存数据的连续性，会导致插入、删除这两个操作比较低效。现在我们就来详细说一下，究竟为什么会导致低效？又有哪些改进方法呢？</p>
+<h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a><strong>插入操作</strong></h4><p>假设数组的长度为 n，现在，如果我们需要将一个数据插入到数组中的第 k 个位置。为了把第 k 个位置腾出来，给新来的数据，我们需要将第 k～n 这部分的元素都顺序地往后挪一位。那插入操作的时间复杂度是多少呢？你可以自己先试着分析一下。</p>
+<p><strong>如果在数组的末尾插入元素，那就不需要移动数据了，这时的时间复杂度为 O(1)。但如果在数组的开头插入元素，那所有的数据都需要依次往后移动一位，所以最坏时间复杂度是 O(n)。 因为我们在每个位置插入元素的概率是一样的，所以平均情况时间复杂度为 (1+2+…n)/n=O(n)。</strong></p>
+<p>如果数组中的数据是<strong>有序</strong>的，我们在某个位置插入一个新的元素时，就必须按照刚才的方法搬移 k 之后的数据。但是，<strong>如果数组中存储的数据并没有任何规律</strong>，数组只是被当作一个存储数据的集合。在这种情况下，如果要将某个数据插入到第 k 个位置，为了避免大规模的数据搬移，我们还有一个<strong>简单的办法就是，直接将第 k 位的数据搬移到数组元素的最后，把新的元素直接放入第 k 个位置。</strong></p>
+<p>为了更好地理解，我们举一个例子。假设数组 a[10]中存储了如下 5 个元素：a，b，c，d，e。</p>
+<p>我们现在需要将元素 x 插入到第 3 个位置。我们只需要将 c 放入到 a[5]，将 a[2]赋值为 x 即可。最后，数组中的元素如下： a，b，x，d，e，c。</p>
+<img src="/2356874721.github.io/2021/03/27/algorithm-3/3-4.jpeg" class>
+
+<p>利用这种处理技巧，在特定场景下，在第 k 个位置插入一个元素的时间复杂度就会降为 O(1)。</p>
+<h4 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a><strong>删除操作</strong></h4><p>跟插入数据类似，如果我们要删除第 k 个位置的数据，为了内存的连续性，也需要搬移数据，不然中间就会出现空洞，内存就不连续了。</p>
+<p>和插入类似，如果删除数组末尾的数据，则最好情况时间复杂度为 O(1)；如果删除开头的数据，则最坏情况时间复杂度为 O(n)；平均情况时间复杂度也为 O(n)。</p>
+<p>实际上，在某些特殊场景下，我们并不一定非得追求数组中数据的连续性。如果我们将多次删除操作集中在一起执行，删除的效率是不是会提高很多呢？</p>
+<p>我们继续来看例子。数组 a[10]中存储了 8 个元素：a，b，c，d，e，f，g，h。现在，我们要依次删除 a，b，c 三个元素。</p>
+
+
+<p>为了避免 d，e，f，g，h 这几个数据会被搬移三次，我们可以先记录下已经删除的数据。每次的删除操作并不是真正地搬移数据，只是记录数据已经被删除。当数组没有更多空间存储数据时，我们再触发执行一次真正的删除操作，这样就大大减少了删除操作导致的数据搬移。</p>
+<h3 id="解答开篇"><a href="#解答开篇" class="headerlink" title="解答开篇"></a>解答开篇</h3><p>现在我们来思考开篇的问题：为什么大多数编程语言中，数组要从 0 开始编号，而不是从 1 开始呢？</p>
+<p>从数组存储的内存模型上来看，<strong>“下标”最确切的定义应该是“偏移（offset）”</strong>。前面也讲到，如果用 a 来表示数组的首地址，a[0]就是偏移为 0 的位置，也就是首地址，a[k]就表示偏移 k 个 type_size 的位置，所以计算 a[k]的内存地址只需要用这个公式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[k]_address = base_address + k * type_size</span><br></pre></td></tr></table></figure>
+
+<p>但是，如果数组从 1 开始计数，那我们计算数组元素 a[k]的内存地址就会变为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[k]_address &#x3D; base_address + (k-1)*type_size</span><br></pre></td></tr></table></figure>
+
+<p><strong>对比两个公式，我们不难发现，从 1 开始编号，每次随机访问数组元素都多了一次减法运算，对于 CPU 来说，就是多了一次减法指令。</strong></p>
+<p><strong>数组作为非常基础的数据结构，通过下标随机访问数组元素又是其非常基础的编程操作，效率的优化就要尽可能做到极致。所以为了减少一次减法操作，数组选择了从 0 开始编号，而不是从 1 开始。</strong></p>
+<p>不过我认为，上面解释得再多其实都算不上压倒性的证明，说数组起始编号非 0 开始不可。所以我觉得最主要的原因可能是<strong>历史原因</strong>。</p>
+<p>C 语言设计者用 0 开始计数数组下标，之后的 Java、JavaScript 等高级语言都效仿了 C 语言，或者说，为了在一定程度上减少 C 语言程序员学习 Java 的学习成本，因此继续沿用了从 0 开始计数的习惯。实际上，很多语言中数组也并不是从 0 开始计数的，比如 Matlab。甚至还有一些语言支持负数下标，比如 Python。</p>
+<h3 id="内容小结"><a href="#内容小结" class="headerlink" title="内容小结"></a>内容小结</h3><p>我们今天学习了数组。它可以说是最基础、最简单的数据结构了。数组用一块连续的内存空间，来存储相同类型的一组数据，最大的特点就是支持随机访问，但插入、删除操作也因此变得比较低效，平均情况时间复杂度为 O(n)。</p>
+<h3 id="课后思考"><a href="#课后思考" class="headerlink" title="课后思考"></a>课后思考</h3><p>前面我们讲到一维数组的内存寻址公式，那你可以思考一下，类比一下，二维数组的内存寻址公式是怎样的呢？</p>
+<p>二维数组内存寻址：</p>
+<p>对于 m * n 的数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[i][j] (i &lt; m,j &lt; n)</span><br></pre></td></tr></table></figure>
+
+<p>的地址为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[i][j]_address = base_address + ( i * n + j) * type_size</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/27/algorithm-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/27/algorithm-2/" class="post-title-link" itemprop="url">复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-27 14:55:14 / 修改时间：14:57:32" itemprop="dateCreated datePublished" datetime="2021-03-27T14:55:14+08:00">2021-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">算法与数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="最好、最坏情况时间复杂度"><a href="#最好、最坏情况时间复杂度" class="headerlink" title="最好、最坏情况时间复杂度"></a>最好、最坏情况时间复杂度</h3><p>上一节分析复杂度的例子都很简单，今天我们来看一个稍微复杂的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// n表示数组array的长度</span></span><br><span class="line">int find(int[] array, int n, int x) &#123;</span><br><span class="line">  int i = <span class="number">0</span>;</span><br><span class="line">  int pos = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt; n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (array[i] == x) pos = i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你应该可以看出来，这段代码要实现的功能是，在一个无序的数组（array）中，查找变量 x 出现的位置。如果没有找到，就返回 -1。按照上节课讲的分析方法，这段代码的复杂度是 O(n)，其中，n 代表数组的长度。</p>
+<p>我们在数组中查找一个数据，并不需要每次都把整个数组都遍历一遍，因为有可能中途找到就可以提前结束循环了。但是，这段代码写得不够高效。我们可以这样优化一下这段查找代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// n表示数组array的长度</span></span><br><span class="line">int find(int[] array, int n, int x) &#123;</span><br><span class="line">  int i = <span class="number">0</span>;</span><br><span class="line">  int pos = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt; n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (array[i] == x) &#123;</span><br><span class="line">       pos = i;</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候，问题就来了。我们优化完之后，这段代码的时间复杂度还是 O(n) 吗？很显然，咱们上一节讲的分析方法，解决不了这个问题。因为，要查找的变量 x 可能出现在数组的任意位置。如果数组中第一个元素正好是要查找的变量 x，那就不需要继续遍历剩下的 n-1 个数据了，那时间复杂度就是 O(1)。但如果数组中不存在变量 x，那我们就需要把整个数组都遍历一遍，时间复杂度就成了 O(n)。所以，不同的情况下，这段代码的时间复杂度是不一样的。</p>
+<p>为了表示代码在不同情况下的不同时间复杂度，我们需要引入三个概念：<strong>最好情况时间复杂度、最坏情况时间复杂度和平均情况时间复杂度</strong>。顾名思义，最好情况时间复杂度就是，在最理想的情况下，执行这段代码的时间复杂度。就像我们刚刚讲到的，在最理想的情况下，要查找的变量 x 正好是数组的第一个元素，这个时候对应的时间复杂度就是最好情况时间复杂度。同理，最坏情况时间复杂度就是，在最糟糕的情况下，执行这段代码的时间复杂度。就像刚举的那个例子，如果数组中没有要查找的变量 x，我们需要把整个数组都遍历一遍才行，所以这种最糟糕情况下对应的时间复杂度就是最坏情况时间复杂度。</p>
+<h3 id="平均情况时间复杂度"><a href="#平均情况时间复杂度" class="headerlink" title="平均情况时间复杂度"></a>平均情况时间复杂度</h3><p>我们都知道，最好情况时间复杂度和最坏情况时间复杂度对应的都是极端情况下的代码复杂度，发生的概率其实并不大。为了更好地表示平均情况下的复杂度，我们需要引入另一个概念：平均情况时间复杂度，后面我简称为平均时间复杂度。平均时间复杂度又该怎么分析呢？</p>
+<p>我还是借助刚才查找变量 x 的例子来给你解释。要查找的变量 x 在数组中的位置，有 n+1 种情况：在数组的 0～n-1 位置中和不在数组中。我们把每种情况下，查找需要遍历的元素个数累加起来，然后再除以 n+1，就可以得到需要遍历的元素个数的平均值，即：</p>
+<img src="/2356874721.github.io/2021/03/27/algorithm-2/2-1.jpeg" class>
+
+<p>我们知道，时间复杂度的大 O 标记法中，可以省略掉系数、低阶、常量，所以，咱们把刚刚这个公式简化之后，得到的平均时间复杂度就是 O(n)。</p>
+<p>这个结论虽然是正确的，但是计算过程稍微有点儿问题。究竟是什么问题呢？我们刚讲的这 n+1 种情况，出现的概率并不是一样的。我带你具体分析一下。</p>
+<p>我们知道，要查找的变量 x，要么在数组里，要么就不在数组里。这两种情况对应的概率统计起来很麻烦，为了方便你理解，我们假设在数组中与不在数组中的概率都为 1/2。另外，要查找的数据出现在 0～n-1 这 n 个位置的概率也是一样的，为 1/n。所以，根据概率乘法法则，要查找的数据出现在 0～n-1 中任意位置的概率就是 1/(2n)。</p>
+<p>因此，前面的推导过程中存在的最大问题就是，没有将各种情况发生的概率考虑进去。如果我们把每种情况发生的概率也考虑进去，那平均时间复杂度的计算过程就变成了这样：</p>
+<img src="/2356874721.github.io/2021/03/27/algorithm-2/2-2.jpeg" class>
+
+<p>这个值就是概率论中的加权平均值，也叫作期望值，所以平均时间复杂度的全称应该叫加权平均时间复杂度或者期望时间复杂度。</p>
+<p>引入概率之后，前面那段代码的加权平均值为 (3n+1)/4。用大 O 表示法来表示，去掉系数和常量，这段代码的加权平均时间复杂度仍然是 O(n)。</p>
+<p>你可能会说，平均时间复杂度分析好复杂啊，还要涉及概率论的知识。实际上，在大多数情况下，我们并不需要区分最好、最坏、平均情况时间复杂度三种情况。像我们上一节课举的那些例子那样，很多时候，我们使用一个复杂度就可以满足需求了。只有同一块代码在不同的情况下，时间复杂度有量级的差距，我们才会使用这三种复杂度表示法来区分。</p>
+<h3 id="均摊时间复杂度"><a href="#均摊时间复杂度" class="headerlink" title="均摊时间复杂度"></a>均摊时间复杂度</h3><p>到此为止，你应该已经掌握了算法复杂度分析的大部分内容了。下面我要给你讲一个更加高级的概念，均摊时间复杂度，以及它对应的分析方法，摊还分析（或者叫平摊分析）。</p>
+<p>均摊时间复杂度，听起来跟平均时间复杂度有点儿像。对于初学者来说，这两个概念确实非常容易弄混。我前面说了，大部分情况下，我们并不需要区分最好、最坏、平均三种复杂度。平均复杂度只在某些特殊情况下才会用到，而均摊时间复杂度应用的场景比它更加特殊、更加有限。</p>
+<p>老规矩，我还是借助一个具体的例子来帮助你理解。（当然，这个例子只是我为了方便讲解想出来的，实际上没人会这么写。）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// array表示一个长度为n的数组</span></span><br><span class="line"><span class="comment">// 代码中的array.length就等于n</span></span><br><span class="line">int[] array = <span class="keyword">new</span> int[n];</span><br><span class="line">int count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> insert(int val) &#123;</span><br><span class="line">   <span class="keyword">if</span> (count == array.length) &#123;</span><br><span class="line">      int sum = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; array.length; ++i) &#123;</span><br><span class="line">         sum = sum + array[i];</span><br><span class="line">      &#125;</span><br><span class="line">      array[<span class="number">0</span>] = sum;</span><br><span class="line">      count = <span class="number">1</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   array[count] = val;</span><br><span class="line">   ++count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我先来解释一下这段代码。这段代码实现了一个往数组中插入数据的功能。当数组满了之后，也就是代码中的 count == array.length 时，我们用 for 循环遍历数组求和，并清空数组，将求和之后的 sum 值放到数组的第一个位置，然后再将新的数据插入。但如果数组一开始就有空闲空间，则直接将数据插入数组。</p>
+<p>那这段代码的时间复杂度是多少呢？你可以先用我们刚讲到的三种时间复杂度的分析方法来分析一下。</p>
+<p>最理想的情况下，数组中有空闲空间，我们只需要将数据插入到数组下标为 count 的位置就可以了，所以最好情况时间复杂度为 O(1)。最坏的情况下，数组中没有空闲空间了，我们需要先做一次数组的遍历求和，然后再将数据插入，所以最坏情况时间复杂度为 O(n)。</p>
+<p>假设数组的长度是 n，根据数据插入的位置的不同，我们可以分为 n 种情况，每种情况的时间复杂度是 O(1)。除此之外，还有一种“额外”的情况，就是在数组没有空闲空间时插入一个数据，这个时候的时间复杂度是 O(n)。而且，这 n+1 种情况发生的概率一样，都是 1/(n+1)。所以，根据加权平均的计算方法，我们求得的平均时间复杂度就是：</p>
+<img src="/2356874721.github.io/2021/03/27/algorithm-2/2-3.jpeg" class>
+
+<p>对于 insert() 函数来说，O(1) 时间复杂度的插入和 O(n) 时间复杂度的插入，出现的频率是非常有规律的，而且有一定的前后时序关系，一般都是一个 O(n) 插入之后，紧跟着 n-1 个 O(1) 的插入操作，循环往复。</p>
+<p>所以，针对这样一种特殊场景的复杂度分析，我们并不需要像之前讲平均复杂度分析方法那样，找出所有的输入情况及相应的发生概率，然后再计算加权平均值。</p>
+<p>针对这种特殊的场景，我们引入了一种更加简单的分析方法：摊还分析法，通过摊还分析得到的时间复杂度我们起了一个名字，叫均摊时间复杂度。</p>
+<p>那究竟如何使用摊还分析法来分析算法的均摊时间复杂度呢？</p>
+<p>我们还是继续看在数组中插入数据的这个例子。每一次 O(n) 的插入操作，都会跟着 n-1 次 O(1) 的插入操作，所以把耗时多的那次操作均摊到接下来的 n-1 次耗时少的操作上，均摊下来，这一组连续的操作的均摊时间复杂度就是 O(1)。这就是均摊分析的大致思路。你都理解了吗？</p>
+<p>均摊时间复杂度和摊还分析应用场景比较特殊，所以我们并不会经常用到。为了方便你理解、记忆，我这里简单总结一下它们的应用场景。如果你遇到了，知道是怎么回事儿就行了。</p>
+<p>对一个数据结构进行一组连续操作中，大部分情况下时间复杂度都很低，只有个别情况下时间复杂度比较高，而且这些操作之间存在前后连贯的时序关系，这个时候，我们就可以将这一组操作放在一块儿分析，看是否能将较高时间复杂度那次操作的耗时，平摊到其他那些时间复杂度比较低的操作上。而且，在能够应用均摊时间复杂度分析的场合，一般均摊时间复杂度就等于最好情况时间复杂度。</p>
+<h3 id="内容小结"><a href="#内容小结" class="headerlink" title="内容小结"></a>内容小结</h3><p>今天我们学习了几个复杂度分析相关的概念，分别有：最好情况时间复杂度、最坏情况时间复杂度、平均情况时间复杂度、均摊时间复杂度。之所以引入这几个复杂度概念，是因为，同一段代码，在不同输入的情况下，复杂度量级有可能是不一样的。</p>
+<p>在引入这几个概念之后，我们可以更加全面地表示一段代码的执行效率。而且，这几个概念理解起来都不难。最好、最坏情况下的时间复杂度分析起来比较简单，但平均、均摊两个复杂度分析相对比较复杂。如果你觉得理解得还不是很深入，不用担心，在后续具体的数据结构和算法学习中，我们可以继续慢慢实践！</p>
+<h3 id="课后思考"><a href="#课后思考" class="headerlink" title="课后思考"></a>课后思考</h3><p>我们今天学的几个复杂度分析方法，你都掌握了吗？你可以用今天学习的知识，来分析一下下面这个 add() 函数的时间复杂度。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局变量，大小为10的数组array，长度len，下标i。</span></span><br><span class="line">int array[] = <span class="keyword">new</span> int[<span class="number">10</span>]; </span><br><span class="line">int len = <span class="number">10</span>;</span><br><span class="line">int i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 往数组中添加一个元素</span></span><br><span class="line"><span class="keyword">void</span> add(int element) &#123;</span><br><span class="line">   <span class="keyword">if</span> (i &gt;= len) &#123; <span class="comment">// 数组空间不够了</span></span><br><span class="line">     <span class="comment">// 重新申请一个2倍大小的数组空间</span></span><br><span class="line">     int new_array[] = <span class="keyword">new</span> int[len*<span class="number">2</span>];</span><br><span class="line">     <span class="comment">// 把原来array数组中的数据依次copy到new_array</span></span><br><span class="line">     <span class="keyword">for</span> (int j = <span class="number">0</span>; j &lt; len; ++j) &#123;</span><br><span class="line">       new_array[j] = array[j];</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// new_array复制给array，array现在大小就是2倍len了</span></span><br><span class="line">     array = new_array;</span><br><span class="line">     len = <span class="number">2</span> * len;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 将element放到下标为i的位置，下标i加一</span></span><br><span class="line">   array[i] = element;</span><br><span class="line">   ++i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最好是O(1)，最差是O(n), 均摊是O(1)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/algorithm-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/03/20/algorithm-1/" class="post-title-link" itemprop="url">复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-20 13:11:32 / 修改时间：13:19:39" itemprop="dateCreated datePublished" datetime="2021-03-20T13:11:32+08:00">2021-03-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">算法与数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半。</p>
+<h3 id="大-O-复杂度表示法"><a href="#大-O-复杂度表示法" class="headerlink" title="大 O 复杂度表示法"></a>大 O 复杂度表示法</h3><p>算法的执行效率，粗略地讲，就是算法代码执行的时间。但是，如何在不运行代码的情况下，用“肉眼”得到一段代码的执行时间呢？</p>
+<p>下面一块来估算一下这段代码的执行时间，假设每行代码执行的时间都一样，为 unit_time。在这个假设的基础之上，这段代码的总执行时间是多少呢？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int cal(int n) &#123;</span><br><span class="line">  int sum = <span class="number">0</span>;</span><br><span class="line">  int i = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt;= n; ++i) &#123;</span><br><span class="line">    sum = sum + i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第2、3行分别是1<em>unit_time，4、5上是一个循环体，要执行n次，所以是2n</em>unit_time，所以这段代码总的执行时间就是 (2n+2)*unit_time。</p>
+<p>按照这个分析思路，我们再来看这段代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int cal(int n) &#123;</span><br><span class="line">   int sum = <span class="number">0</span>;</span><br><span class="line">   int i = <span class="number">1</span>;</span><br><span class="line">   int j = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span> (; i &lt;= n; ++i) &#123;</span><br><span class="line">     j = <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">for</span> (; j &lt;= n; ++j) &#123;</span><br><span class="line">       sum = sum +  i * j;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>第2、3、4共3unit_time，第5、6行是2n unit_time，第7、8行共2n<sup>2</sup> unit_time，总的执行时间就是T(n) = 2n<sup>2</sup>+2n+3 unit_time，我们可以得到一个非常重要的规律，那就是，所有代码的执行时间 T(n) 与每行代码的执行次数 f(n) 成正比。</p>
+<p>T(n) = O(f(n))</p>
+<p>T(n) 表示代码执行的时间</p>
+<p>n 表示数据规模的大小</p>
+<p>f(n) 表示代码执行的次数总和</p>
+<p>O表示代码的执行时间 T(n) 与 f(n) 表达式成正比</p>
+<p>大 O 时间复杂度实际上并不具体表示代码真正的执行时间，而是表示代码执行时间随数据规模增长的变化趋势，所以，也叫作渐进时间复杂度（asymptotic time complexity），简称时间复杂度。</p>
+<p>当 n 很大时，你可以把它想象成 10000、100000。而公式中的<strong>低阶、常量、系数</strong>三部分并不左右增长趋势，所以都可以忽略。我们只需要记录一个<strong>最大量级</strong>就可以了，如果用大 O 表示法表示刚讲的那两段代码的时间复杂度，就可以记为：T(n) = O(n)； T(n) = O(n<sup>2</sup>)</p>
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>那么如何分析一段代码的时间复杂度，下面有3个比较实用的方法</p>
+<h4 id="只关注循环执行次数最多的一段代码"><a href="#只关注循环执行次数最多的一段代码" class="headerlink" title="只关注循环执行次数最多的一段代码"></a>只关注循环执行次数最多的一段代码</h4><p>大 O 这种复杂度表示方法只是表示一种变化趋势。我们通常会<strong>忽略掉公式中的常量、低阶、系数，只需要记录一个最大阶的量级</strong>就可以了。所以，我们在分析一个算法、一段代码的时间复杂度的时候，也只关注循环执行次数最多的那一段代码就可以了。这段核心代码执行次数的 n 的量级，就是整段要分析代码的时间复杂度。</p>
+<h4 id="加法法则：总复杂度等于量级最大的那段代码的复杂度"><a href="#加法法则：总复杂度等于量级最大的那段代码的复杂度" class="headerlink" title="加法法则：总复杂度等于量级最大的那段代码的复杂度"></a>加法法则：总复杂度等于量级最大的那段代码的复杂度</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">int cal(int n) &#123;</span><br><span class="line">   int sum_1 = <span class="number">0</span>; 								<span class="comment">// O(1)</span></span><br><span class="line">   int p = <span class="number">1</span>; 										<span class="comment">// O(1)</span></span><br><span class="line">   <span class="keyword">for</span> (; p &lt; <span class="number">100</span>; ++p) &#123;					<span class="comment">// O(100)</span></span><br><span class="line">     sum_1 = sum_1 + p; 					<span class="comment">// O(100)</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   int sum_2 = <span class="number">0</span>; 								<span class="comment">// O(1)</span></span><br><span class="line">   int q = <span class="number">1</span>; 										<span class="comment">// O(1)</span></span><br><span class="line">   <span class="keyword">for</span> (; q &lt; n; ++q) &#123; 					<span class="comment">// O(n)</span></span><br><span class="line">     sum_2 = sum_2 + q;						<span class="comment">// O(n)</span></span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   int sum_3 = <span class="number">0</span>; 								<span class="comment">// O(1)</span></span><br><span class="line">   int i = <span class="number">1</span>;											<span class="comment">// O(1)</span></span><br><span class="line">   int j = <span class="number">1</span>;											<span class="comment">// O(1)</span></span><br><span class="line">   <span class="keyword">for</span> (; i &lt;= n; ++i) &#123;					<span class="comment">// O(n)</span></span><br><span class="line">     j = <span class="number">1</span>; 											<span class="comment">// O(n)</span></span><br><span class="line">     <span class="keyword">for</span> (; j &lt;= n; ++j) &#123;				<span class="comment">// O(n2)</span></span><br><span class="line">       sum_3 = sum_3 +  i * j;		<span class="comment">// O(n2)</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> sum_1 + sum_2 + sum_3;	<span class="comment">// O(1)	</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码的最大量级是O(n<sup>2</sup>)，那么整段代码的时间复杂度就是O(n<sup>2</sup>)</p>
+<h4 id="乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积"><a href="#乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积" class="headerlink" title="乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积"></a>乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int cal(int n) &#123;</span><br><span class="line">   int ret = <span class="number">0</span>; </span><br><span class="line">   int i = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span> (; i &lt; n; ++i) &#123; <span class="comment">// O(n)</span></span><br><span class="line">     ret = ret + f(i); <span class="comment">// O(n)*O(n)=O(n*n)=O(n2)</span></span><br><span class="line">   &#125; </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> int f(int n) &#123;</span><br><span class="line">  int sum = <span class="number">0</span>;</span><br><span class="line">  int i = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt; n; ++i) &#123;</span><br><span class="line">    sum = sum + i;</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="几种常见时间复杂度实例分析"><a href="#几种常见时间复杂度实例分析" class="headerlink" title="几种常见时间复杂度实例分析"></a>几种常见时间复杂度实例分析</h4><p>这些复杂度量级几乎涵盖了今后可以接触的所有代码的复杂度量级。对于以下复杂度量级，我们可以粗略地分为两类，多项式量级和非多项式量级。其中，非多项式量级只有两个：O(2n) 和 O(n!)。我们把时间复杂度为非多项式量级的算法问题叫作 NP（Non-Deterministic Polynomial，非确定多项式）问题。当数据规模 n 越来越大时，非多项式量级算法的执行时间会急剧增加，求解问题的执行时间会无限增长。所以，非多项式时间复杂度的算法其实是非常低效的算法。因此，关于 NP 时间复杂度我就不展开讲了。我们主要来看几种常见的多项式时间复杂度。</p>
+<img src="/2356874721.github.io/2021/03/20/algorithm-1/1.jpg" class>
+
+<h5 id="O-1"><a href="#O-1" class="headerlink" title="O(1)"></a>O(1)</h5><p>首先你必须明确一个概念，O(1) 只是常量级时间复杂度的一种表示方法，并不是指只执行了一行代码。比如这段代码，即便有 3 行，它的时间复杂度也是 O(1），而不是 O(3)。只要<strong>代码的执行时间不随 n 的增大而增长，这样代码的时间复杂度我们都记作 O(1)</strong>。或者说，<strong>一般情况下，只要算法中不存在循环语句、递归语句，即使有成千上万行的代码，其时间复杂度也是Ο(1)</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i = <span class="number">8</span>;</span><br><span class="line">int j = <span class="number">6</span>;</span><br><span class="line">int sum = i + j;</span><br></pre></td></tr></table></figure>
+
+<h5 id="O-logn-、O-nlogn"><a href="#O-logn-、O-nlogn" class="headerlink" title="O(logn)、O(nlogn)"></a>O(logn)、O(nlogn)</h5><p>对数阶时间复杂度非常常见，同时也是最难分析的一种时间复杂度。我通过一个例子来说明一下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt;= n)  &#123;</span><br><span class="line">  i = i * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据我们前面讲的复杂度分析方法，第三行代码是循环执行次数最多的。所以，我们只要能计算出这行代码被执行了多少次，就能知道整段代码的时间复杂度。</p>
+<p>从代码中可以看出，变量 i 的值从 1 开始取，每循环一次就乘以 2。如果我把它一个一个列出来，就应该是这个样子的。</p>
+<img src="/2356874721.github.io/2021/03/20/algorithm-1/2.jpg" class>
+
+<p>所以，我们只要知道 x 值是多少，就知道这行代码执行的次数了。通过 2<sup>x</sup>=n 求解 x ，则x=log<sub>2</sub>n</p>
+<p>再看一个例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt;= n)  &#123;</span><br><span class="line">  i = i * <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>刚刚讲的思路，很简单就能看出来，这段代码就是3<sup>x</sup>=n 求解 x，这段代码的时间复杂度为 O(log<sub>3</sub>n)。</p>
+<p>实际上，不管是以 2 为底、以 3 为底，还是以 10 为底，我们可以把所有对数阶的时间复杂度都记为 O(logn)，我们知道，对数之间是可以互相转换的，log<sub>3</sub>n就等于log<sub>3</sub>2 * log<sub>2</sub>n，忽略常量级log<sub>3</sub>2，那么就有O(log<sub>3</sub>n) = O(log<sub>2</sub>n) ，在对数阶时间复杂度的表示方法里，我们忽略对数的“底”，统一表示为 O(logn)。</p>
+<p>如果理解了前面讲的 O(logn)，那 O(nlogn) 就很容易理解了。还记得乘法法则吗？如果一段代码的时间复杂度是 O(logn)，我们循环执行 n 遍，时间复杂度就是 O(nlogn) 了。而且，O(nlogn) 也是一种非常常见的算法时间复杂度。比如，归并排序、快速排序的时间复杂度都是 O(nlogn)。</p>
+<h5 id="O-m-n-、O-m-n"><a href="#O-m-n-、O-m-n" class="headerlink" title="O(m+n)、O(m*n)"></a>O(m+n)、O(m*n)</h5><p>我们再来讲一种跟前面都不一样的时间复杂度，代码的复杂度由两个数据的规模来决定。老规矩，先看代码！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int cal(int m, int n) &#123;</span><br><span class="line">  int sum_1 = <span class="number">0</span>;</span><br><span class="line">  int i = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt; m; ++i) &#123;</span><br><span class="line">    sum_1 = sum_1 + i;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  int sum_2 = <span class="number">0</span>;</span><br><span class="line">  int j = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; j &lt; n; ++j) &#123;</span><br><span class="line">    sum_2 = sum_2 + j;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> sum_1 + sum_2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从代码中可以看出，m 和 n 是表示两个数据规模。我们无法事先评估 m 和 n 谁的量级大，所以我们在表示复杂度的时候，就不能简单地利用加法法则，省略掉其中一个。所以，上面代码的时间复杂度就是 O(m+n)。</p>
+<h3 id="空间复杂度分析"><a href="#空间复杂度分析" class="headerlink" title="空间复杂度分析"></a>空间复杂度分析</h3><p>咱们花了很长时间讲大 O 表示法和时间复杂度分析，理解了前面讲的内容，空间复杂度分析方法学起来就非常简单了。</p>
+<p>时间复杂度的全称是渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系。类比一下，空间复杂度全称就是渐进空间复杂度（asymptotic space complexity），表示算法的存储空间与数据规模之间的增长关系。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> print(int n) &#123;</span><br><span class="line">  int i = <span class="number">0</span>;</span><br><span class="line">  int[] a = <span class="keyword">new</span> int[n];</span><br><span class="line">  <span class="keyword">for</span> (i; i &lt;n; ++i) &#123;</span><br><span class="line">    a[i] = i * i;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i = n<span class="number">-1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">    print out a[i]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>跟时间复杂度分析一样，我们可以看到，第 2 行代码中，我们申请了一个空间存储变量 i，但是它是常量阶的，跟数据规模 n 没有关系，所以我们可以忽略。第 3 行申请了一个大小为 n 的 int 类型数组，除此之外，剩下的代码都没有占用更多的空间，所以整段代码的空间复杂度就是 O(n)。</p>
+<p>我们常见的空间复杂度就是 O(1)、O(n)、O(n2 )，像 O(logn)、O(nlogn) 这样的对数阶复杂度平时都用不到。而且，空间复杂度分析比时间复杂度分析要简单很多。</p>
+<h3 id="内容小结"><a href="#内容小结" class="headerlink" title="内容小结"></a>内容小结</h3><p>复杂度也叫渐进复杂度，包括时间复杂度和空间复杂度，用来分析算法执行效率与数据规模之间的增长关系，可以粗略地表示，越高阶复杂度的算法，执行效率越低。常见的复杂度并不多，从低阶到高阶有：O(1)、O(logn)、O(n)、O(nlogn)、O(n2 )。</p>
+<img src="/2356874721.github.io/2021/03/20/algorithm-1/3.jpg" class>
+
+<h3 id="课后思考"><a href="#课后思考" class="headerlink" title="课后思考"></a>课后思考</h3><p>有人说，我们项目之前都会进行性能测试，再做代码的时间复杂度、空间复杂度分析，是不是多此一举呢？而且，每段代码都分析一下时间复杂度、空间复杂度，是不是很浪费时间呢？你怎么看待这个问题呢？</p>
+<p>我不认为是多此一举，渐进时间，空间复杂度分析为我们提供了一个很好的理论分析的方向，并且它是宿主平台无关的，能够让我们对我们的程序或算法有一个大致的认识，让我们知道，比如在最坏的情况下程序的执行效率如何，同时也为我们交流提供了一个不错的桥梁，我们可以说，算法1的时间复杂度是O(n)，算法2的时间复杂度是O(logN)，这样我们立刻就对不同的算法有了一个“效率”上的感性认识。</p>
+<p>当然，渐进式时间，空间复杂度分析只是一个理论模型，只能提供给粗略的估计分析，我们不能直接断定就觉得O(logN)的算法一定优于O(n), 针对不同的宿主环境，不同的数据集，不同的数据量的大小，在实际应用上面可能真正的性能会不同，个人觉得，针对不同的实际情况，进而进行一定的性能基准测试是很有必要的，比如在统一一批手机上(同样的硬件，系统等等)进行横向基准测试，进而选择适合特定应用场景下的最有算法。</p>
+<p>综上所述，渐进式时间，空间复杂度分析与性能基准测试并不冲突，而是相辅相成的，但是一个低阶的时间复杂度程序有极大的可能性会优于一个高阶的时间复杂度程序，所以在实际编程中，时刻关心理论时间，空间度模型是有助于产出效率高的程序的，同时，因为渐进式时间，空间复杂度分析只是提供一个粗略的分析模型，因此也不会浪费太多时间，重点在于在编程时，要具有这种复杂度分析的思维。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/10/linkage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/01/10/linkage/" class="post-title-link" itemprop="url">商品属性联动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-10 15:40:24 / 修改时间：17:30:04" itemprop="dateCreated datePublished" datetime="2021-01-10T15:40:24+08:00">2021-01-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="商品属性联动"><a href="#商品属性联动" class="headerlink" title="商品属性联动"></a>商品属性联动</h2><p>本篇主要介绍电商系统商品属性联动选择的效果。最终实现的效果如下：</p>
+<img src="/2356874721.github.io/2021/01/10/linkage/1.gif" class>
+
+<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>接口返回的数据格式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123; <span class="attr">color</span>: <span class="string">"红"</span>, <span class="attr">size</span>: <span class="string">"大"</span>, <span class="attr">model</span>: <span class="string">"A"</span>, <span class="attr">stock</span>: <span class="string">"0"</span>, <span class="attr">skuId</span>: <span class="string">"100001"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">color</span>: <span class="string">"白"</span>, <span class="attr">size</span>: <span class="string">"大"</span>, <span class="attr">model</span>: <span class="string">"A"</span>, <span class="attr">stock</span>: <span class="string">"1"</span>, <span class="attr">skuId</span>: <span class="string">"100002"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">color</span>: <span class="string">"白"</span>, <span class="attr">size</span>: <span class="string">"中"</span>, <span class="attr">model</span>: <span class="string">"B"</span>, <span class="attr">stock</span>: <span class="string">"1"</span>, <span class="attr">skuId</span>: <span class="string">"100003"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">color</span>: <span class="string">"蓝"</span>, <span class="attr">size</span>: <span class="string">"小"</span>, <span class="attr">model</span>: <span class="string">"C"</span>, <span class="attr">stock</span>: <span class="string">"1"</span>, <span class="attr">skuId</span>: <span class="string">"100004"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">color</span>: <span class="string">"红"</span>, <span class="attr">size</span>: <span class="string">"小"</span>, <span class="attr">model</span>: <span class="string">"A"</span>, <span class="attr">stock</span>: <span class="string">"1"</span>, <span class="attr">skuId</span>: <span class="string">"100005"</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">color</span>: <span class="string">"红"</span>, <span class="attr">size</span>: <span class="string">"中"</span>, <span class="attr">model</span>: <span class="string">"A"</span>, <span class="attr">stock</span>: <span class="string">"0"</span>, <span class="attr">skuId</span>: <span class="string">"100006"</span> &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li>color：商品的颜色</li>
+<li>size：商品的尺寸</li>
+<li>model：商品的型号</li>
+<li>stock：商品的库存</li>
+<li>skuId：商品的 id，也是最终我们要传回接口的值，该值是由 color、size、model 三个值共同决定的</li>
+</ul>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>实现该功能最重要的就是对返回的数据进行处理，可以把 color、size、model 这三个属性值中所有的属性先进行统计，属性有：<strong>红、白、蓝、大、中、小、A、B、C</strong>，分别标记为：<strong>1、2、3、4、5、6、7、8、9</strong>，属性和标记对应：<strong>红(1)、白(2)、蓝(3)、大(4)、中(5)、小(6)、A(7)、B(8)、C(9)</strong>，对应所以对于接口返回的数据编码如下：<strong>[1,4,7]、[2,4,7]、[2,5,8]、[3,6,9]、[1,6,7]、[1,5,7]</strong>。</p>
+<p>数组中每个元素以#分割，数组之间以 S 分割，最后得到一条数据的编码，当然这个编码是所有数据的编码，包含库存 stock 为 0 的：<strong>S#1#4#7#S#2#4#7#S#2#5#8#S#3#6#9#S#1#6#7#S#1#5#7#S</strong>，实际上我们只需对 stock 大于 0 的数据进行编码：<strong>S#2#4#7#S#2#5#8#S#3#6#9#S#1#6#7#S</strong>，最后使用正则匹配，来实现属性的选中和禁用状态，以 color 为例，正则如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// stockSign:S#2#4#7#S#2#5#8#S#3#6#9#S#1#6#7#S</span></span><br><span class="line"><span class="built_in">RegExp</span>(</span><br><span class="line">  <span class="string">`S#<span class="subst">$&#123;prMap[item]&#125;</span>#<span class="subst">$&#123;prMap[currentSize] || <span class="string">"([0-9]+)"</span>&#125;</span>#<span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">    prMap[currentModel] || <span class="string">"([0-9]+)"</span></span></span></span><br><span class="line"><span class="string"><span class="subst">  &#125;</span>#S`</span></span><br><span class="line">).test(stockSign)</span><br><span class="line">  ? <span class="string">""</span></span><br><span class="line">  : <span class="string">"disable"</span></span><br></pre></td></tr></table></figure>
+
+<p>对于 color 来说，只需要关心 S 后面的第一个标记，<strong>S#<u>2</u>#4#7#S#<u>2</u>#5#8#S#<u>3</u>#6#9#S#<u>1</u>#6#7#S</strong>，size 和 model 匹配 0-9 任意数字即可，如果该 color 下面没有匹配上 0-9 的任意数字，那么说明，size 和 model 是 disabled，对于 size 和 model 的匹配同理。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;home&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;line&quot;&gt;</span><br><span class="line">      &lt;span&gt;颜色:&lt;&#x2F;span&gt;</span><br><span class="line">      &lt;span</span><br><span class="line">        :class&#x3D;&quot;[</span><br><span class="line">          item &#x3D;&#x3D; currentColor ? &#39;active&#39; : &#39;&#39;,</span><br><span class="line">          RegExp(</span><br><span class="line">            &#96;S#$&#123;prMap[item]&#125;#$&#123;prMap[currentSize] || &#39;([0-9]+)&#39;&#125;#$&#123;</span><br><span class="line">              prMap[currentModel] || &#39;([0-9]+)&#39;</span><br><span class="line">            &#125;#S&#96;</span><br><span class="line">          ).test(stockSign)</span><br><span class="line">            ? &#39;&#39;</span><br><span class="line">            : &#39;disable&#39;,</span><br><span class="line">        ]&quot;</span><br><span class="line">        @click&#x3D;&quot;itemclick(&#39;currentColor&#39;, item, $event)&quot;</span><br><span class="line">        class&#x3D;&quot;item&quot;</span><br><span class="line">        v-for&#x3D;&quot;item in ocolorArray&quot;</span><br><span class="line">        :key&#x3D;&quot;item&quot;</span><br><span class="line">        &gt;&#123;&#123; item &#125;&#125;&lt;&#x2F;span</span><br><span class="line">      &gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class&#x3D;&quot;line&quot;&gt;</span><br><span class="line">      &lt;span&gt;大小:&lt;&#x2F;span&gt;</span><br><span class="line">      &lt;span</span><br><span class="line">        @click&#x3D;&quot;itemclick(&#39;currentSize&#39;, item, $event)&quot;</span><br><span class="line">        class&#x3D;&quot;item&quot;</span><br><span class="line">        :class&#x3D;&quot;[</span><br><span class="line">          item &#x3D;&#x3D; currentSize ? &#39;active&#39; : &#39;&#39;,</span><br><span class="line">          RegExp(</span><br><span class="line">            &#96;S#$&#123;prMap[currentColor] || &#39;([0-9]+)&#39;&#125;#$&#123;prMap[item]&#125;#$&#123;</span><br><span class="line">              prMap[currentModel] || &#39;([0-9]+)&#39;</span><br><span class="line">            &#125;#S&#96;</span><br><span class="line">          ).test(stockSign)</span><br><span class="line">            ? &#39;&#39;</span><br><span class="line">            : &#39;disable&#39;,</span><br><span class="line">        ]&quot;</span><br><span class="line">        v-for&#x3D;&quot;item in osizeArray&quot;</span><br><span class="line">        :key&#x3D;&quot;item&quot;</span><br><span class="line">        &gt;&#123;&#123; item &#125;&#125;&lt;&#x2F;span</span><br><span class="line">      &gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class&#x3D;&quot;line&quot;&gt;</span><br><span class="line">      &lt;span&gt;型号:&lt;&#x2F;span&gt;</span><br><span class="line">      &lt;span</span><br><span class="line">        :class&#x3D;&quot;[</span><br><span class="line">          item &#x3D;&#x3D; currentModel ? &#39;active&#39; : &#39;&#39;,</span><br><span class="line">          RegExp(</span><br><span class="line">            &#96;S#$&#123;prMap[currentColor] || &#39;([0-9]+)&#39;&#125;#$&#123;</span><br><span class="line">              prMap[currentSize] || &#39;([0-9]+)&#39;</span><br><span class="line">            &#125;#$&#123;prMap[item]&#125;#S&#96;</span><br><span class="line">          ).test(stockSign)</span><br><span class="line">            ? &#39;&#39;</span><br><span class="line">            : &#39;disable&#39;,</span><br><span class="line">        ]&quot;</span><br><span class="line">        @click&#x3D;&quot;itemclick(&#39;currentModel&#39;, item, $event)&quot;</span><br><span class="line">        class&#x3D;&quot;item&quot;</span><br><span class="line">        v-for&#x3D;&quot;item in omodelArray&quot;</span><br><span class="line">        :key&#x3D;&quot;item&quot;</span><br><span class="line">        &gt;&#123;&#123; item &#125;&#125;&lt;&#x2F;span</span><br><span class="line">      &gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; @ is an alias to &#x2F;src</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;&#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      &#x2F;&#x2F; mockData</span><br><span class="line">      skuList: [</span><br><span class="line">        &#123; color: &quot;红&quot;, size: &quot;大&quot;, model: &quot;A&quot;, stock: &quot;0&quot;, skuId: &quot;100001&quot; &#125;,</span><br><span class="line">        &#123; color: &quot;白&quot;, size: &quot;大&quot;, model: &quot;A&quot;, stock: &quot;1&quot;, skuId: &quot;100002&quot; &#125;,</span><br><span class="line">        &#123; color: &quot;白&quot;, size: &quot;中&quot;, model: &quot;B&quot;, stock: &quot;1&quot;, skuId: &quot;100003&quot; &#125;,</span><br><span class="line">        &#123; color: &quot;蓝&quot;, size: &quot;小&quot;, model: &quot;C&quot;, stock: &quot;1&quot;, skuId: &quot;100004&quot; &#125;,</span><br><span class="line">        &#123; color: &quot;红&quot;, size: &quot;大&quot;, model: &quot;A&quot;, stock: &quot;1&quot;, skuId: &quot;100005&quot; &#125;,</span><br><span class="line">        &#123; color: &quot;红&quot;, size: &quot;大&quot;, model: &quot;A&quot;, stock: &quot;0&quot;, skuId: &quot;100006&quot; &#125;,</span><br><span class="line">      ],</span><br><span class="line">      &#x2F;&#x2F; color数组  [ &quot;红&quot;, &quot;白&quot;, &quot;蓝&quot; ]</span><br><span class="line">      ocolorArray: [],</span><br><span class="line">      &#x2F;&#x2F; size数组 [ &quot;大&quot;, &quot;中&quot;, &quot;小&quot; ]</span><br><span class="line">      osizeArray: [],</span><br><span class="line">      &#x2F;&#x2F; model数组 [ &quot;A&quot;, &quot;B&quot;, &quot;C&quot; ]</span><br><span class="line">      omodelArray: [],</span><br><span class="line">      &#x2F;&#x2F; 当前size</span><br><span class="line">      currentSize: &quot;&quot;,</span><br><span class="line">      &#x2F;&#x2F; 当前color</span><br><span class="line">      currentColor: &quot;&quot;,</span><br><span class="line">      &#x2F;&#x2F; 当前model</span><br><span class="line">      currentModel: &quot;&quot;,</span><br><span class="line">      &#x2F;&#x2F; map</span><br><span class="line">      prMap: &#123;&#125;,</span><br><span class="line">      &#x2F;&#x2F; 编码</span><br><span class="line">      stockSign: &quot;&quot;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    this.filterData()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    filterData() &#123;</span><br><span class="line">      let colorArray &#x3D; []</span><br><span class="line">      let sizeArray &#x3D; []</span><br><span class="line">      let modelArray &#x3D; []</span><br><span class="line">      let oIndex &#x3D; 0</span><br><span class="line">      let strArray &#x3D; []</span><br><span class="line">      this.skuList.forEach((item) &#x3D;&gt; &#123;</span><br><span class="line">        if (!this.prMap[item.color]) &#123;</span><br><span class="line">          this.prMap[item.color] &#x3D; oIndex</span><br><span class="line">          oIndex++</span><br><span class="line">        &#125;</span><br><span class="line">        if (!this.prMap[item.size]) &#123;</span><br><span class="line">          this.prMap[item.size] &#x3D; oIndex</span><br><span class="line">          oIndex++</span><br><span class="line">        &#125;</span><br><span class="line">        if (!this.prMap[item.model]) &#123;</span><br><span class="line">          this.prMap[item.model] &#x3D; oIndex</span><br><span class="line">          oIndex++</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 有库存的才编码</span><br><span class="line">        if (item.stock &gt; 0) &#123;</span><br><span class="line">          let str &#x3D;</span><br><span class="line">            &quot;#&quot; +</span><br><span class="line">            [</span><br><span class="line">              this.prMap[item.color],</span><br><span class="line">              this.prMap[item.size],</span><br><span class="line">              this.prMap[item.model],</span><br><span class="line">            ].join(&quot;#&quot;) +</span><br><span class="line">            &quot;#&quot;</span><br><span class="line">          strArray.push(str)</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 取出color size model属性值</span><br><span class="line">        colorArray.push(item.color)</span><br><span class="line">        sizeArray.push(item.size)</span><br><span class="line">        modelArray.push(item.model)</span><br><span class="line">      &#125;)</span><br><span class="line">      &#x2F;&#x2F; color size model属性值去重，用于展示</span><br><span class="line">      this.ocolorArray &#x3D; Array.from(new Set(colorArray))</span><br><span class="line">      this.osizeArray &#x3D; Array.from(new Set(sizeArray))</span><br><span class="line">      this.omodelArray &#x3D; Array.from(new Set(modelArray))</span><br><span class="line">      this.stockSign &#x3D; &quot;S&quot; + strArray.join(&quot;S&quot;) + &quot;S&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    itemclick(target, item, e) &#123;</span><br><span class="line">      if (e.target.className.indexOf(&quot;disable&quot;) !&#x3D; &quot;-1&quot;) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F; 给currentSize、currentColor、currentModel赋值 选中和反选</span><br><span class="line">      if (this[target] &#x3D;&#x3D; item) &#123;</span><br><span class="line">        this[target] &#x3D; &quot;&quot;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        this[target] &#x3D; item</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;style lang&#x3D;&quot;less&quot;&gt;</span><br><span class="line">.line &#123;</span><br><span class="line">  margin-top: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">  font-size: 16px;</span><br><span class="line">  border: 1px solid #e2e2e2;</span><br><span class="line">  display: inline-block;</span><br><span class="line">  width: 40px;</span><br><span class="line">  height: 40px;</span><br><span class="line">  margin-left: 15px;</span><br><span class="line">  cursor: pointer;</span><br><span class="line">  text-align: center;</span><br><span class="line">  line-height: 40px;</span><br><span class="line">&#125;</span><br><span class="line">.item.active &#123;</span><br><span class="line">  color: #f60;</span><br><span class="line">  border-color: #f60;</span><br><span class="line">&#125;</span><br><span class="line">.item.disable &#123;</span><br><span class="line">  color: #e2e2e2;</span><br><span class="line">  border: 1px dashed #e2e2e2;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/29/interview-first/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/29/interview-first/" class="post-title-link" itemprop="url">面试总结(字节)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-29 21:16:47" itemprop="dateCreated datePublished" datetime="2020-07-29T21:16:47+08:00">2020-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/interview/" itemprop="url" rel="index"><span itemprop="name">interview</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>周末面试了字节跳动，内心慌得一批，面试表现的也很不好，但是生活总是要继续的，跌倒了不可怕，拍拍身上的土，继续往前走。但是这次面试也让我反思了一些东西，也是很有收获的。</p>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>第一个问题是说出这段代码的输出</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; <span class="keyword">instanceof</span> <span class="built_in">Object</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">正确结果是会报错：Uncaught SyntaxError: Unexpected token &#39;instanceof&#39;</span><br><span class="line">原因：instanceof 的前操作数需要是一个对象，但是&#123;&#125;同时也是空的代码块，所以js无法识别&#123;&#125;是代码块还是空对象，因此会报错</span><br></pre></td></tr></table></figure>
+<p>关于instance，这里再深入的理解一下，<code>instanceof 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上。</code>。</p>
+<h3 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h3><p>instanceof的普通的用法，obj instanceof Object 检测Object.prototype是否存在于参数obj的原型链上</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person()</span><br><span class="line">person <span class="keyword">instanceof</span> Person <span class="comment">// ==&gt; true</span></span><br></pre></td></tr></table></figure>
+<h3 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a>例子2</h3><p>继承中判断实例是否属于它的父类</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent()</span><br><span class="line"><span class="keyword">var</span> child = <span class="keyword">new</span> Child()</span><br><span class="line">child <span class="keyword">instanceof</span> Parent <span class="comment">// ==&gt; true</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><p><code>var arr = [1,3,4,2,1,3,4]</code></p>
+<h3 id="es6-Set"><a href="#es6-Set" class="headerlink" title="es6 Set"></a>es6 Set</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [...new <span class="built_in">Set</span>(arr)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>new Set()</code>能够把数组去重，但是返回的是一个类数组，需要转换成数组<br><code>Array.from和...</code>能够把类数组转换成数组</p>
+<h3 id="双层for循环"><a href="#双层for循环" class="headerlink" title="双层for循环"></a>双层for循环</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i &lt; arr.length;i ++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> j = i + <span class="number">1</span>;j &lt; arr.length;j ++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(arr[i] === arr[j])&#123;</span><br><span class="line">        arr.splice(j,<span class="number">1</span>)</span><br><span class="line">        j --</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a>indexOf</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> resArr = []</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i &lt; arr.length;i ++)&#123;</span><br><span class="line">    <span class="keyword">let</span> item = arr[i]</span><br><span class="line">    <span class="keyword">let</span> beleftArr = arr.slice(i+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(arr.slice(i+<span class="number">1</span>).indexOf(item) == <span class="number">-1</span>)&#123;</span><br><span class="line">      resArr.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> resArr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>思路：先排序，如果相邻项一致，就把取一个就行了，用正则实现</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/26/js-cross-domain/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -521,494 +1197,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/25/css-repaint-reflow/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/25/css-repaint-reflow/" class="post-title-link" itemprop="url">重绘与回流</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-25 10:47:39" itemprop="dateCreated datePublished" datetime="2020-07-25T10:47:39+08:00">2020-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前端性能优化中经常会谈到重绘和回流这两个概念，首先我们来看下重绘和回流什么时候发生，以及重绘和回流是什么</p>
-<h2 id="页面渲染的流程"><a href="#页面渲染的流程" class="headerlink" title="页面渲染的流程"></a>页面渲染的流程</h2><p>1.浏览器把html解析成一颗DOM树，根节点是document，DOM树上包含displsy:none这样的节点<br>2.DOM转换成render树，render树能够识别样式，每一个节点都有自己的样式，render树上已经没有了display:none这样的节点了<br>3.render树构建完毕，浏览器就根据渲染好的render数来渲染页面<br><code>reflow:当render tree中的一部分（或全部）因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流（其实我觉得叫重新布局更简单明了些）。每个页面至少需要一次回流，就是在页面第一次加载的时候。</code><br><code>repaint:当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的，比如background-color。则就叫称为重绘。</code><br>通过上述定义，可以很明显看出，重绘的代价要比回流小，毕竟重绘只涉及样式的改变，不涉及到布局。回流必将引起重绘，而重绘不一定会引起回流。<br>那么什么操作会引起回流、重绘呢</p>
-<h2 id="引起回流、重绘的操作"><a href="#引起回流、重绘的操作" class="headerlink" title="引起回流、重绘的操作"></a>引起回流、重绘的操作</h2><p>任何对render tree中元素的操作都会引起回流或者重绘<br>•页面初始化布局<br>•添加、删除元素（回流+重绘)<br>•隐藏元素，display:none(回流+重绘)，visibility:hidden(只重绘，不回流)<br>•窗口大小变化，浏览器字体大小等<br>•对style的操作，如:padding margin border color fontsize等等<br>我们知道了引起回流和重绘的原因，那么怎么减少回流和重绘呢？</p>
-<h2 id="减少回流、重绘"><a href="#减少回流、重绘" class="headerlink" title="减少回流、重绘"></a>减少回流、重绘</h2><p>•不要一个一个改变元素的样式属性，最好直接改变<code>className</code>，但<code>className</code>是预先定义好的样式，不是动态的，如果你要动态改变一些样式，则使用<code>cssText</code>来改变</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"><span class="keyword">var</span> left = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> top = <span class="number">1</span></span><br><span class="line">el.style.left = left + <span class="string">"px"</span></span><br><span class="line">el.style.top  = top  + <span class="string">"px"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较好的写法 </span></span><br><span class="line">el.className += <span class="string">" className1"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较好的写法 </span></span><br><span class="line">el.style.cssText += <span class="string">"; left: "</span> + left + <span class="string">"px; top: "</span> + top + <span class="string">"px;"</span></span><br></pre></td></tr></table></figure>
-<p>•让要操作的元素进行”离线处理”，使用documentFragment或div等元素进行缓存操作，这个主要用于添加元素的时候，大家应该都用过，就是先把所有要添加到元素添加到1个div(这个div也是新加的)，最后才把这个div append到body中。<br>•频繁用到的DOM节点用变量进行缓存<br>•将复杂的元素绝对定位或固定定位，使它脱离文档流</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/css-1px/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/24/css-1px/" class="post-title-link" itemprop="url">1px像素问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-24 18:50:46" itemprop="dateCreated datePublished" datetime="2020-07-24T18:50:46+08:00">2020-07-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>开发中总会遇到这样的问题，设计师走查说你这个线好粗啊，可是我明明代码里写的是1px，这是怎么回事呢？其实这就是移动端开发中常见的1px像素问题。</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>因为css中的1px并不等于设备的1px，这是因为不同的设备，像素比是不一样的。我们可以使用<code>window.devicePixelRatio</code>来获取像素比，计算公式为：<code>像素比 = 设备物理像素/css逻辑像素</code><br>通常iphone中的视网膜屏，像素比为2或3，所以当你在css中写1px时，实际上设备上的像素已经是2或3了，因此边框看起来变粗了。<br>下面我们就来说一说怎么解决这个问题</p>
-<h2 id="0-5px边框"><a href="#0-5px边框" class="headerlink" title="0.5px边框"></a>0.5px边框</h2><p>0.5px在ios8及以上是支持的，但是在ios7及以下，和安卓设备上，会把0.5px解释称0px，造成边框消失了</p>
-<h2 id="border-image"><a href="#border-image" class="headerlink" title="border-image"></a>border-image</h2><p>选一张特定的图片宽1px，高2px，2px其中上半部1px是透明的，下半部分的1px是ui中的颜色，css作如下设置：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.onepxBorder</span> &#123;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-image</span>: <span class="built_in">url</span>(linenew.png) <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">0</span> stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>缺点是颜色变化就要重新换一张图片，比较麻烦</p>
-<h2 id="透明度"><a href="#透明度" class="headerlink" title="透明度"></a>透明度</h2><p>通过改变透明度，让边框线的颜色变浅，看起来变细了</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">opacity</span><span class="selector-pseudo">:0.5</span></span><br><span class="line">filter:alpha(opacity=50) // 兼容ie</span><br></pre></td></tr></table></figure>
-<h2 id="trransform-伪类"><a href="#trransform-伪类" class="headerlink" title="trransform + 伪类"></a>trransform + 伪类</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.onepxBorder</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">2</span>)&#123;</span><br><span class="line">  <span class="selector-class">.onepxBorder</span><span class="selector-pseudo">:before</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">    <span class="attribute">pointer-events</span>: none; <span class="comment">/* 防止点击触发 */</span></span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200%</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">-webkit-transform</span>: (<span class="built_in">scale</span>(<span class="number">0.5</span>));</span><br><span class="line">    <span class="attribute">-webkit-transform-origin</span>: <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">transform</span>: (<span class="built_in">scale</span>(<span class="number">0.5</span>));</span><br><span class="line">    <span class="attribute">transform-origin</span>: <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/css-adaptive/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/23/css-adaptive/" class="post-title-link" itemprop="url">左边固定，右边自适应</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-23 21:23:36" itemprop="dateCreated datePublished" datetime="2020-07-23T21:23:36+08:00">2020-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇文章主要介绍一下左边固定，右边自适应的实现方法</p>
-<h2 id="主结构"><a href="#主结构" class="headerlink" title="主结构"></a>主结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>固定200px<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>自动充满<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background</span>: blue; </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">  <span class="attribute">background</span>: red; </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p><code>float/absolute/ + margin-left</code></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.l1</span>&#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="comment">/* position: absolute; */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.r1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>父元素<code>display: table</code>,子元素:<code>display: table-cell</code></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: table</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.l1</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: table-cell;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.r1</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: table-cell;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><p>flex</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.r1</span>&#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h2><p>利用BFC特性：BFC的元素不能与浮动元素重叠</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.l1</span>&#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.r1</span>&#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/css-box-model/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/23/css-box-model/" class="post-title-link" itemprop="url">css盒模型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-23 21:02:20" itemprop="dateCreated datePublished" datetime="2020-07-23T21:02:20+08:00">2020-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>css中包含三种盒模型：标准盒模型、IE怪异盒模型、flex弹性盒模型</p>
-<h2 id="标准盒模型"><a href="#标准盒模型" class="headerlink" title="标准盒模型"></a>标准盒模型</h2><p>标准和模型从内到外依次是：content/padding/border/margin<br>代码中设置的width/height是给content设置的<br>问题：写好的布局，要加一点内边距，会让盒子本身变大，如：初始时设置宽高各100px，加了10px内边距，此时盒子整个是120*120。所以怎么解决这个问题呢，可以通过IE怪异盒模型来解决</p>
-<h2 id="怪异盒模型"><a href="#怪异盒模型" class="headerlink" title="怪异盒模型"></a>怪异盒模型</h2><p>和标准和模型不同的是，怪异盒模型的width/height是给border(包含)里面设置的，如：宽高各100px，加了10px的内边距，整个盒子并不会变大，会把内容往里面挤<br>开启怪异盒模型的方式：box-sizing: border-box(标准盒模型值是content-box，还有一个值是inherit，来自继承的属性)</p>
-<h2 id="弹性盒模型"><a href="#弹性盒模型" class="headerlink" title="弹性盒模型"></a>弹性盒模型</h2><p>弹性盒模型主要是用于响应式页面<br>弹性盒子由弹性容器(Flex container)和弹性子元素(Flex item)组成<br>弹性容器通过设置 display 属性的值为 flex 或 inline-flex将其定义为弹性容器<br>弹性容器内包含了一个或多个弹性子元素<br>注意： 弹性容器外及弹性子元素内是正常渲染的。弹性盒子只定义了弹性子元素如何在弹性容器内布局<br>弹性子元素通常在弹性盒子内一行显示。默认情况每个容器只有一行<br>具体语法可以参看另一篇文章：<a href="http://www.sheriff.run/2020/07/20/css-flex/" target="_blank" rel="noopener">http://www.sheriff.run/2020/07/20/css-flex/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/css-width-height-ratio/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/23/css-width-height-ratio/" class="post-title-link" itemprop="url">实现一个宽高比是1:2的div</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-23 20:32:09" itemprop="dateCreated datePublished" datetime="2020-07-23T20:32:09+08:00">2020-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>怎么来实现一个宽高是1:2的div呢，当宽度变化，高度也等比例缩放</p>
-<h2 id="方式一-定位"><a href="#方式一-定位" class="headerlink" title="方式一(定位)"></a>方式一(定位)</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">background</span>: blue;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">10%</span>;</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="number">20%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inner</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>; </span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里要注意的是padding-bottom:20%, 这个百分比是相对宽度的，子元素绝对定位，又没有内容撑着父元素，所以父元素的高度就是padding</p>
-<h2 id="方式二-伪元素"><a href="#方式二-伪元素" class="headerlink" title="方式二(伪元素)"></a>方式二(伪元素)</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: blue;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">10%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrapper</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">200%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrapper</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>同理怎么来实现一个宽高是16:9的矩形呢？</p>
-<h2 id="宽高比：16：9"><a href="#宽高比：16：9" class="headerlink" title="宽高比：16：9"></a>宽高比：16：9</h2><p>宽高比是16:9，假如说宽是100%的话，那么高度应为：<code>1*9/16 = 56.25%</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">background</span>: blue;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="number">56.25%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inner</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>; </span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/21/css-triangle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/21/css-triangle/" class="post-title-link" itemprop="url">css画三角形</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-21 22:13:15" itemprop="dateCreated datePublished" datetime="2020-07-21T22:13:15+08:00">2020-07-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们如何用css画三角形呢？可以借助border，首先来看个例子</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>:  blue red blue red;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样一段代码过后，就会看到如下图形</p>
-<img src="/2356874721.github.io/2020/07/21/css-triangle/1.png" class>
-<p>那么代码中border-width: 100px 100px 100px 100px都对应的是哪里呢？</p>
-<img src="/2356874721.github.io/2020/07/21/css-triangle/2.png" class>
-<p>所以当我们只想要一个三角形，比如上面的蓝色的三角形，我们就可以把bottom设为0，并且把左右两边设置透明</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">0</span> <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>:  blue  transparent transparent transparent;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="/2356874721.github.io/2020/07/21/css-triangle/3.png" class>
-<p>因此可以画一个等腰直角三角形</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">100px</span> <span class="number">0px</span> <span class="number">0</span> <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border-color</span>:  blue  transparent transparent transparent;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="/2356874721.github.io/2020/07/21/css-triangle/4.png" class>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1078,7 +1266,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1091,7 +1279,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -161,6 +161,664 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/css-flex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/20/css-flex/" class="post-title-link" itemprop="url">flex</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 15:18:21" itemprop="dateCreated datePublished" datetime="2020-07-20T15:18:21+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文参考了阮一峰老师的两篇博文，膜拜~<br>•<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a><br>•<a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/07/flex-examples.html</a></p>
+<h2 id="Flex介绍"><a href="#Flex介绍" class="headerlink" title="Flex介绍"></a>Flex介绍</h2><p>Flex 是 Flexible Box 的缩写，意为”弹性布局”。</p>
+<p>用法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="给容器设置的属性"><a href="#给容器设置的属性" class="headerlink" title="给容器设置的属性"></a>给容器设置的属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">•flex-direction</span><br><span class="line">•flex-wrap</span><br><span class="line">•flex-flow</span><br><span class="line">•justify-content</span><br><span class="line">•align-items</span><br><span class="line">•align-content</span><br></pre></td></tr></table></figure>
+
+<h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h3><p>设置主轴的方向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flex-direction: row | row-reverse | column | column-reverse</span><br><span class="line">•row: 默认值，水平方向，起点在左</span><br><span class="line">•row-reverse: 水平方向，起点在右</span><br><span class="line">•column: 主轴为垂直方向，起点在上</span><br><span class="line">•column-reverse：主轴为垂直方向，起点在下</span><br></pre></td></tr></table></figure>
+
+<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><p>如果一条轴线排不下，如何换行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flex-wrap: nowrap | wrap | wrap-reverse</span><br><span class="line">•nowrap：默认值，不换行</span><br><span class="line">•wrap：换行，第一行在上方</span><br><span class="line">•wrap-reverse：换行，第一行在下方</span><br></pre></td></tr></table></figure>
+
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap</p>
+<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>项目在主轴上的对齐方式(水平方向)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">justify-content: flex-start | flex-end | center | space-between | space-around</span><br><span class="line">•flex-start：默认值，左对齐</span><br><span class="line">•flex-end：右对齐</span><br><span class="line">•center： 居中</span><br><span class="line">•space-between：两端对齐，项目之间的间隔都相等</span><br><span class="line">•space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍</span><br></pre></td></tr></table></figure>
+
+<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h3><p>项目在交叉轴上如何对齐(垂直方向对齐)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">align-items: flex-start | flex-end | center | baseline | stretch</span><br><span class="line">•flex-start：交叉轴的起点对齐</span><br><span class="line">•flex-end：交叉轴的终点对齐</span><br><span class="line">•center：交叉轴的中点对齐</span><br><span class="line">•baseline: 项目的第一行文字的基线对齐</span><br><span class="line">•stretch：默认值，如果项目未设置高度或设为auto，将占满整个容器的高度</span><br></pre></td></tr></table></figure>
+
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">align-content: flex-start | flex-end | center | space-between | space-around | stretch</span><br><span class="line">•flex-start：与交叉轴的起点对齐</span><br><span class="line">•flex-end：与交叉轴的终点对齐</span><br><span class="line">•center：与交叉轴的中点对齐</span><br><span class="line">•space-between：与交叉轴两端对齐，轴线之间的间隔平均分布</span><br><span class="line">•space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍</span><br><span class="line">•stretch：默认值，轴线占满整个交叉轴</span><br></pre></td></tr></table></figure>
+
+<h2 id="给子元素设置的属性"><a href="#给子元素设置的属性" class="headerlink" title="给子元素设置的属性"></a>给子元素设置的属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">•order</span><br><span class="line">•flex-grow</span><br><span class="line">•flex-shrink</span><br><span class="line">•flex-basis</span><br><span class="line">•flex</span><br><span class="line">•align-self</span><br></pre></td></tr></table></figure>
+
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>项目的排列顺序。数值越小，排列越靠前，默认为0</p>
+<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p>定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小</p>
+<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p>定义了在分配多余空间之前，项目占据的主轴空间（main size）</p>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-self: auto | flex-start | flex-end | center | baseline | stretch</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/css-margin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/20/css-margin/" class="post-title-link" itemprop="url">margin</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 11:28:19" itemprop="dateCreated datePublished" datetime="2020-07-20T11:28:19+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h2><p>margin是前端布局中经常用到的一个属性，细细挖掘才发现，这个属性除了常用的一些使用场景以外，还能给我们解决一类问题，提供了新的思路。下面的内容如果你听过，就再做一次梳理，没接触过就进行一次学习，大家共同进步。</p>
+<h3 id="margin是什么"><a href="#margin是什么" class="headerlink" title="margin是什么"></a>margin是什么</h3><p>每天都在用margin这个属性，你有认真的思考过它到底是一个什么东西吗？<br>w3c是这样定义margin的：”CSS 边距属性定义元素周围的空间。通过使用单独的属性，可以对上、右、下、左的外边距进行设置。也可以使用简写的外边距属性同时改变所有的外边距。”你可以理解为margin是把相邻的元素隔离开，它处理的是自身与外部元素之间的关系，和它对应的是padding，与margin不同的是，padding处理的是它本身外层的包裹与内容之间的距离。</p>
+<h3 id="margin可能的值"><a href="#margin可能的值" class="headerlink" title="margin可能的值"></a>margin可能的值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">margin: auto || length || % || inherit</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是%百分比的值，一定是相对于父元素的宽度。<br>margin可以对上、右、下、左四个方向单独设置，如：margin-top、margin-right、margin-bottom、margin-left。<br>margin也可以使用简写的方式，对四个方向设置，如：margin: top right bottom left;<br>margin在简写的基础上，也支持省略数值的写法，具体如下：<br>1）、margin: 10px;  四个方向都是10px<br>2）、margin: 10px 20px;  上下是10px，左右是20px<br>3）、margin：10px 20px 30px;  上10px，右20px，下30px，左20px<br>4）、margin：10px 20px 30px 40px;  上右下左分别是10px、20px、30px、40px</p>
+<h3 id="margin与padding"><a href="#margin与padding" class="headerlink" title="margin与padding"></a>margin与padding</h3><p>开发中要实现相同的布局，往往利用margin和padding都能实现，那么我们到底什么时候用margin，什么时候用padding呢？简单的总结一下。<br>使用margin的情况：<br>1）、在border外侧增加间距(css盒模型，margin在border的外侧)<br>2）、这个间距不需要背景颜色(margin区域是透明的)<br>3）、垂直方向上两个元素的间距需要抵消(需要利用margin外边距合并这个特性时)<br>对应的padding也有以下3点：<br>1）、在border内侧增加间距<br>2）、间距需要背景颜色<br>3）、垂直方向上两个元素的间距是二者之和</p>
+<h2 id="margin合并问题"><a href="#margin合并问题" class="headerlink" title="margin合并问题"></a>margin合并问题</h2><p>“简单地说，外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。”<br>外边距合并有以下几种情况：</p>
+<h3 id="两个相邻的兄弟元素"><a href="#两个相邻的兄弟元素" class="headerlink" title="两个相邻的兄弟元素"></a>两个相邻的兄弟元素</h3><p>当一个元素出现在另一个元素上面时，第一个元素的下外边距与第二个元素的上外边距会发生合并。</p>
+<img src="/2356874721.github.io/2020/07/20/css-margin/1.png" class>
+<p>解决：<br>1.给下面的元素加上一层父级元素并加上overflow:hidden;<br>2.给两个都加一层父级再加bfc</p>
+<h3 id="父元素与其第一个子元素"><a href="#父元素与其第一个子元素" class="headerlink" title="父元素与其第一个子元素"></a>父元素与其第一个子元素</h3><p>当一个元素包含在另一个元素中时(假设没有内边距或边框把外边距分隔开)，它们会发生外边距合并。这种情况就是我们经常遇见的，给子元素设置外边距，父元素会一起掉下去的情况，就是因为发生了外边距合并。</p>
+<img src="/2356874721.github.io/2020/07/20/css-margin/2.png" class>
+<p>解决：<br>1.给父级设置边框或内边距<br>2.触发bfc(块级格式上下文),改变父级的渲染规则</p>
+<h3 id="一个有上下外边距的空元素"><a href="#一个有上下外边距的空元素" class="headerlink" title="一个有上下外边距的空元素"></a>一个有上下外边距的空元素</h3><p>假设有一个空元素，它有外边距，但是没有边框或填充。在这种情况下，上外边距与下外边距就碰到了一起，它们会发生合并。</p>
+<img src="/2356874721.github.io/2020/07/20/css-margin/3.png" class>
+<h3 id="相邻兄弟元素，其中一个是空元素"><a href="#相邻兄弟元素，其中一个是空元素" class="headerlink" title="相邻兄弟元素，其中一个是空元素"></a>相邻兄弟元素，其中一个是空元素</h3><p>空元素的上下边距先合并，再和外部的合并。</p>
+<img src="/2356874721.github.io/2020/07/20/css-margin/4.png" class>
+<h2 id="margin在块级元素、内联元素中的区别"><a href="#margin在块级元素、内联元素中的区别" class="headerlink" title="margin在块级元素、内联元素中的区别"></a>margin在块级元素、内联元素中的区别</h2><p>margin可以作用到块级元素上，也能作用到内联元素上，区别是作用在块级元素时，上下左右四个方向都生效，内联元素只能是水平方向，但是内联元素中有一类元素很特殊，margin能够在上下左右四个方向都生效，就是可替换元素。</p>
+<h3 id="可替换元素"><a href="#可替换元素" class="headerlink" title="可替换元素"></a>可替换元素</h3><p>可替换元素可以简单的理解为，它所要展示的内容，是由标签本身的某个属性决定的，如：img | input | select | textarea | button | label 等。以上虽然也属于内联元素，但margin依旧可以影响到他的上下左右。</p>
+<h3 id="不可替换元素"><a href="#不可替换元素" class="headerlink" title="不可替换元素"></a>不可替换元素</h3><p>与可替换元素相对的就是不可替换元素，如：span 等，margin只能影响到它的左右方向。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/css-bfc-ifc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/20/css-bfc-ifc/" class="post-title-link" itemprop="url">BFC与IFC</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 11:06:57" itemprop="dateCreated datePublished" datetime="2020-07-20T11:06:57+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="BFC与IFC"><a href="#BFC与IFC" class="headerlink" title="BFC与IFC"></a>BFC与IFC</h2><h3 id="什么是FC"><a href="#什么是FC" class="headerlink" title="什么是FC"></a>什么是FC</h3><p>FC即格式化上下文(Formatting Context)，指的是页面上一块独立的区域，这块区域有自己的渲染规则，他决定内部元素的布局方式以及和其他元素的相互关系及作用。你可以通俗的理解为，他是属于你的一块田野，里面种什么、怎么种、种在哪里，与别人无关，完全由你自己说了算。</p>
+<h3 id="什么是Box"><a href="#什么是Box" class="headerlink" title="什么是Box"></a>什么是Box</h3><p>通常来说页面上存在许多Box，元素的display属性决定了盒子的类型，而不同类型的Box就会有不同的FC。</p>
+<p>Block Level(块级)盒子形成BFC，比如display值为block、list-item、table的元素。</p>
+<p>Inline Level(行级)盒子形成IFC，比如dislpay值为inline、inline-block、inline-table的元素。</p>
+<h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h3><p>BFC块级格式化上下文(Block Formatting Context)，是一块独立的块级渲染区域，来约束内部的块级盒子布局。</p>
+<h4 id="1、BFC内部遵循的规则"><a href="#1、BFC内部遵循的规则" class="headerlink" title="1、BFC内部遵循的规则"></a><strong>1、BFC内部遵循的规则</strong></h4><p>a)、内部的Box在垂直方向一个挨着一个排列</p>
+<p>b)、BFC是独立的，内部元素不会影响到外边</p>
+<p>c)、每个元素的左外边距与包含块的左边界相接触(从左到右)，即使浮动元素也是如此(意思是说BFC内的元素不会超出)</p>
+<p>d)、BFC与float元素不会发生重叠</p>
+<p>e)、计算BFC的高度也包含float元素</p>
+<p>f)、垂直方向的距离由margin决定，属于同一个BFC的相邻Box的margin会发生重叠(这里的重叠应该特指垂直方向，因为每个Box单独占一行，重叠的部分只有垂直方向)</p>
+<h4 id="2、怎么生成BFC"><a href="#2、怎么生成BFC" class="headerlink" title="2、怎么生成BFC"></a><strong>2、怎么生成BFC</strong></h4><p>生成BFC有以下几种方法：</p>
+<p>a)、float的值不是none时，即：float:left || right || inherit</p>
+<p>b)、overflow的值不是visible时，即：overflow:hidden || scroll || auto || inherit</p>
+<p>c)、display的值是inline-block、table-cell、table-caption、flex、inline-flex</p>
+<p>d)、position的值是absolute、fixed</p>
+<p>简单的对比一下几种方法，a)和d)是会让此BFC脱离文档流，应用时应该注意是否对后面的其他FC的位置是否有影响，b)和c)没有脱离文档流，display为inline-block、table-cell、inline-flex时，BFC的宽度由内部元素撑开，display为flex时，宽度自动充满父元素，table-caption会使内部元素垂直排列。</p>
+<h4 id="3、BFC的作用"><a href="#3、BFC的作用" class="headerlink" title="3、BFC的作用"></a><strong>3、BFC的作用</strong></h4><p>说了这么多，BFC有什么作用呢？</p>
+<p><strong>a)、清除浮动</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HTML:</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">CSS</span>:</span><br><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: chartreuse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> &gt; <span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">background-color</span>: chocolate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码得到的结果非常简单，.wrap的背景色没有展现出来，因为内部元素浮动，造成.wrap的高度塌陷，使得height为0。那我们这么解决这个问题呢？这里既然说的是BFC的一系列东东，自然跟它脱不了干系，如果你仔细阅读了这篇文档，其实你已经有答案了，根据BFC内部遵循的规则，也就是1 e)这一条，BFC的高度是会把float元素也计算在内的，.wrap的高度之所以是0，不就是因为计算高度的时候没有计算内部的三个浮动的div的高度吗？我们只要让.wrap变成一个BFC就可以了，生成BFC的方法有四种，根据实际情况选取一种，我们常用的就是overflow:hidden</p>
+<p><strong>b)、垂直margin合并问题</strong></p>
+<p>HTML和a)中的结构一模一样，CSS如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: chartreuse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrap</span> &gt; <span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: chocolate;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下图所示，在垂直方向上，两个相邻的margin合并了，并且取了大的那个。</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/1.png" class>
+
+<p>这时在阅读一遍BFC的规则，b)说垂直方向的距离由margin决定，同一个BFC的margin会合并，那么我们让他们属于不同的BFC就好了，解决办法是给第二个div包裹一层，让其成为一个独立的BFC，这样BFC之间就不会相互影响了，如下图：</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/2.png" class>
+
+<p><strong>c)、float元素布局遮挡问题</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTML:</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item1"</span>&gt;</span>11111111111<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item2"</span>&gt;</span>哈哈哈哈哈哈哈哈哈哈哈哈哈哈<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">CSS</span>:</span><br><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">  <span class="attribute">background-color</span>: chocolate;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item1</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: darkgreen;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述结构是一个两列布局，左边一列浮动，效果如下：</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/3.png" class>
+
+<p>可以看到当左边一列产生浮动，并且高度小于右侧高度时，右侧内容就会与左侧浮动区域发生重叠，解决办法是让右侧成为一个独立的BFC。</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/4.png" class>
+
+<h2 id="IFC"><a href="#IFC" class="headerlink" title="IFC"></a>IFC</h2><p>IFC内联格式化上下文(Block Formatting Context)</p>
+<h4 id="IFC内部遵循的规则"><a href="#IFC内部遵循的规则" class="headerlink" title="IFC内部遵循的规则"></a>IFC内部遵循的规则</h4><p>a)、子元素水平方向横向排列，并且垂直方向起点为元素顶部</p>
+<p>b)、子元素只会计算横向样式空间，垂直方向样式空间不会被计算(如：margin)</p>
+<p>c)、在垂直方向上，利用vertical-align来实现不同形式来对齐(top、middle、baseline、bottom等)</p>
+<p>d)、使用text-align来实现水平居中</p>
+<h4 id="怎么生成IFC"><a href="#怎么生成IFC" class="headerlink" title="怎么生成IFC"></a>怎么生成IFC</h4><p>生成IFC非常简单，只要块级元素中仅包含内联元素，就会形成一个IFC。</p>
+<h4 id="IFC的作用"><a href="#IFC的作用" class="headerlink" title="IFC的作用"></a>IFC的作用</h4><p>利用IFC我们可以解释一些开发中常见的现象</p>
+<p><strong>a)、垂直方向上margin不生效问题</strong></p>
+<p>结构如下图所示，给span元素加margin，可以看到只有水平方向生效了，因为IFC内部元素只会计算水平的样式空间，垂直的不计算。</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/5.png" class>
+
+<p><strong>b)、块级元素水平居中问题</strong></p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/6.png" class>
+
+<p>如上图，我们想要.ele元素在wrap内水平居中，除了常用写法margin:0 auto,我们还可以利用IFC来解决，先使.ele形成一个IFC，再给.wrap设置text-align:center即可。</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/7.png" class>
+
+<p><strong>c)、垂直方向对齐问题</strong></p>
+<p>说到垂直居中就不得不说vertical-align，开发中比较常用的是vertical-align:middle，下面就从middle开始介绍下吧。</p>
+<p>如下图，从上至下的线分别代表上行线高度、大写字母高度、中线、基线、下行线，小写字母x的下边缘就是基线的位置。</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/8.png" class>
+
+<p>vertical-align:middle，middle指的就是x-height二分之一的位置，可以近似的理解为x交叉点那个位置，由于字体等因素，比如微软雅黑字体比较下沉，对应的字母x的交叉位置就偏下，所以说middle并不是绝对居中的。那么vertical-align都有哪些具体值和属性呢？</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/9.png" class>
+
+<p>1、长度：如vertical-align:2px 元素相对于基线，向上移动2px</p>
+<p>2、百分值：说到百分比牵扯到相对于哪个属性，这里是相对于此元素所继承的line-height的值，如</p>
+<p>line-height:20px,vertical-align:10% 等价于 vertical-align:2px</p>
+<p>3、vertical-align的不同属性值</p>
+<p>   1）、baseline：子元素的baseline与父元素的baseline对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/10.png" class>
+
+<p> 2）、middle：子元素的二分之一x-height与父元素二分之一x-height对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/11.png" class>
+
+<p> 3）、text-top：将元素顶端与父元素字体顶端对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/12.png" class>
+
+<p> 4）、text-bottom：将元素底端与父元素字体底端对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/13.png" class>
+
+<p> 5）、sub：子元素的baseline与父元素下标位置对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/14.png" class>
+
+<p>6）、super：子元素的baseline与父元素的上标位置对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/15.png" class>
+
+<p>7）、top：将元素盒子的顶部与其所在行的最高元素的顶端对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/16.png" class>
+
+<p> 8）、bottom：将元素盒子的底部与其所在行的最低元素底端对齐</p>
+<img src="/2356874721.github.io/2020/07/20/css-bfc-ifc/17.png" class>
+
+<p>开发中为什么我的vertical-align不生效呢？</p>
+<p>注意：只有当元素是inline-block或者inline时，vertical-align才生效</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/css-clear-float/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/20/css-clear-float/" class="post-title-link" itemprop="url">清除浮动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 10:41:04" itemprop="dateCreated datePublished" datetime="2020-07-20T10:41:04+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>float取值有：left | right | none | inherit</strong></p>
+<p><strong>使用浮动带来的问题：</strong>元素脱离文档流，位置释放，就没有内容撑着父元素了，导致父元素高度塌陷，影响布局</p>
+<p>解决办法如下：</p>
+<h2 id="父元素height写死"><a href="#父元素height写死" class="headerlink" title="父元素height写死"></a>父元素height写死</h2><p>优点：简单、代码少、容易掌握 </p>
+<p>缺点：要给出精确的高度，如果高度和父级div不一样时，会产生问题 </p>
+<h2 id="父级元素也一起浮动"><a href="#父级元素也一起浮动" class="headerlink" title="父级元素也一起浮动"></a>父级元素也一起浮动</h2><p>使父元素和子元素在同一个文档流里面</p>
+<p>缺点：不建议使用，会产生新的浮动问题</p>
+<h2 id="overflow-hidden"><a href="#overflow-hidden" class="headerlink" title="overflow: hidden"></a>overflow: hidden</h2><p>父元素设置overflow: hidden;zoom: 1</p>
+<p>zoom: 1是兼容ie</p>
+<p>优点：简单、代码少、浏览器支持好 </p>
+<p>缺点：不能和position配合使用，因为超出的尺寸的会被隐藏。</p>
+<h2 id="父级div定义-overflow-auto"><a href="#父级div定义-overflow-auto" class="headerlink" title="父级div定义 overflow:auto"></a><strong>父级div定义 overflow:auto</strong></h2><p>优点：简单、代码少、浏览器支持好 </p>
+<p>缺点：内部宽高超过父级div时，会出现滚动条。 </p>
+<h2 id="结尾处加空div标签-并设置clear-both"><a href="#结尾处加空div标签-并设置clear-both" class="headerlink" title="结尾处加空div标签 并设置clear:both"></a>结尾处加空div标签 并设置clear:both</h2><p>优点：简单、代码少、浏览器支持好、不容易出现怪问题 </p>
+<p>缺点：不少初学者不理解原理；如果页面浮动布局多，就要增加很多空div，让人感觉很不好</p>
+<h2 id="父级div定义-伪类-after-和-zoom"><a href="#父级div定义-伪类-after-和-zoom" class="headerlink" title="父级div定义 伪类:after 和 zoom"></a><strong>父级div定义 伪类:after 和 zoom</strong></h2><p>.clearfloat:after{display:block;clear:both;content:””;visibility:hidden;height:0} </p>
+<p>.clearfloat{zoom:1}</p>
+<p>优点：浏览器支持好、不容易出现怪问题</p>
+<p>缺点：代码多、不少初学者不理解原理，要两句代码结合使用才能让主流浏览器都支持。 </p>
+<p>建议：推荐使用，建议定义公共类，以减少CSS代码。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/18/css-position/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/18/css-position/" class="post-title-link" itemprop="url">position</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-18 11:17:00" itemprop="dateCreated datePublished" datetime="2020-07-18T11:17:00+08:00">2020-07-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="position取值"><a href="#position取值" class="headerlink" title="position取值"></a>position取值</h2><p>position：static | relative | absolute | fixed | sticky | initial | inherit | unset</p>
+<p>其中最常用的是 static 、relative、absolute、fixed 和 sticky，下面依次来介绍下</p>
+<p><strong>position: static</strong></p>
+<p>默认值，在正常流中，对设置的 top 、left、right、bottom、z-index 一应忽略</p>
+<p><strong>position: relative</strong></p>
+<p>相对定位，相对于自己原来的位置偏移，空间不释放</p>
+<p><strong>position: absolute</strong></p>
+<p>绝对定位，若祖先元素有设置 position: static 以外的属性值，则相对该祖先元素绝对定位；否则，相对浏览器视口绝对定位，空间释放</p>
+<p><strong>position: fixed</strong></p>
+<p>固定定位，相对浏览器窗口固定定位，不随滚动条滚动，空间释放</p>
+<p><strong>position: sticky(有兼容性问题)</strong></p>
+<p>它的表现类似position:relative和position:fixed的合体，元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位，如：吸顶的效果。须指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。</p>
+<p><u>需要注意的是：</u></p>
+<p>•设定为 position:sticky 元素的任意父节点的 overflow 属性必须是 visible，否则 position:sticky 不会生效。这里需要解释一下：</p>
+<p>•如果 position:sticky 元素的任意父节点定位设置为 overflow:hidden，则父容器无法进行滚动，所以 position:sticky 元素也不会有滚动然后固定的情况。</p>
+<p>•如果 position:sticky 元素的任意父节点定位设置为 position:relative | absolute | fixed，则元素相对父元素进行定位，而不会相对 viewprot 定位。</p>
+<p>达到设定的阀值，这个还算好理解，也就是设定了 position:sticky 的元素表现为 relative 还是 fixed 是根据元素是否达到设定了的阈值决定的。</p>
+<p><strong>position: initial</strong></p>
+<p>initial 关键字用于设置CSS属性为它的默认值（在这里也就是 position: static）</p>
+<p><strong>position: inherit</strong></p>
+<p>继承父元素的position属性</p>
+<p><strong>position: unset</strong></p>
+<p>unset 关键字是 initial 和inherit 的组合</p>
+<p><u>需要注意的是</u>：</p>
+<p>•如果该属性是默认继承属性，则该值等同于 inherit</p>
+<p>•如果该属性是非继承属性，则该值等同于 initial</p>
+<p><u>解释一下：</u></p>
+<p>unset 可以理解为<strong>不设置</strong>，举个例子，可继承属性：color，不可继承属性border，当给子元素设置了unset后，它表现出来的是对于color属性，继承了祖先元素的值，border则不继承。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/18/js-arrow-fn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/18/js-arrow-fn/" class="post-title-link" itemprop="url">箭头函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-18 10:47:45" itemprop="dateCreated datePublished" datetime="2020-07-18T10:47:45+08:00">2020-07-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这里不着重讲箭头函数是什么，主要讲一下箭头函数和普通函数的区别</p>
+<h2 id="普通函数和箭头函数的区别"><a href="#普通函数和箭头函数的区别" class="headerlink" title="普通函数和箭头函数的区别"></a>普通函数和箭头函数的区别</h2><p>•箭头函数没有prototype(原型)，所以箭头函数本身没有this</p>
+<p>•箭头函数的this在定义的时候继承自外层第一个普通函数的this、</p>
+<p>•如果箭头函数外层没有普通函数，它的this都会指向window</p>
+<p>•箭头函数本身的this指向不能改变，如果想要修改箭头函数的this指向，可以修改它要继承的this指向</p>
+<p>•箭头函数没有arguments</p>
+<p>•箭头函数的this指向普通函数时,它的argumens继承于该普通函数</p>
+<p>•使用new调用箭头函数会报错，因为箭头函数没有constructor</p>
+<p>•箭头函数不支持new.target，new.target是ES6新引入的属性，普通函数如果通过new调用，new.target会返回该函数的引用，此属性主要：用于确定构造函数是否为new调用的。</p>
+<p>•箭头函数不支持重复的函数参数,普通函数的函数参数支持重命名</p>
+<p>•箭头函数相对于普通函数语法更简洁优雅</p>
+<h2 id="箭头函数的注意事项"><a href="#箭头函数的注意事项" class="headerlink" title="箭头函数的注意事项"></a>箭头函数的注意事项</h2><p><strong>返回一个对象字面量</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func2 = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;<span class="attr">foo</span>: <span class="number">1</span>&#125;); <span class="comment">// 用圆括号是正确的写法</span></span><br><span class="line"><span class="keyword">var</span> func2 = <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="comment">// return</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    foo: <span class="number">1</span> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>箭头函数在参数和箭头之间不能换行</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func2 = () </span><br><span class="line">	      =&gt; (&#123;<span class="attr">foo</span>: <span class="number">1</span>&#125;) <span class="comment">// 错误的写法</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="箭头函数不适用场景"><a href="#箭头函数不适用场景" class="headerlink" title="箭头函数不适用场景"></a>箭头函数不适用场景</h2><p><strong>定义对象字面量的方法</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  array: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  sum: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.array.push(<span class="string">'全局对象下没有array，这里会报错'</span>) <span class="comment">// 外层没有普通函数this会指向全局对象，全局对象上没有array,因此会报错</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.sum()</span><br><span class="line"></span><br><span class="line">正确的写法：</span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  array: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">  sum: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.array.push(<span class="string">'es5的写法是没有问题的'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.sum()</span><br></pre></td></tr></table></figure>
+
+<p><strong>回调函数的动态this</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> button = <span class="built_in">document</span>.getElementById(<span class="string">'myButton'</span>)</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">this</span>.innerHTML = <span class="string">'Clicked button'</span> <span class="comment">// this又指向了window，window没有innerHTML，也会报错</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">正确的写法：</span><br><span class="line"><span class="keyword">const</span> button = <span class="built_in">document</span>.getElementById(<span class="string">'myButton'</span>)</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">  <span class="keyword">this</span>.innerHTML = <span class="string">'Clicked button'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/18/js-symbol/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -653,552 +1311,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/13/webpack-tapable/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/13/webpack-tapable/" class="post-title-link" itemprop="url">Tapable钩子</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-13 18:07:31" itemprop="dateCreated datePublished" datetime="2020-07-13T18:07:31+08:00">2020-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>webpack本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是Tapable。</p>
-<p>Tapable提供了同步和异步的钩子函数，下面就来一起学习使用这个钩子函数，并且搞清楚这些钩子的实现原理。</p>
-<h2 id="Tapable钩子分类"><a href="#Tapable钩子分类" class="headerlink" title="Tapable钩子分类"></a>Tapable钩子分类</h2><p>Tapable的同步钩子有：SyncHook、SyncBailHook、SyncLoopHook、syncWaterFallHook</p>
-<p>Tapable的异步钩子有：AsyncSeriesHook、AsyncParallelHook、AsyncSeriesWaterfallHook</p>
-<h2 id="SyncHook"><a href="#SyncHook" class="headerlink" title="SyncHook"></a>SyncHook</h2><h3 id="SyncHook使用"><a href="#SyncHook使用" class="headerlink" title="SyncHook使用"></a>SyncHook使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* syncHook 勾子功能非常简单，就是一个发布/订阅模式。注册在实例上函数被依次的执行。 */</span> </span><br><span class="line"><span class="keyword">let</span> &#123; SyncHook &#125; = <span class="built_in">require</span>(<span class="string">'tapable'</span>)</span><br><span class="line"><span class="keyword">const</span> syncHook = <span class="keyword">new</span> SyncHook([<span class="string">'name'</span>]) <span class="comment">// 这里的参数注意一下</span></span><br><span class="line"></span><br><span class="line">syncHook.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">syncHook.tap(<span class="string">'2'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`go out <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">syncHook.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="SyncHook原理"><a href="#SyncHook原理" class="headerlink" title="SyncHook原理"></a>SyncHook原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 核心原理就是一个发布订阅模式 */</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SyncHook</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.task = [] <span class="comment">// 存放回调的数组</span></span><br><span class="line">  &#125;</span><br><span class="line">  tap(name,task)&#123;</span><br><span class="line">    <span class="keyword">this</span>.task.push(task)</span><br><span class="line">  &#125;</span><br><span class="line">  call(...args)&#123;</span><br><span class="line">    <span class="keyword">this</span>.task.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn(...args))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> sync = <span class="keyword">new</span> SyncHook()</span><br><span class="line">sync.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">sync.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`go out <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">sync.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="SyncBailHook"><a href="#SyncBailHook" class="headerlink" title="SyncBailHook"></a>SyncBailHook</h2><h3 id="SyncBailHook使用"><a href="#SyncBailHook使用" class="headerlink" title="SyncBailHook使用"></a>SyncBailHook使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* bail 保险的意思，当函数返回非undefined时，停止向下执行 */</span> </span><br><span class="line"><span class="keyword">let</span> &#123; SyncBailHook &#125; = <span class="built_in">require</span>(<span class="string">'tapable'</span>)</span><br><span class="line"><span class="keyword">const</span> syncBailHook = <span class="keyword">new</span> SyncBailHook([<span class="string">'name'</span>])</span><br><span class="line"></span><br><span class="line">syncBailHook.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'停止'</span></span><br><span class="line">&#125;)</span><br><span class="line">syncBailHook.tap(<span class="string">'2'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`go out <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">syncBailHook.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="SyncBailHook原理"><a href="#SyncBailHook原理" class="headerlink" title="SyncBailHook原理"></a>SyncBailHook原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SyncBailHook</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.task = [] <span class="comment">// 存放回调的数组</span></span><br><span class="line">  &#125;</span><br><span class="line">  tap(name,task)&#123;</span><br><span class="line">    <span class="keyword">this</span>.task.push(task)</span><br><span class="line">  &#125;</span><br><span class="line">  call(...args)&#123;</span><br><span class="line">    <span class="comment">/* 判断函数是否返回了非undefined，如果是，那么停止向下执行 */</span> </span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span> <span class="comment">// 当前执行函数的索引</span></span><br><span class="line">    <span class="keyword">let</span> ret <span class="comment">// 当前函数的返回值</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">      ret = <span class="keyword">this</span>.task[index](...args)</span><br><span class="line">    &#125;<span class="keyword">while</span>(ret === <span class="literal">undefined</span> &amp;&amp; index &lt; <span class="keyword">this</span>.task.length)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> sync = <span class="keyword">new</span> SyncBailHook()</span><br><span class="line">sync.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'停止吧'</span></span><br><span class="line">&#125;)</span><br><span class="line">sync.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`go out <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">sync.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="SyncLoopHook"><a href="#SyncLoopHook" class="headerlink" title="SyncLoopHook"></a>SyncLoopHook</h2><h3 id="SyncLoopHook使用"><a href="#SyncLoopHook使用" class="headerlink" title="SyncLoopHook使用"></a>SyncLoopHook使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 返回非undefined的时候，函数一直执行，返回undefined时，才往下执行 */</span> </span><br><span class="line"><span class="keyword">let</span> &#123; SyncLoopHook &#125; = <span class="built_in">require</span>(<span class="string">'tapable'</span>)</span><br><span class="line"><span class="keyword">const</span> syncLoopHook = <span class="keyword">new</span> SyncLoopHook([<span class="string">'name'</span>])</span><br><span class="line"><span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">syncLoopHook.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">  index ++</span><br><span class="line">  <span class="keyword">return</span> index &gt;= <span class="number">3</span> ? <span class="literal">undefined</span> : <span class="string">"不能停"</span></span><br><span class="line">&#125;)</span><br><span class="line">syncLoopHook.tap(<span class="string">'2'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data + <span class="string">'第一次'</span>) <span class="comment">// ==&gt; lwj第一次</span></span><br><span class="line">&#125;)</span><br><span class="line">syncLoopHook.tap(<span class="string">'3'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data + <span class="string">'第二次'</span>) <span class="comment">// ==&gt; lwj第二次</span></span><br><span class="line">&#125;)</span><br><span class="line">syncLoopHook.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="SyncLoopHook原理"><a href="#SyncLoopHook原理" class="headerlink" title="SyncLoopHook原理"></a>SyncLoopHook原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SyncWaterfallHook</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.task = [] <span class="comment">// 存放回调的数组</span></span><br><span class="line">  &#125;</span><br><span class="line">  tap(name,task)&#123;</span><br><span class="line">    <span class="keyword">this</span>.task.push(task)</span><br><span class="line">  &#125;</span><br><span class="line">  call(...args)&#123;</span><br><span class="line">    <span class="comment">/* 所有函数都要执行，函数返回非undefined的要反复执行 */</span></span><br><span class="line">    <span class="keyword">this</span>.task.forEach(<span class="function"><span class="params">task</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> ret</span><br><span class="line">      <span class="keyword">do</span>&#123;</span><br><span class="line">        ret = task(...args)</span><br><span class="line">      &#125;<span class="keyword">while</span>(ret !== <span class="literal">undefined</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> sync = <span class="keyword">new</span> SyncWaterfallHook()</span><br><span class="line">sync.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">  index ++</span><br><span class="line">  <span class="keyword">return</span> index &gt;= <span class="number">3</span> ? <span class="literal">undefined</span> : <span class="string">'不能停'</span></span><br><span class="line">&#125;)</span><br><span class="line">sync.tap(<span class="string">'2'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data+<span class="string">'第一次'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">sync.tap(<span class="string">'3'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data+<span class="string">'第二次'</span>) </span><br><span class="line">&#125;)</span><br><span class="line">sync.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="syncWaterFallHook"><a href="#syncWaterFallHook" class="headerlink" title="syncWaterFallHook"></a>syncWaterFallHook</h2><h3 id="syncWaterFallHook使用"><a href="#syncWaterFallHook使用" class="headerlink" title="syncWaterFallHook使用"></a>syncWaterFallHook使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* waterfall 瀑布，上一个函数的返回结果，会传到作为下一个函数参数传入 */</span> </span><br><span class="line"><span class="keyword">let</span> &#123; SyncWaterfallHook &#125; = <span class="built_in">require</span>(<span class="string">'tapable'</span>)</span><br><span class="line"><span class="keyword">const</span> syncWaterfallHook = <span class="keyword">new</span> SyncWaterfallHook([<span class="string">'name'</span>])</span><br><span class="line"></span><br><span class="line">syncWaterfallHook.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'可以停止吗'</span></span><br><span class="line">&#125;)</span><br><span class="line">syncWaterfallHook.tap(<span class="string">'2'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data) <span class="comment">// ==&gt; 可以停止吗</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'停止吧'</span></span><br><span class="line">&#125;)</span><br><span class="line">syncWaterfallHook.tap(<span class="string">'3'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data) <span class="comment">// ==&gt; 停止吧</span></span><br><span class="line">&#125;)</span><br><span class="line">syncWaterfallHook.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="syncWaterFallHook原理"><a href="#syncWaterFallHook原理" class="headerlink" title="syncWaterFallHook原理"></a>syncWaterFallHook原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SyncWaterfallHook</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.task = [] <span class="comment">// 存放回调的数组</span></span><br><span class="line">  &#125;</span><br><span class="line">  tap(name,task)&#123;</span><br><span class="line">    <span class="keyword">this</span>.task.push(task)</span><br><span class="line">  &#125;</span><br><span class="line">  call(...args)&#123;</span><br><span class="line">    <span class="comment">/* 把上一个函数的返回值，作为下一个函数的参数传入，很容易想到reduce */</span> </span><br><span class="line">    <span class="keyword">let</span> [first,...others] = <span class="keyword">this</span>.task</span><br><span class="line">    <span class="keyword">let</span> ret = first(...args)</span><br><span class="line">    others.reduce(<span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> b(a)</span><br><span class="line">    &#125;,ret)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> sync = <span class="keyword">new</span> SyncWaterfallHook()</span><br><span class="line">sync.tap(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`come here <span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'停止吗'</span></span><br><span class="line">&#125;)</span><br><span class="line">sync.tap(<span class="string">'2'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data) <span class="comment">// ==&gt; 停止吗</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'停止吧'</span></span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line">sync.tap(<span class="string">'3'</span>,(data)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data) <span class="comment">// ==&gt; 停止吧</span></span><br><span class="line">&#125;)</span><br><span class="line">sync.call(<span class="string">'lwj'</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="AsyncSeriesHook"><a href="#AsyncSeriesHook" class="headerlink" title="AsyncSeriesHook"></a>AsyncSeriesHook</h2><h3 id="AsyncSeriesHook使用"><a href="#AsyncSeriesHook使用" class="headerlink" title="AsyncSeriesHook使用"></a>AsyncSeriesHook使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* 上一个函数执行完成，下一个函数才执行，所有函数执行完，最终函数才会执行 */</span> </span><br><span class="line"><span class="comment">// let &#123; AsyncSeriesHook &#125; = require('tapable')</span></span><br><span class="line"><span class="comment">// const asyncSeriesHook = new AsyncSeriesHook(['name'])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// asyncSeriesHook.tapAsync('1',(name,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(`come here $&#123;name&#125;`)</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesHook.tapAsync('2',(data,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(data + '第一次')</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesHook.tapAsync('3',(data,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(data + '第二次') </span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesHook.callAsync('lwj',() =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log('end')</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* tapPromise promise */</span> </span><br><span class="line"><span class="keyword">let</span> &#123; AsyncSeriesHook &#125; = <span class="built_in">require</span>(<span class="string">'tapable'</span>)</span><br><span class="line"><span class="keyword">const</span> asyncSeriesHook = <span class="keyword">new</span> AsyncSeriesHook([<span class="string">'name'</span>])</span><br><span class="line"></span><br><span class="line">asyncSeriesHook.tapPromise(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第一次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesHook.tapPromise(<span class="string">'2'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第二次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesHook.tapPromise(<span class="string">'3'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第三次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesHook.promise(<span class="string">'lwj'</span>).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'end'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="AsyncSeriesHook原理"><a href="#AsyncSeriesHook原理" class="headerlink" title="AsyncSeriesHook原理"></a>AsyncSeriesHook原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class AsyncSeriesHook&#123;</span></span><br><span class="line"><span class="comment">//   constructor()&#123;</span></span><br><span class="line"><span class="comment">//     this.task = [] // 存放回调的数组</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">//   tapAsync(name,task)&#123;</span></span><br><span class="line"><span class="comment">//     this.task.push(task)</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">//   callAsync(...args)&#123;</span></span><br><span class="line"><span class="comment">//     let finalFn = args.pop() // 拿到最终执行的函数</span></span><br><span class="line"><span class="comment">//     let index = 0</span></span><br><span class="line"><span class="comment">//     let next = () =&gt; &#123;</span></span><br><span class="line"><span class="comment">//       if(index === this.task.length) return finalFn()  // 计数，每执行一个事件处理函数就+1，当计数器等于事件处理函数数组的长度时，就说明事件处理函数全部都执行完毕了，该执行最终的回调函数了</span></span><br><span class="line"><span class="comment">//       let task = this.task[index ++] // 取每一个处理函数的回调，拿出来执行</span></span><br><span class="line"><span class="comment">//       task(...args,next) // 处理函数有两个参数，一个是args,一个是cb，cb也就是下一个事件处理函数</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">//     next()</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// let asyncSeriesHook = new AsyncSeriesHook()</span></span><br><span class="line"><span class="comment">// asyncSeriesHook.tapAsync('1',(name,cb) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log(`come here $&#123;name&#125;`)</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesHook.tapAsync('2',(name,cb) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log(name + '第一次')</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesHook.tapAsync('3',(name,cb) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log(name + '第二次') </span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesHook.callAsync('lwj',() =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log('end')</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* tapPromise */</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AsyncSeriesHook</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.task = [] <span class="comment">// 存放回调的数组</span></span><br><span class="line">  &#125;</span><br><span class="line">  tapPromise(name,task)&#123;</span><br><span class="line">    <span class="keyword">this</span>.task.push(task)</span><br><span class="line">  &#125;</span><br><span class="line">  promise(...args)&#123;</span><br><span class="line">    <span class="keyword">let</span> [first,...others] = <span class="keyword">this</span>.task</span><br><span class="line">    <span class="keyword">return</span> others.reduce(<span class="function">(<span class="params">p,next</span>) =&gt;</span> &#123; <span class="comment">// p是事件处理函数的返回值，是一个promise,下一个方法放到promise的then方法中去执行</span></span><br><span class="line">      <span class="keyword">return</span> p.then(<span class="function"><span class="params">()</span> =&gt;</span> next(...args))</span><br><span class="line">    &#125;,first(...args))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> asyncSeriesHook = <span class="keyword">new</span> AsyncSeriesHook()</span><br><span class="line">asyncSeriesHook.tapPromise(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第一次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesHook.tapPromise(<span class="string">'2'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第二次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesHook.tapPromise(<span class="string">'3'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第三次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesHook.promise(<span class="string">'lwj'</span>).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'end'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="AsyncParallelHook"><a href="#AsyncParallelHook" class="headerlink" title="AsyncParallelHook"></a>AsyncParallelHook</h2><h3 id="AsyncParallelHook使用"><a href="#AsyncParallelHook使用" class="headerlink" title="AsyncParallelHook使用"></a>AsyncParallelHook使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 每一个函数的回调cb都执行完，最终的回调函数才会执行，如果有一个函数的回调没有执行，那么最终的回调就不会执行 */</span> </span><br><span class="line"><span class="comment">// let &#123; AsyncParallelHook &#125; = require('tapable')</span></span><br><span class="line"><span class="comment">// const asyncParallelHook = new AsyncParallelHook(['name'])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// asyncParallelHook.tapAsync('1',(name,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(`come here $&#123;name&#125;`)</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncParallelHook.tapAsync('2',(data,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(data + '第一次')</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncParallelHook.tapAsync('3',(data,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(data + '第二次') </span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncParallelHook.callAsync('lwj',() =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log('end')</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* tapPromise promise */</span> </span><br><span class="line"><span class="keyword">let</span> &#123; AsyncParallelHook &#125; = <span class="built_in">require</span>(<span class="string">'tapable'</span>)</span><br><span class="line"><span class="keyword">const</span> asyncParallelHook = <span class="keyword">new</span> AsyncParallelHook([<span class="string">'name'</span>])</span><br><span class="line"></span><br><span class="line">asyncParallelHook.tapPromise(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第一次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncParallelHook.tapPromise(<span class="string">'2'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第二次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncParallelHook.tapPromise(<span class="string">'3'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第三次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncParallelHook.promise(<span class="string">'lwj'</span>).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'end'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="AsyncParallelHook原理"><a href="#AsyncParallelHook原理" class="headerlink" title="AsyncParallelHook原理"></a>AsyncParallelHook原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class AsyncParallelHook&#123;</span></span><br><span class="line"><span class="comment">//   constructor()&#123;</span></span><br><span class="line"><span class="comment">//     this.task = [] // 存放回调的数组</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">//   tapAsync(name,task)&#123;</span></span><br><span class="line"><span class="comment">//     this.task.push(task)</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">//   callAsync(...args)&#123;</span></span><br><span class="line"><span class="comment">//     let finalFn = args.pop() // 最终要执行的回调</span></span><br><span class="line"><span class="comment">//     let index = 0</span></span><br><span class="line"><span class="comment">//     let done = () =&gt; &#123;</span></span><br><span class="line"><span class="comment">//       index ++</span></span><br><span class="line"><span class="comment">//       if(index == this.task.length)&#123; // 计数，当index为回调函数的长度时，执行最终要执行的回调finalFn</span></span><br><span class="line"><span class="comment">//         finalFn()</span></span><br><span class="line"><span class="comment">//       &#125;</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">//     this.task.forEach(task =&gt; &#123;</span></span><br><span class="line"><span class="comment">//       task(...args,done)</span></span><br><span class="line"><span class="comment">//     &#125;)</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// let asyncParallelHook = new AsyncParallelHook()</span></span><br><span class="line"><span class="comment">// asyncParallelHook.tapAsync('1',(name,cb) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log(`come here $&#123;name&#125;`)</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncParallelHook.tapAsync('2',(data,cb) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log(data + '第一次')</span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncParallelHook.tapAsync('3',(data,cb) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log(data + '第二次') </span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncParallelHook.callAsync('lwj',() =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log('end')</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* tapPromise */</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AsyncParallelHook</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.task = [] <span class="comment">// 存放回调的数组</span></span><br><span class="line">  &#125;</span><br><span class="line">  tapPromise(name,task)&#123;</span><br><span class="line">    <span class="keyword">this</span>.task.push(task)</span><br><span class="line">  &#125;</span><br><span class="line">  promise(...args)&#123;</span><br><span class="line">    <span class="keyword">let</span> tasks = <span class="keyword">this</span>.task.map(<span class="function"><span class="params">task</span> =&gt;</span> task(...args)) <span class="comment">// map循环，返回的是promise数组</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.all(tasks)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> asyncParallelHook = <span class="keyword">new</span> AsyncParallelHook()</span><br><span class="line">asyncParallelHook.tapPromise(<span class="string">'1'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第一次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncParallelHook.tapPromise(<span class="string">'2'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第二次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncParallelHook.tapPromise(<span class="string">'3'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name&#125;</span> 第三次`</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncParallelHook.promise(<span class="string">'lwj'</span>).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'end'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="AsyncSeriesWaterfallHook"><a href="#AsyncSeriesWaterfallHook" class="headerlink" title="AsyncSeriesWaterfallHook"></a>AsyncSeriesWaterfallHook</h2><h3 id="AsyncSeriesWaterfallHook使用"><a href="#AsyncSeriesWaterfallHook使用" class="headerlink" title="AsyncSeriesWaterfallHook使用"></a>AsyncSeriesWaterfallHook使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* waterfall 瀑布，上一个函数的返回结果，会传到作为下一个函数参数传入，如果报错了，跳过下一个函数*/</span> </span><br><span class="line"><span class="comment">// let &#123; AsyncSeriesWaterfallHook &#125; = require('tapable')</span></span><br><span class="line"><span class="comment">// const asyncSeriesWaterfallHook = new AsyncSeriesWaterfallHook(['name'])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// asyncSeriesWaterfallHook.tapAsync('1',(name,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(`come here $&#123;name&#125;`)</span></span><br><span class="line"><span class="comment">//   cb(null,1)</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesWaterfallHook.tapAsync('2',(data,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(data) </span></span><br><span class="line"><span class="comment">//   cb('error',2) // 第一个参数有值的话代表出错，执行的时候会跳过下一个函数</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesWaterfallHook.tapAsync('3',(data,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   console.log(data) </span></span><br><span class="line"><span class="comment">//   cb()</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// asyncSeriesWaterfallHook.callAsync('lwj',() =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log('end')</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* tapPromise */</span> </span><br><span class="line"><span class="keyword">let</span> &#123; AsyncSeriesWaterfallHook &#125; = <span class="built_in">require</span>(<span class="string">'tapable'</span>)</span><br><span class="line"><span class="keyword">const</span> asyncSeriesWaterfallHook = <span class="keyword">new</span> AsyncSeriesWaterfallHook([<span class="string">'name'</span>])</span><br><span class="line"></span><br><span class="line">asyncSeriesWaterfallHook.tapPromise(<span class="string">'1'</span>,(name) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(name)</span><br><span class="line">    resolve(<span class="string">'在下一步展示'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesWaterfallHook.tapPromise(<span class="string">'2'</span>,(data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">    resolve(<span class="string">'在下一步展示'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesWaterfallHook.tapPromise(<span class="string">'3'</span>,(data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">    resolve(<span class="string">'在下一步展示'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">asyncSeriesWaterfallHook.promise(<span class="string">'lwj'</span>).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'end'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="AsyncSeriesWaterfallHook原理"><a href="#AsyncSeriesWaterfallHook原理" class="headerlink" title="AsyncSeriesWaterfallHook原理"></a>AsyncSeriesWaterfallHook原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class AsyncSeriesWaterfallHook&#123;</span></span><br><span class="line"><span class="comment">//   constructor(args)&#123; /* args -&gt; ['name']) */</span></span><br><span class="line"><span class="comment">//     this.tasks = [];</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">//   /** tap接收两个参数 name和fn */</span></span><br><span class="line"><span class="comment">//   tapAsync(name,fn)&#123;</span></span><br><span class="line"><span class="comment">//     /** 订阅:将fn放入到this.tasks中 */</span></span><br><span class="line"><span class="comment">//     this.tasks.push(fn);</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">//   callAsync(...args)&#123;</span></span><br><span class="line"><span class="comment">//     let index = 0;</span></span><br><span class="line"><span class="comment">//     /** 1 拿到最后的最终的回调 */</span></span><br><span class="line"><span class="comment">//     let finalCallBack = args.pop();</span></span><br><span class="line"><span class="comment">//     let next = (err,data) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//         /** 拿到每个task */</span></span><br><span class="line"><span class="comment">//         let task = this.tasks[index];</span></span><br><span class="line"><span class="comment">//         /** 2 如果没传task 或者全部task都执行完毕</span></span><br><span class="line"><span class="comment">//          * return 直接执行最终的回调finalCallBack()</span></span><br><span class="line"><span class="comment">//          */</span></span><br><span class="line"><span class="comment">//         if(!task) return finalCallBack();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//         if(index === 0)&#123;</span></span><br><span class="line"><span class="comment">//             /** 3 执行第一个task</span></span><br><span class="line"><span class="comment">//              * 并传递参数为原始参数args</span></span><br><span class="line"><span class="comment">//              */</span></span><br><span class="line"><span class="comment">//             task(...args, next);</span></span><br><span class="line"><span class="comment">//         &#125;else&#123;</span></span><br><span class="line"><span class="comment">//             /** 4 执行处第二个外的每个task</span></span><br><span class="line"><span class="comment">//              * 并传递的参数 data</span></span><br><span class="line"><span class="comment">//              *  data -&gt;‘传递给下一步的结果’</span></span><br><span class="line"><span class="comment">//              */</span></span><br><span class="line"><span class="comment">//             task(data, next);</span></span><br><span class="line"><span class="comment">//         &#125;</span></span><br><span class="line"><span class="comment">//         index++;</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">//     /** 执行next() */</span></span><br><span class="line"><span class="comment">//     next();</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// let asyncSeriesWaterfallHook = new AsyncSeriesWaterfallHook(['name']);</span></span><br><span class="line"><span class="comment">// /** 订阅 */</span></span><br><span class="line"><span class="comment">// asyncSeriesWaterfallHook.tapAsync('react',(name,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   setTimeout(()=&gt;&#123;</span></span><br><span class="line"><span class="comment">//     console.log('react',name);</span></span><br><span class="line"><span class="comment">//     cb(null,'传递给下一步的结果');</span></span><br><span class="line"><span class="comment">//   &#125;,1000);</span></span><br><span class="line"><span class="comment">// &#125;);</span></span><br><span class="line"><span class="comment">// asyncSeriesWaterfallHook.tapAsync('node',(name,cb)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   setTimeout(()=&gt;&#123;</span></span><br><span class="line"><span class="comment">//     console.log('node',name);</span></span><br><span class="line"><span class="comment">//     cb();</span></span><br><span class="line"><span class="comment">//   &#125;,1000);</span></span><br><span class="line"><span class="comment">// &#125;);</span></span><br><span class="line"><span class="comment">// /** 发布 */</span></span><br><span class="line"><span class="comment">// asyncSeriesWaterfallHook.callAsync('end.',function()&#123;</span></span><br><span class="line"><span class="comment">//   console.log('最终的回调函数');</span></span><br><span class="line"><span class="comment">// &#125;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 打印顺序：</span></span><br><span class="line"><span class="comment">  react end.</span></span><br><span class="line"><span class="comment">  node 传递给下一步的结果</span></span><br><span class="line"><span class="comment">  最终的回调函数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* tapPromise */</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AsyncSeriesHook</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(args)&#123; </span><br><span class="line">      <span class="keyword">this</span>.tasks = [];</span><br><span class="line">  &#125;</span><br><span class="line">  tapPromise(name,fn)&#123;</span><br><span class="line">      <span class="keyword">this</span>.tasks.push(fn);</span><br><span class="line">  &#125;</span><br><span class="line">  promise(...args)&#123;</span><br><span class="line">      <span class="comment">/** 1 解构 拿到第一个first</span></span><br><span class="line"><span class="comment">       * first是一个promise</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="keyword">let</span> [first, ...others] = <span class="keyword">this</span>.tasks;</span><br><span class="line">      <span class="comment">/** 2 利用reduce方法 累计执行</span></span><br><span class="line"><span class="comment">       * 它最终返回的是一个Promsie</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="keyword">return</span> others.reduce(<span class="function">(<span class="params">l,n</span>)=&gt;</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> l.then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">              <span class="comment">/** 3 将data传给下一个task 即可 */</span></span><br><span class="line">              <span class="keyword">return</span> n(data);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;,first(...args));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> h = <span class="keyword">new</span> AsyncSeriesHook([<span class="string">'name'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 订阅 */</span></span><br><span class="line">h.tapPromise(<span class="string">'react'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'react'</span>,name);</span><br><span class="line">          resolve(<span class="string">'promise-传递给下一步的结果'</span>);</span><br><span class="line">      &#125;,<span class="number">1000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">h.tapPromise(<span class="string">'node'</span>,(name)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'node'</span>,name);</span><br><span class="line">          resolve();</span><br><span class="line">      &#125;,<span class="number">1000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">/** 发布 */</span></span><br><span class="line">h.promise(<span class="string">'end.'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'最终的回调函数'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 打印顺序：</span></span><br><span class="line"><span class="comment">  react end.</span></span><br><span class="line"><span class="comment">  node promise-传递给下一步的结果</span></span><br><span class="line"><span class="comment">  最终的回调函数</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/js-extend/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/12/js-extend/" class="post-title-link" itemprop="url">原型、原型链、继承</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-12 12:06:01" itemprop="dateCreated datePublished" datetime="2020-07-12T12:06:01+08:00">2020-07-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>原型是<strong><em>function</em></strong>对象的一个属性，它定义了<strong><em>构造函数制造出的对象的公共祖先</em></strong>。通过该构造函数产生的对象，可以继承原型上的属性和方法。<strong><em>原型也是一个对象</em></strong>。</p>
-<h2 id="原型的应用"><a href="#原型的应用" class="headerlink" title="原型的应用"></a>原型的应用</h2><p>原型最重要的应用就是提取公有属性。这样写的好处是，方法挂在原型上，好处是每次实例化对象的时候，不用重复的创建函数。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.say = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">  console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line">person = new Person(<span class="string">'sheriff'</span>)</span><br><span class="line">console.log(person.say)</span><br></pre></td></tr></table></figure>
-<p>还有另一种写法</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype = &#123;</span><br><span class="line">  say: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="原型上属性的增删改查"><a href="#原型上属性的增删改查" class="headerlink" title="原型上属性的增删改查"></a>原型上属性的增删改查</h2><h3 id="新增"><a href="#新增" class="headerlink" title="新增"></a>新增</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">person.footer = <span class="string">'footer'</span></span><br><span class="line">通过实例化对象不能给原型增加属性，只能给自己添加属性，给原型添加属性的话，要通过</span><br><span class="line">Person.prototype.footer = <span class="string">'footer'</span></span><br></pre></td></tr></table></figure>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过实例删除属性，自己有这个属性的话，就删除自己的，并不能删除原型的属性</span><br><span class="line">delete person.hands ==&gt; <span class="literal">true</span>(这里解释一下返回<span class="literal">true</span>，因为person实例上面没有hands这个属性，删除一个不存在的属性，所以返回<span class="literal">true</span>)</span><br><span class="line">要想删除原型的属性，只能是</span><br><span class="line">delete Person.prototype.hands</span><br></pre></td></tr></table></figure>
-<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person.hands = <span class="string">'no'</span></span><br><span class="line">这样并不能改变原型上的属性，而是给自己加了一个hands属性</span><br><span class="line">修改原型的属性，只能是</span><br><span class="line">Person.prototype.hands = <span class="string">'no'</span></span><br><span class="line">即后代不能改原型上的属性</span><br></pre></td></tr></table></figure>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>先去自己的构造函数中找，没有的话去原型上找</p>
-<h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>构造器，person.constructor返回的是Person，那么constructor肯定不是person的属性，只能是继承过来的，所以打印原型Person.prototype看一下，里面有一个constructor，还有一个_ <em>proto</em> _</p>
-<img src="/2356874721.github.io/2020/07/12/js-extend/1.png" class>
-<h2 id="proto"><a href="#proto" class="headerlink" title="_ proto _"></a>_ <em>proto</em> _</h2><p>隐式的属性，系统内部的属性<br>_ <em>proto</em> _ 里面存放的就是原型Person.prototype，那么_ <em>proto</em> _ 放原型有什么用呢<br>我们知道当我们执行new Person()时，首先创建了一个空对象obj，给obj添加一个属性_ <em>proto</em> _ ，用来存放原型Person.prototype，查找属性时，先找person自己的，没有的话就会访问_ <em>proto</em> _ 这个属性，去_ <em>proto</em> _ 对应值Person.prototype上面去找，person能够找到原型的根本就在于_ <em>proto</em> _ 。<br>上述文字大致描述的就是如下的代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line">  this.obj = &#123;&#125;</span><br><span class="line">  obj._ proto_ = Person.prototype</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下面来看几个练习</p>
-<h3 id="练习1"><a href="#练习1" class="headerlink" title="练习1"></a>练习1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  name: <span class="string">'lee'</span></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person()</span><br><span class="line">person.__proto__ = obj </span><br><span class="line">console.log(person.name)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输出：<span class="string">'lee'</span></span><br><span class="line">分析：</span><br><span class="line">new Person()相当于在Person内部做了这两件事</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line">  this.person = &#123;&#125;</span><br><span class="line">  person.__proto__ = Person.prototype</span><br><span class="line">&#125;</span><br><span class="line">person.__proto__ = obj 这一句之后，相当于把原型改成了obj，即：</span><br><span class="line">person.__proto__ = obj</span><br><span class="line">访问person.name时，就会找到person.__proto__指向的原型上找，所以找到了obj.name</span><br></pre></td></tr></table></figure>
-<h3 id="练习2"><a href="#练习2" class="headerlink" title="练习2"></a>练习2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;&#125;</span><br><span class="line">var person = new Person()</span><br><span class="line">Person.prototype.name = <span class="string">'lee'</span></span><br><span class="line">console.log(person.name)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出：<span class="string">'lee'</span></span><br><span class="line">分析：</span><br><span class="line">person.name先找自己，自己没有去找__proto__，Person.prototype.name = <span class="string">'lee'</span>把之前的值改写了</span><br></pre></td></tr></table></figure>
-<h3 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;&#125;</span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  name: <span class="string">'lee'</span></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person()</span><br><span class="line">console.log(person.name)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输出：<span class="string">'lee'</span></span><br><span class="line">分析：</span><br><span class="line">  new发生了如下操作：</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line">    this.person = &#123;&#125;</span><br><span class="line">    person.__proto__ = Person.prototype  </span><br><span class="line">  &#125;</span><br><span class="line">  Person.prototype.name = <span class="string">'sheriff'</span>被Person.prototype.name: <span class="string">'lee'</span>覆盖了</span><br><span class="line">  所以person.name输出<span class="string">'lee'</span></span><br></pre></td></tr></table></figure>
-<h3 id="练习4"><a href="#练习4" class="headerlink" title="练习4"></a>练习4</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;&#125;</span><br><span class="line">var person = new Person()</span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  name: <span class="string">'lee'</span></span><br><span class="line">&#125;</span><br><span class="line">console.log(person.name)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输出：<span class="string">'sheriff'</span></span><br><span class="line">分析：</span><br><span class="line">  new发生了如下操作：</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line">    this.person = &#123;&#125;</span><br><span class="line">    person.__proto__ = Person.prototype  </span><br><span class="line">  &#125;</span><br><span class="line">  Person.prototype = &#123;</span><br><span class="line">    name: <span class="string">'lee'</span></span><br><span class="line">  &#125;是发生在new之后，这会改变Person.prototype 的指向，是一个新的堆地址，而</span><br><span class="line">  person.__proto__没有变，还是原来的</span><br><span class="line">  也就是说在new之后操作原型，person.__proto__的指向已经确定了，所以还是指向最开始的<span class="string">'sheriff'</span></span><br></pre></td></tr></table></figure>
-<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>原型链的连接点就是<strong>proto</strong>，下面看一个原型链继承的例子</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Grand</span></span> ()&#123;&#125;</span><br><span class="line">Grand.prototype.lastName = <span class="string">'sheriff'</span></span><br><span class="line">var grand = new Grand()</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Father</span></span>()&#123;&#125;</span><br><span class="line">Father.prototype = grand</span><br><span class="line">var father = new Father()</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Son</span></span>()&#123;&#125;</span><br><span class="line">Son.prototype = father</span><br><span class="line">var son = new Son()</span><br><span class="line">console.log(son.lastName)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出：sheriff</span><br></pre></td></tr></table></figure>
-<p>实例化对象的另一种写法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var person = new Person</span><br><span class="line">var person = Object.create(Person.prototype)</span><br></pre></td></tr></table></figure>
-<p>绝大多数的对象都会继承自Object.prototype，绝大多数是什么意思，难道还有不继承Object.prototype的吗？答案是当然。<br>Object.create()创建的对象，没有参数时：</p>
-<img src="/2356874721.github.io/2020/07/12/js-extend/2.png" class>
-<p>因此参数必须是一个对象或者null，Object.create(null)，没有原型<strong>proto</strong>，自己往上添加是不行的，系统不识别</p>
-<img src="/2356874721.github.io/2020/07/12/js-extend/3.png" class>
-<h2 id="call、apply"><a href="#call、apply" class="headerlink" title="call、apply"></a>call、apply</h2><p>call和apply的作用只有一个，就是改变this指向</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">person</span></span>()&#123;&#125;</span><br><span class="line">person()</span><br><span class="line">调用函数时，底层其实是在执行person.call()</span><br></pre></td></tr></table></figure>
-<h3 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;&#125;</span><br><span class="line">Person.call(obj,<span class="string">'sheriff'</span>,<span class="string">'26'</span>)</span><br><span class="line">console.log(obj)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输出：</span><br><span class="line">  obj:&#123;</span><br><span class="line">    name: <span class="string">'sheriff'</span>,</span><br><span class="line">    age: 26</span><br><span class="line">  &#125;</span><br><span class="line">作用：借助别人的方法，完成自己的功能</span><br><span class="line">     借助Person方法，往自己身上添加属性</span><br></pre></td></tr></table></figure>
-<h3 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a>例子2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age,sex)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">  this.age = age</span><br><span class="line">  this.sex = sex</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> Student(name,age,sex,grade,num)&#123;</span><br><span class="line">  Person.call(this,name,age,sex) // 想用谁的方法，就call谁，并且把自己传进去</span><br><span class="line">  this.grade = grade</span><br><span class="line">  this.num = num</span><br><span class="line">&#125;</span><br><span class="line">var student = new Student(<span class="string">'lee'</span>,26,<span class="string">'femail'</span>,2,3016)</span><br><span class="line">console.log(student)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输出：</span><br><span class="line">  student:&#123;</span><br><span class="line">    name: <span class="string">'lee'</span>,</span><br><span class="line">    age: 26,</span><br><span class="line">    sex: <span class="string">'femail'</span></span><br><span class="line">    grade: 2,</span><br><span class="line">    num: 3016</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>call和apply都可以改变this指向，区别是传参列表不同</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person.call(this,name,age,sex)</span><br><span class="line">Person.apply(this,[name,age,sex])</span><br></pre></td></tr></table></figure>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承有以下几种方式：</p>
-<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p>利用原型链可以实现继承，但是原型链继承存在的问题是继承了过多的没用的属性</p>
-<h3 id="构造函数-call-apply实现继承"><a href="#构造函数-call-apply实现继承" class="headerlink" title="构造函数+call/apply实现继承"></a>构造函数+call/apply实现继承</h3><p>借用构造函数+call/apply实现继承，存在的问题有：<br>•不能继承借用的构造函数的原型<br>•每次构造函数都要多走一个函数</p>
-<h3 id="组合模式-原型链-call组合模式"><a href="#组合模式-原型链-call组合模式" class="headerlink" title="组合模式(原型链+call组合模式)"></a>组合模式(原型链+call组合模式)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Father</span></span>()&#123;</span><br><span class="line">  this.age = 26</span><br><span class="line">&#125;</span><br><span class="line">Father.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Child</span></span>()&#123;</span><br><span class="line">  Father.call(this) // 继承属性，想继承谁就call谁</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = new Father() // 继承原型上的方法，此时constructor指向有问题，需修正</span><br><span class="line">Child.prototype.constructor = Child</span><br></pre></td></tr></table></figure>
-<h3 id="共享原型"><a href="#共享原型" class="headerlink" title="共享原型"></a>共享原型</h3><p>Child原型和Father原型指向同一个地址空间，虽然可以继承Father的方法，但是修改Child的原型，也会影响Father原型</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Father</span></span>()&#123;&#125;</span><br><span class="line">Father.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Child</span></span>()&#123;&#125;</span><br><span class="line">Child.prototype = Father.prototype</span><br><span class="line">var father = new Father()</span><br><span class="line">var child = new Child()</span><br></pre></td></tr></table></figure>
-<h3 id="圣杯模式"><a href="#圣杯模式" class="headerlink" title="圣杯模式"></a>圣杯模式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> inherit(Target,Origin)&#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">Fn</span></span>()&#123;&#125;</span><br><span class="line">  Fn.prototype = Origin.prototype</span><br><span class="line">  Target.prototype = new Fn()</span><br><span class="line">  // 此时target的constructor指向Father，我们让他指向自己</span><br><span class="line">  Target.prototype.constructor = Target</span><br><span class="line">  Target.prototype.uber = Origin // 存储一下Target真正继承自哪里，有可能会用得到</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Father</span></span>()&#123;&#125;</span><br><span class="line">Father.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Child</span></span>()&#123;&#125;</span><br><span class="line">inherit(Child,Father)</span><br><span class="line">var father = new Father()</span><br><span class="line">var child = new Child()</span><br></pre></td></tr></table></figure>
-<p>圣杯模式，更优雅的写法，利用闭包，使Fn成为内部函数就是return出来的函数的私有变量，只有通过这个函数才能使用，外部通过其他方法是访问不到的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var inherit = (<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">Fn</span></span>()&#123;&#125;</span><br><span class="line">  <span class="built_in">return</span> <span class="keyword">function</span>(Target,Origin)&#123;</span><br><span class="line">    Fn.prototype = Origin.prototype</span><br><span class="line">    Target.prototype = new Fn()</span><br><span class="line">    Target.prototype.constructor = Target</span><br><span class="line">    Target.prototype.uber = Origin</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Father</span></span>()&#123;&#125;</span><br><span class="line">Father.prototype.name = <span class="string">'sheriff'</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Child</span></span>()&#123;&#125;</span><br><span class="line">inherit(Child,Father)</span><br><span class="line">var father = new Father()</span><br><span class="line">var child = new Child()</span><br></pre></td></tr></table></figure>
-<p>解释一下闭包变量私有化</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Person</span></span>()&#123;</span><br><span class="line">  var thing = <span class="string">'apple'</span></span><br><span class="line">  this.eat = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    this.thing = thing</span><br><span class="line">    console.log(this.thing)</span><br><span class="line">  &#125;</span><br><span class="line">  // <span class="built_in">return</span> this 这里隐含的就是把eat方法<span class="built_in">return</span>到外部并且执行，eat是带着Person的执行上下文出去的，所以可以用Person的变量</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person()</span><br><span class="line">console.log(person.eat()) // 只能通过它内部的方法来访问内部变量</span><br><span class="line">console.log(person.thing) // 直接访问变量是访问不到的</span><br></pre></td></tr></table></figure>
-<h2 id="es6中的继承"><a href="#es6中的继承" class="headerlink" title="es6中的继承"></a>es6中的继承</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Father&#123;</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name = name</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">getName</span></span>()&#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Child extends Father&#123;</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    super(name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var child = new Child(<span class="string">'sheriff'</span>)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/js-new-object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/12/js-new-object/" class="post-title-link" itemprop="url">new发生了什么</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-12 11:56:02" itemprop="dateCreated datePublished" datetime="2020-07-12T11:56:02+08:00">2020-07-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用构造函数创建对象时，内部到底发生了什么呢？下面自己动手来实现一个new，搞清楚内部的原理。</p>
-<h2 id="创建一个空对象"><a href="#创建一个空对象" class="headerlink" title="创建一个空对象"></a>创建一个空对象</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="将对象的原型指向构造函数的prototype"><a href="#将对象的原型指向构造函数的prototype" class="headerlink" title="将对象的原型指向构造函数的prototype"></a>将对象的原型指向构造函数的prototype</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj.__proto__ = Fn.prototype</span><br></pre></td></tr></table></figure>
-<h2 id="改变this指向"><a href="#改变this指向" class="headerlink" title="改变this指向"></a>改变this指向</h2><p>将构造函数中的this指向实例化出来的对象，并且执行构造函数，给obj加上构造函数中的属性，执行完会有一个返回值</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var result = Fn.apply(obj,args)</span><br></pre></td></tr></table></figure>
-<h2 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h2><p>判断构造函数的返回结果，如果有就用自己的返回，没有就用obj</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">return</span> result instanceof Object ? result : obj</span><br></pre></td></tr></table></figure>
-<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> reNew(Fn,...args)&#123;</span><br><span class="line">  var obj = &#123;&#125;</span><br><span class="line">  obj.__proto__ = Fn.prototype</span><br><span class="line">  var result = Fn.apply(obj,args)</span><br><span class="line">  <span class="built_in">return</span> result instanceof Object ? result : obj</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> Fn(name)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">&#125;</span><br><span class="line">var fn = reNew(Fn,<span class="string">'sheriff'</span>)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/11/js-debounce-throttle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/11/js-debounce-throttle/" class="post-title-link" itemprop="url"> 防抖、节流</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-11 18:42:14" itemprop="dateCreated datePublished" datetime="2020-07-11T18:42:14+08:00">2020-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h2><p>防抖，所谓防抖，就是指触发事件后，在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。</p>
-<h3 id="非立即执行防抖函数"><a href="#非立即执行防抖函数" class="headerlink" title="非立即执行防抖函数"></a>非立即执行防抖函数</h3><p>非立即执行防抖函数，触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> debounce(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> timeout</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span>(timeout) clearTimeout(timeout)</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      fn.apply(this,arguments)</span><br><span class="line">    &#125;,delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="立即执行防抖函数"><a href="#立即执行防抖函数" class="headerlink" title="立即执行防抖函数"></a>立即执行防抖函数</h3><p>立即执行防抖函数，是指触发事件后函数会立即执行一次，然后 n 秒内不触发事件才能继续执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> debounce(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> timeout</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span>(timeout) clearTimeout(timeout)</span><br><span class="line">    <span class="built_in">let</span> canCall = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      timeout = null</span><br><span class="line">    &#125;,delay)</span><br><span class="line">    <span class="keyword">if</span>(canCall)&#123;</span><br><span class="line">      fn.apply(this,arguments)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h2><p>持续触发并不会执行多次，到一定时间再去执行</p>
-<h3 id="时间戳版本"><a href="#时间戳版本" class="headerlink" title="时间戳版本"></a>时间戳版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> throttle(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> pre = 0</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="built_in">let</span> now = Date.now()</span><br><span class="line">    <span class="keyword">if</span>(now - pre &gt; delay)&#123;</span><br><span class="line">      fn.apply(this,arguments)</span><br><span class="line">      pre = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="定时器版本"><a href="#定时器版本" class="headerlink" title="定时器版本"></a>定时器版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> throttle(fn,delay)&#123;</span><br><span class="line">  <span class="built_in">let</span> timeout</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span>(!timeout)&#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        timeout = null</span><br><span class="line">        fn.apply(this,arguments)</span><br><span class="line">      &#125;,delay)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/11/js-create-object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/11/js-create-object/" class="post-title-link" itemprop="url">创建对象的方式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-11 17:28:03" itemprop="dateCreated datePublished" datetime="2020-07-11T17:28:03+08:00">2020-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="new-Object"><a href="#new-Object" class="headerlink" title="new Object()"></a>new Object()</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object()</span><br></pre></td></tr></table></figure>
-<p>上面两种方式都能创建对象，但是如果创建多个对象，会造成代码冗余，因此要封装一下，由此有了工程模式</p>
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> createObject(name,age,sex)&#123;</span><br><span class="line">  var o = &#123;&#125;</span><br><span class="line">  o.name = name</span><br><span class="line">  o.age = age</span><br><span class="line">  o.sex = sex</span><br><span class="line">  <span class="built_in">return</span> o</span><br><span class="line">&#125;</span><br><span class="line">var obj = createObject(<span class="string">'sheriff'</span>,20,<span class="string">'femail'</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">  this.age = age</span><br><span class="line">  this.say = <span class="function"><span class="title">function</span></span>()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person()</span><br></pre></td></tr></table></figure>
-<h2 id="构造函数与工厂模式的对比"><a href="#构造函数与工厂模式的对比" class="headerlink" title="构造函数与工厂模式的对比"></a>构造函数与工厂模式的对比</h2><p>优点：<br>  •构造函数没有显示的创建对象<br>  •没有return语句<br>  •可以判断对象的类型<br>缺点：每一个实例上都会创建say方法，有多少个实例，就会创建多少个，这会占用很多不必要的内存</p>
-<h2 id="原型创建对象"><a href="#原型创建对象" class="headerlink" title="原型创建对象"></a>原型创建对象</h2><p>优点：方法只创建一次，所有的实例都可以用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  say: <span class="function"><span class="title">function</span></span>()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/11/js-scroll-bar/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/11/js-scroll-bar/" class="post-title-link" itemprop="url">移动端滚动穿透问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-11 17:19:08" itemprop="dateCreated datePublished" datetime="2020-07-11T17:19:08+08:00">2020-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>移动端，当弹窗使用fixed定位时，在弹窗上滑动，底下的背景也跟着滑动。</p>
-<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>当弹窗展示的时候，将底下的背景固定在当前位置，弹窗消失的时候，再清除设置。</p>
-<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.style&#123;</span><br><span class="line">  position: fixed;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var deepScroll = (<span class="keyword">function</span>(style)&#123;</span><br><span class="line">  var scrollTop</span><br><span class="line">  <span class="built_in">return</span> &#123;</span><br><span class="line">    beforeModal = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      // 获取滚动条的高度</span><br><span class="line">      scrollTop = document.scrollingElement.scrollTop || document.body.scrollTop</span><br><span class="line">      // 给body加上class 使body固定，但会使body固定在(0,0)的位置</span><br><span class="line">      document.body.classList.add(style)</span><br><span class="line">      // 把 body往上拉scrollTop的距离，使之正好固定在我们刚刚停下来的位置</span><br><span class="line">      document.body.style.top = -scrollTop + <span class="string">'px'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    afterModal = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      // 移除style</span><br><span class="line">      document.body.classList.remove(style)</span><br><span class="line">      // 把当前滚动条的高度设置成最开始的值</span><br><span class="line">      document.scrollingElement.scrollTop = scrollTop</span><br><span class="line">      document.body.scrollTop = scrollTop</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;(<span class="string">'style'</span>))</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1268,7 +1380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1281,7 +1393,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
