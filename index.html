@@ -161,6 +161,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/22/http-13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/04/22/http-13/" class="post-title-link" itemprop="url">HTTP有哪些优点？又有哪些缺点？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-22 20:42:09" itemprop="dateCreated datePublished" datetime="2021-04-22T20:42:09+08:00">2021-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-24 20:54:51" itemprop="dateModified" datetime="2021-04-24T20:54:51+08:00">2021-04-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天的讨论范围仅限于 HTTP/1.1，所说的优点和缺点也仅针对 HTTP/1.1。</p>
+<h3 id="简单、灵活、易于扩展"><a href="#简单、灵活、易于扩展" class="headerlink" title="简单、灵活、易于扩展"></a>简单、灵活、易于扩展</h3><p>首先，HTTP 最重要也是最突出的优点是“<strong>简单、灵活、易于扩展</strong>”。</p>
+<p>初次接触 HTTP 的人都会认为，HTTP 协议是很“简单”的，基本的报文格式就是“<strong>header+body</strong>”，头部信息也是简单的文本格式，用的也都是常见的英文单词，即使不去看 RFC 文档，只靠猜也能猜出个“八九不离十”。</p>
+<p>可不要小看了“简单”这个优点，它不仅降低了学习和使用的门槛，能够让更多的人研究和开发 HTTP 应用，<strong>“简单”蕴含了进化和扩展的可能性，所谓“少即是多”，“把简单的系统变复杂”，要比“把复杂的系统变简单”容易得多</strong>。</p>
+<p>所以，在“简单”这个最基本的设计理念之下，HTTP 协议又多出了“灵活和易于扩展”的优点。</p>
+<p>“灵活和易于扩展”实际上是一体的，它们互为表里、相互促进，因为“灵活”所以才会“易于扩展”，而“易于扩展”又反过来让 HTTP 更加灵活，拥有更强的表现能力。</p>
+<p>HTTP 协议里的<em>请求方法、URI、状态码、原因短语、头字段等每一个核心组成要素都没有被“写死”，允许开发者任意定制、扩充或解释，给予了浏览器和服务器最大程度的信任和自由，也正好符合了互联网“自由与平等”的精神——缺什么功能自己加个字段或者错误码什么的补上就是了。</em></p>
+<p>“请勿跟踪”所使用的头字段 <strong>DNT</strong>（Do Not Track）就是一个很好的例子。它最早由 Mozilla 提出，<strong>用来保护用户隐私，防止网站监测追踪用户的偏好</strong>。不过可惜的是 DNT 从推出至今有差不多七八年的历史，但很多网站仍然选择“无视”DNT。虽然 DNT 基本失败了，但这也正说明 HTTP 协议是“灵活自由的”，不会受单方面势力的压制。</p>
+<p>“灵活、易于扩展”的特性还表现在 HTTP 对“<strong>可靠传输</strong>”的定义上，<strong>它不限制具体的下层协议，不仅可以使用 TCP、UNIX Domain Socket，还可以使用 SSL/TLS，甚至是基于 UDP 的 QUIC，下层可以随意变化，而上层的语义则始终保持稳定</strong>。</p>
+<h3 id="应用广泛、环境成熟"><a href="#应用广泛、环境成熟" class="headerlink" title="应用广泛、环境成熟"></a>应用广泛、环境成熟</h3><p>HTTP 协议的另一大优点是“<strong>应用广泛</strong>”，软硬件环境都非常成熟。</p>
+<p>随着互联网特别是移动互联网的普及，<strong>HTTP 的触角已经延伸到了世界的每一个角落</strong>：从简单的 Web 页面到复杂的 JSON、XML 数据，从台式机上的浏览器到手机上的各种 APP，从看新闻、泡论坛到购物、理财、“吃鸡”，你很难找到一个没有使用 HTTP 的地方。</p>
+<p>不仅在应用领域，在开发领域 HTTP 协议也得到了广泛的支持。它并不限定某种编程语言或者操作系统，所以天然具有“<strong>跨语言、跨平台</strong>”的优越性。而且，因为本身的简单特性很容易实现，所以几乎所有的编程语言都有 HTTP 调用库和外围的开发测试工具，这一点我觉得就不用再举例了吧，你可能比我更熟悉。</p>
+<p>HTTP 广泛应用的背后还有许多硬件基础设施支持，各个互联网公司和传统行业公司都不遗余力地“触网”，购买服务器开办网站，建设数据中心、CDN 和高速光纤，持续地优化上网体验，让 HTTP 运行的越来越顺畅。</p>
+<p>“应用广泛”的这个优点也就决定了：无论是创业者还是求职者，无论是做网站服务器还是写应用客户端，HTTP 协议都是必须要掌握的基本技能。</p>
+<h3 id="无状态"><a href="#无状态" class="headerlink" title="无状态"></a>无状态</h3><p>看过了两个优点，我们再来看看一把“<strong>双刃剑</strong>”，也就是上一讲中说到的“无状态”，它对于 HTTP 来说既是优点也是缺点。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p><strong>因为服务器没有“记忆能力”，所以就不需要额外的资源来记录状态信息，不仅实现上会简单一些，而且还能减轻服务器的负担，能够把更多的 CPU 和内存用来对外提供服务。</strong></p>
+<p><strong>而且，“无状态”也表示服务器都是相同的，没有“状态”的差异，所以可以很容易地组成集群，让负载均衡把请求转发到任意一台服务器，不会因为状态不一致导致处理出错，使用“堆机器”的“笨办法”轻松实现高并发高可用。</strong></p>
+<h4 id="坏处"><a href="#坏处" class="headerlink" title="坏处"></a>坏处</h4><p>既然服务器没有“记忆能力”，它就<strong>无法支持需要连续多个步骤的“事务”操作</strong>。<strong>例如电商购物，首先要登录，然后添加购物车，再下单、结算、支付，这一系列操作都需要知道用户的身份才行，但“无状态”服务器是不知道这些请求是相互关联的，每次都得问一遍身份信息，不仅麻烦，而且还增加了不必要的数据传输量</strong>。</p>
+<h3 id="明文"><a href="#明文" class="headerlink" title="明文"></a>明文</h3><p>HTTP 协议里还有一把优缺点一体的“<strong>双刃剑</strong>”，就是明文传输。</p>
+<p><strong>“明文”意思就是协议里的报文（准确地说是 header 部分）不使用二进制数据，而是用简单可阅读的文本形式。</strong></p>
+<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><p>对比 TCP、UDP 这样的二进制协议，它的优点显而易见，<strong>不需要借助任何外部工具，用浏览器、Wireshark 或者 tcpdump 抓包后，直接用肉眼就可以很容易地查看或者修改，为我们的开发调试工作带来极大的便利</strong>。</p>
+<h4 id="坏处-1"><a href="#坏处-1" class="headerlink" title="坏处"></a>坏处</h4><p>当然，明文的缺点也是一样显而易见，HTTP 报文的所有信息都会<strong>暴露在“光天化日之下”，在漫长的传输链路的每一个环节上都毫无隐私可言，不怀好意的人只要侵入了这个链路里的某个设备，简单地“旁路”一下流量，就可以实现对通信的窥视</strong>。</p>
+<h3 id="不安全"><a href="#不安全" class="headerlink" title="不安全"></a>不安全</h3><p>安全有很多的方面，明文只是“机密”方面的一个缺点，在“<strong>身份认证</strong>”和“<strong>完整性校验</strong>”这两方面 HTTP 也是欠缺的。</p>
+<p>HTTP 没有提供有效的手段来确认通信双方的真实身份。虽然协议里有一个基本的认证机制，但因为刚才所说的明文传输缺点，这个机制几乎可以说是“纸糊的”，非常容易被攻破。如果仅使用 HTTP 协议，很可能你会连到一个页面一模一样但却是个假冒的网站，然后再被“钓”走各种私人信息。</p>
+<p>HTTP 协议也不支持“完整性校验”，数据在传输过程中容易被窜改而无法验证真伪。比如，你收到了一条银行用 HTTP 发来的消息：“小明向你转账一百元”，你无法知道小明是否真的就只转了一百元，也许他转了一千元或者五十元，但被黑客窜改成了一百元，真实情况到底是什么样子 HTTP 协议没有办法给你答案。</p>
+<p><strong>为了解决 HTTP 不安全的缺点，所以就出现了 HTTPS</strong>，这个我们以后再说。</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>最后我们来谈谈 HTTP 的性能，可以用六个字来概括：“不算差，不够好”。</p>
+<p>HTTP 协议基于 TCP/IP，并且使用了“请求 - 应答”的通信模式，所以性能的关键就在这两点上。</p>
+<p>必须要说的是，<strong>TCP 的性能是不差的</strong>，否则也不会纵横互联网江湖四十余载了，而且它已经被研究的很透，集成在操作系统内核里经过了细致的优化，足以应付大多数的场景。</p>
+<p>只可惜如今的江湖已经不是从前的江湖，现在互联网的特点是<strong>移动和高并发</strong>，不能保证稳定的连接质量，所以在 TCP 层面上 HTTP 协议有时候就会表现的不够好。</p>
+<p>而“请求 - 应答”模式则加剧了 HTTP 的性能问题，这就是著名的“<strong>队头阻塞</strong>”（Head-of-line blocking），当顺<strong>序发送的请求序列中的一个请求因为某种原因被阻塞时，在后面排队的所有请求也一并被阻塞，会导致客户端迟迟收不到数据</strong>。</p>
+<p>不过现在已经有了终极解决方案：HTTP/2 和 HTTP/3.</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>HTTP 最大的优点是简单、灵活和易于扩展；</li>
+<li>HTTP 拥有成熟的软硬件环境，应用的非常广泛，是互联网的基础设施；</li>
+<li>HTTP 是无状态的，可以轻松实现集群化，扩展性能，但有时也需要用 Cookie 技术来实现“有状态”；</li>
+<li>HTTP 是明文传输，数据完全肉眼可见，能够方便地研究分析，但也容易被窃听；</li>
+<li>HTTP 是不安全的，无法验证通信双方的身份，也不能判断报文是否被窜改；</li>
+<li>HTTP 的性能不算差，但不完全适应现在的互联网，还有很大的提升空间。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/08/http-12/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1347,110 +1460,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2021/03/30/http-02/" class="post-title-link" itemprop="url">02 | HTTP是什么？HTTP又不是什么？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-30 21:37:25 / 修改时间：21:37:58" itemprop="dateCreated datePublished" datetime="2021-03-30T21:37:25+08:00">2021-03-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="HTTP-是什么"><a href="#HTTP-是什么" class="headerlink" title="HTTP 是什么"></a>HTTP 是什么</h3><p>咱们中国有个成语“人如其名”，意思是一个人的性格和特点是与他的名字相符的。</p>
-<p>先看一下 HTTP 的名字：“<strong>超文本传输协议</strong>”，它可以拆成<strong>三个部分</strong>，分别是：“<strong>超文本</strong>”“<strong>传输</strong>”和“<strong>协议</strong>”。我们从后往前来逐个解析，理解了这三个词，我们也就明白了什么是 HTTP。</p>
-<h4 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h4><p>首先，HTTP 是一个<strong>协议</strong>。那么“协议”有什么特点呢？</p>
-<p>第一点，<strong>协议必须要有两个或多个参与者</strong>，也就是“协”。如果只有你一个人，那你自然可以想干什么就干什么，想怎么玩就怎么玩，不会干涉其他人，其他人也不会干涉你，也就不需要所谓的“协议”。但是，一旦有了两个以上的参与者出现，为了保证最基本的顺畅交流，协议就自然而然地出现了。</p>
-<p>第二点，<strong>协议是对参与者的一种行为约定和规范</strong>，也就是“议”。协议意味着有多个参与者为了达成某个共同的目的而站在了一起，除了要无疑义地沟通交流之外，还必须明确地规定各方的“责、权、利”，<strong>约定该做什么不该做什么，先做什么后做什么，做错了怎么办，有没有补救措施等等</strong>。</p>
-<p>好，到这里，你应该能够明白 HTTP 的第一层含义了。</p>
-<p><strong>HTTP 是一个用在计算机世界里的协议。它使用计算机能够理解的语言确立了一种计算机之间交流通信的规范，以及相关的各种控制和错误处理方式。</strong></p>
-<h4 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h4><p>接下来我们看 HTTP 字面里的第二部分：“传输”。</p>
-<p>HTTP 是一个“传输协议”，所谓的“传输”（Transfer）其实很好理解，就是把一堆东西从 A 点搬到 B 点，或者从 B 点搬到 A 点，即“A&lt;===&gt;B”。别小看了这个简单的动作，它也至少包含了两项重要的信息。</p>
-<p>第一点，HTTP 协议是一个“<strong>双向协议</strong>”。也就是说，有两个最基本的参与者 A 和 B，从 A 开始到 B 结束，<strong>数据在 A 和 B 之间双向而不是单向流动</strong>。通常我们把先发起传输动作的 A 叫做<strong>请求方</strong>，把后接到传输的 B 叫做<strong>应答方</strong>或者<strong>响应方</strong>。拿我们最常见的上网冲浪来举例子，浏览器就是请求方 A，网易、新浪这些网站就是应答方 B。双方约定用 HTTP 协议来通信，于是浏览器把一些数据发送给网站，网站再把一些数据发回给浏览器，最后展现在屏幕上，你就可以看到各种有意思的新闻、视频了。</p>
-<p>第二点，数据虽然是在 A 和 B 之间传输，但并没有限制只有 A 和 B 这两个角色，<strong>允许中间有“中转”或者“接力”</strong>。这样，传输方式就从“A&lt;===&gt;B”，变成了“A&lt;=&gt;X&lt;=&gt;Y&lt;=&gt;Z&lt;=&gt;B”，A 到 B 的传输过程中可以存在任意多个“<strong>中间人</strong>”，而这些<strong>中间人也都遵从 HTTP 协议</strong>，只要不打扰基本的数据传输，就可以添加任意的额外功能，例如安全认证、数据压缩、编码转换等等，优化整个传输过程。</p>
-<p>说到这里，你差不多应该能够明白 HTTP 的第二层含义了。</p>
-<p><strong>HTTP 是一个在计算机世界里专门用来在两点之间传输数据的约定和规范。</strong></p>
-<h4 id="超文本"><a href="#超文本" class="headerlink" title="超文本"></a>超文本</h4><p>既然 HTTP 是一个“传输协议”，那么它传输的“超文本”到底是什么呢？我还是用两点来进一步解释。</p>
-<p>所谓“<strong>文本</strong>”（Text），就表示 HTTP 传输的<strong>不是</strong> TCP/UDP 这些底层协议里被切分的<strong>杂乱无章的二进制包</strong>（datagram），<strong>而是完整的、有意义的数据</strong>，<strong>可以被浏览器、服务器这样的上层应用程序处理</strong>。在互联网<strong>早期</strong>，“文本”只是简单的<strong>字符文字</strong>，但发展到现在，“文本”的涵义已经被大大地扩展了，<strong>图片、音频、视频、</strong>甚至是<strong>压缩包</strong>，在 HTTP 眼里都可以算做是“文本”。</p>
-<p>所谓“<strong>超文本</strong>”，就是“<strong>超越了普通文本的文本</strong>”，它是<strong>文字、图片、音频和视频等的混合体</strong>，最关键的是含有“<strong>超链接</strong>”，<strong>能够从一个“超文本”跳跃到另一个“超文本”，形成复杂的非线性、网状的结构关系</strong>。对于“超文本”，我们最熟悉的就应该是 <strong>HTML</strong> 了，它本身只是纯文字文件，但内部用很多标签定义了对图片、音频、视频等的链接，再经过浏览器的解释，呈现在我们面前的就是一个含有多种视听信息的页面。</p>
-<p>OK，经过了对 HTTP 里这三个名词的详细解释，下次你就可以给出比“超文本传输协议”这七个字更准确更有技术含量的答案：<u><strong>“HTTP 是一个在计算机世界里专门在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范”</strong></u>。</p>
-<h3 id="HTTP-不是什么"><a href="#HTTP-不是什么" class="headerlink" title="HTTP 不是什么"></a>HTTP 不是什么</h3><p>现在你对“HTTP 是什么？”应该有了比较清晰的认识，紧接着的问题就是“HTTP 不是什么？”，等价的问题是“HTTP 不能干什么？”。想想看，你能回答出来吗？</p>
-<p>因为 HTTP 是一个协议，是一种计算机间通信的规范，所以它<strong>不存在“单独的实体”</strong>。它不是浏览器、手机 APP 那样的应用程序，也不是 Windows、Linux 那样的操作系统，更不是 Apache、Nginx、Tomcat 那样的 Web 服务器。</p>
-<p>但 HTTP 又与应用程序、操作系统、Web 服务器密切相关，在它们之间的通信过程中存在，而且是一种“<strong>动态的存在</strong>”，是发生在网络连接、传输超文本数据时的一个“<strong>动态过程</strong>”。</p>
-<h4 id="HTTP-不是互联网"><a href="#HTTP-不是互联网" class="headerlink" title="HTTP 不是互联网"></a>HTTP 不是互联网</h4><p>互联网（Internet）是遍布于全球的许多网络互相连接而形成的一个巨大的国际网络，在它上面存放着各式各样的资源，也对应着各式各样的协议，例如超文本资源使用 HTTP，普通文件使用 FTP，电子邮件使用 SMTP 和 POP3 等。但毫无疑问，HTTP 是构建互联网的一块重要拼图，而且是占比最大的那一块。</p>
-<h4 id="HTTP-不是编程语言"><a href="#HTTP-不是编程语言" class="headerlink" title="HTTP 不是编程语言"></a>HTTP 不是编程语言</h4><p>编程语言是人与计算机沟通交流所使用的语言，而 HTTP 是计算机与计算机沟通交流的语言，我们无法使用 HTTP 来编程，但可以反过来，用编程语言去实现 HTTP，告诉计算机如何用 HTTP 来与外界通信。</p>
-<p>很多流行的编程语言都支持编写 HTTP 相关的服务或应用，例如使用 Java 在 Tomcat 里编写 Web 服务，使用 PHP 在后端实现页面模板渲染，使用 JavaScript 在前端实现动态页面更新，你是否也会其中的一两种呢？</p>
-<h4 id="HTTP-不是-HTML"><a href="#HTTP-不是-HTML" class="headerlink" title="HTTP 不是 HTML"></a>HTTP 不是 HTML</h4><p>这个可能要特别强调一下，<strong>千万不要把 HTTP 与 HTML 混为一谈</strong>，虽然这两者经常是同时出现。</p>
-<p><strong>HTML 是超文本的载体，是一种标记语言</strong>，使用各种标签描述文字、图片、超链接等资源，并且可以嵌入 CSS、JavaScript 等技术实现复杂的动态效果。单论次数，<strong>在互联网上 HTTP 传输最多的可能就是 HTML，但要是论数据量，HTML 可能要往后排了，图片、音频、视频这些类型的资源显然更大</strong>。</p>
-<h4 id="HTTP-不是一个孤立的协议"><a href="#HTTP-不是一个孤立的协议" class="headerlink" title="HTTP 不是一个孤立的协议"></a>HTTP 不是一个孤立的协议</h4><p>在互联网世界里，<strong>HTTP 通常跑在 TCP/IP 协议栈之上，依靠 IP 协议实现寻址和路由、TCP 协议实现可靠数据传输、DNS 协议实现域名查找、SSL/TLS 协议实现安全通信</strong>。此外，还有一些协议依赖于 HTTP，例如 WebSocket、HTTPDNS 等。这些协议相互交织，构成了一个协议网，而 <strong>HTTP 则处于中心地位</strong>。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
-<li>HTTP 是一个用在计算机世界里的协议，它确立了一种计算机之间交流通信的规范，以及相关的各种控制和错误处理方式。</li>
-<li>HTTP 专门用来在两点之间传输数据，不能用于广播、寻址或路由。</li>
-<li>HTTP 传输的是文字、图片、音频、视频等超文本数据。</li>
-<li>HTTP 是构建互联网的重要基础技术，它没有实体，依赖许多其他的技术来实现，但同时许多技术也都依赖于它。</li>
-</ol>
-<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
-<li><p>有一种流行的说法：“HTTP 是用于从互联网服务器传输超文本到本地浏览器的协议”，你认为这种说法对吗？对在哪里，又错在哪里？</p>
-<p>HTTP 是一个在计算机世界里专门在两点之间传输数据的约定和规范。HTTP 协议是一个“<strong>双向协议</strong>”，可以是服务器向服务器、浏览器向服务器、服务器向浏览器。</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1520,7 +1529,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1533,7 +1542,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -161,6 +161,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/14/js_this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/14/js_this/" class="post-title-link" itemprop="url">this</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-14 15:31:50" itemprop="dateCreated datePublished" datetime="2020-07-14T15:31:50+08:00">2020-07-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>this只要记住以下4点</p>
+<h2 id="函数预编译过程，this指向window"><a href="#函数预编译过程，this指向window" class="headerlink" title="函数预编译过程，this指向window"></a>函数预编译过程，this指向window</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">123</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">c</span> (<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">test(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>我们知道这段代码考的是预编译，预编译过程如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">test函数执行，会生成AO</span><br><span class="line">AO:&#123;</span><br><span class="line">  a: <span class="number">1</span></span><br><span class="line">  b: <span class="literal">undefined</span></span><br><span class="line">  c: <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">其实在形成的AO中，还应该有这两个东西，一个是<span class="keyword">this</span>，一个是<span class="built_in">arguments</span>,即AO本来面目为：</span><br><span class="line">AO:&#123;</span><br><span class="line">  argumnets:<span class="number">1</span></span><br><span class="line">  <span class="keyword">this</span>: <span class="built_in">window</span></span><br><span class="line">  a: <span class="number">1</span></span><br><span class="line">  b: <span class="literal">undefined</span></span><br><span class="line">  c: <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>要记住，预编译阶段，this指向window</strong>，下面通过一个小例子来测试一下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">输出：Window对象</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局作用域，this指向window"><a href="#全局作用域，this指向window" class="headerlink" title="全局作用域，this指向window"></a>全局作用域，this指向window</h2><p>在GO里面，this指向window</p>
+<h2 id="call-apply可以改变this指向"><a href="#call-apply可以改变this指向" class="headerlink" title="call/apply可以改变this指向"></a>call/apply可以改变this指向</h2><p>Person.call(obj,1,2,3)，call和apply的第一个参数，就是this指向</p>
+<h2 id="obj-fn"><a href="#obj-fn" class="headerlink" title="obj.fn()"></a>obj.fn()</h2><p>obj.fn()，fn函数里面的this就指向obj</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	name: <span class="string">'sheriff'</span>,</span><br><span class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.say() <span class="comment">// this指向obj</span></span><br><span class="line">输出：<span class="string">'sheriff'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><p>下面通过一些题目来检验一下自己吧</p>
+<h3 id="练习题1"><a href="#练习题1" class="headerlink" title="练习题1"></a>练习题1</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'222'</span></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">  name: <span class="string">'111'</span>,</span><br><span class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fun = a.say</span><br><span class="line">fun()</span><br><span class="line">a.say() </span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">  name: <span class="string">'333'</span>,</span><br><span class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params">fun</span>)</span>&#123;</span><br><span class="line">    fun()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">b.say(a.say) </span><br><span class="line">b.say = a.say</span><br><span class="line">b.say()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">分析过程：</span><br><span class="line">•var fun &#x3D; a.say，等价于 </span><br><span class="line"> var fun &#x3D; function()&#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line"> &#125;</span><br><span class="line"> this指向window，所以fun()输出 222</span><br><span class="line"></span><br><span class="line">•a.say()是直接执行对象上的方法，是第四条，this指向a,因此输出 111</span><br><span class="line">•b.say(a.say)首先b.say(),say函数内部的this指向b,但传递进去一个函数作为参数</span><br><span class="line">var b &#x3D; &#123;</span><br><span class="line">  name: &#39;333&#39;,</span><br><span class="line">  say: function(fun)&#123;</span><br><span class="line">    &#x2F;&#x2F; this &#x3D;&#x3D;&gt; b</span><br><span class="line">    fun()</span><br><span class="line">    &#x2F;&#x2F; fun() &#x3D;&#x3D;&gt;等价于下面的写法</span><br><span class="line">    function()&#123;</span><br><span class="line">      console.log(this.name)</span><br><span class="line">      &#x2F;&#x2F;这里面的this是预编译的this，指向window,因此输出 222</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">•b.say &#x3D; a.say等价于，this指向b,输出 333</span><br><span class="line">var b &#x3D; &#123;</span><br><span class="line">  name: &#39;333&#39;,</span><br><span class="line">  say: function()&#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">•最终结果：222 111 222 333</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习题2"><a href="#练习题2" class="headerlink" title="练习题2"></a>练习题2</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">111</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.a = <span class="number">222</span></span><br><span class="line">  <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">分析过程：</span><br><span class="line">•GO:&#123;<span class="attr">a</span>:<span class="number">111</span>&#125;</span><br><span class="line">•AO:&#123;&#125;</span><br><span class="line">test中的<span class="keyword">this</span>指向<span class="built_in">window</span>，<span class="keyword">this</span>.a就是<span class="built_in">window</span>.a = <span class="number">222</span></span><br><span class="line">此时GO:&#123;<span class="attr">a</span>:<span class="number">222</span>&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a)，AO中没有a，因此到GO上找，即 <span class="number">222</span></span><br><span class="line">输出： <span class="number">222</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="练习题3"><a href="#练习题3" class="headerlink" title="练习题3"></a>练习题3</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">111</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.a = <span class="number">222</span></span><br><span class="line">  <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> test()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">分析过程：</span><br><span class="line"><span class="keyword">new</span> test()实际上发生的是如下过程：</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">  <span class="comment">// this.obj = &#123;&#125;</span></span><br><span class="line">  <span class="comment">// obj._ proto_ = Person.prototype</span></span><br><span class="line">  <span class="keyword">this</span>.a = <span class="number">222</span> </span><br><span class="line"> <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br><span class="line">所以这里<span class="keyword">this</span>指向实例化出来的对象，而输出的是AO里面的a，没有就去GO找</span><br><span class="line">输出结果：<span class="number">111</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="练习题3-1"><a href="#练习题3-1" class="headerlink" title="练习题3"></a>练习题3</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  a = <span class="number">0</span></span><br><span class="line">  alert(a)</span><br><span class="line">  alert(<span class="keyword">this</span>.a)</span><br><span class="line">  <span class="keyword">var</span> a</span><br><span class="line">  alert(a)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line"><span class="keyword">new</span> test()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">分析过程：</span><br><span class="line">•GO:&#123;<span class="attr">a</span>: <span class="number">5</span>&#125;</span><br><span class="line">•test()执行，生成AO</span><br><span class="line">AO:&#123;</span><br><span class="line">  a: <span class="number">0</span></span><br><span class="line">  <span class="keyword">this</span>: <span class="built_in">window</span></span><br><span class="line">&#125;</span><br><span class="line">因此输出结果：<span class="number">0</span> <span class="number">5</span> <span class="number">0</span></span><br><span class="line">•<span class="keyword">new</span> test()执行</span><br><span class="line">AO:&#123;</span><br><span class="line">  a: <span class="number">0</span></span><br><span class="line">  <span class="keyword">this</span>:&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：<span class="number">0</span> <span class="literal">undefined</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/13/webpack-tapable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -879,7 +982,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -892,7 +995,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
