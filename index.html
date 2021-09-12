@@ -161,6 +161,303 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/13/http-15/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/05/13/http-15/" class="post-title-link" itemprop="url">15 | HTTP传输大文件的方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-13 09:49:33" itemprop="dateCreated datePublished" datetime="2021-05-13T09:49:33+08:00">2021-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-12 15:02:02" itemprop="dateModified" datetime="2021-09-12T15:02:02+08:00">2021-09-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>HTTP 可以传输很多种类的数据，不仅是文本，也能传输图片、音频和视频。</p>
+<p>早期互联网上传输的基本上都是只有几 K 大小的文本和小图片，现在的情况则大有不同。网页里包含的信息实在是太多了，随随便便一个主页 HTML 就有可能上百 K，高质量的图片都以 M 论，更不要说那些电影、电视剧了，几 G、几十 G 都有可能。</p>
+<p>相比之下，100M 的光纤固网或者 4G 移动网络在这些大文件的压力下都变成了“小水管”，无论是上传还是下载，都会把网络传输链路挤的“满满当当”。</p>
+<p>所以，<strong>如何在有限的带宽下高效快捷地传输这些大文件就成了一个重要的课题</strong>。这就好比是已经打开了冰箱门（建立连接），该怎么把大象（文件）塞进去再关上门（完成传输）呢？</p>
+<p>今天我们就一起看看 HTTP 协议里有哪些手段能解决这个问题。</p>
+<h3 id="数据压缩"><a href="#数据压缩" class="headerlink" title="数据压缩"></a>数据压缩</h3><p>还记得上一讲中说到的“数据类型与编码”吗？如果你还有印象的话，肯定能够想到一个最基本的解决方案，那就是“<strong>数据压缩</strong>”，把大象变成小猪佩奇，再放进冰箱。</p>
+<p>通常浏览器在发送请求时都会带着“<strong>Accept-Encoding</strong>”头字段，里面是浏览器支持的压缩格式列表，例如 gzip、deflate、br 等，这样服务器就可以从中选择一种压缩算法，放进“<strong>Content-Encoding</strong>”响应头里，再把原数据压缩后发给浏览器。</p>
+<p>如果压缩率能有 50%，也就是说 100K 的数据能够压缩成 50K 的大小，<strong>那么就相当于在带宽不变的情况下网速提升了一倍</strong>，加速的效果是非常明显的。</p>
+<p>不过这个解决方法也有个缺点，<strong>gzip 等压缩算法通常只对文本文件有较好的压缩率，而图片、音频视频等多媒体数据本身就已经是高度压缩的，再用 gzip 处理也不会变小（甚至还有可能会增大一点），所以它就失效了。</strong></p>
+<p>不过<strong>数据压缩在处理文本的时候效果还是很好的</strong>，所以各大网站的服务器都会使用这个手段作为“保底”。例如，在 Nginx 里就会使用“<strong>gzip on</strong>”指令，<strong>启用对“text/html”的压缩</strong>。</p>
+<h3 id="分块传输"><a href="#分块传输" class="headerlink" title="分块传输"></a>分块传输</h3><p>在数据压缩之外，还能有什么办法来解决大文件的问题呢？</p>
+<p><strong>压缩是把大文件整体变小，我们可以反过来思考，如果大文件整体不能变小，那就把它“拆开”，分解成多个小块，把这些小块分批发给浏览器，浏览器收到后再组装复原。</strong></p>
+<p>这样浏览器和服务器都不用在内存里保存文件的全部，<strong>每次只收发一小部分</strong>，网络也不会被大文件长时间占用，内存、带宽等资源也就节省下来了。</p>
+<p>这种“<strong>化整为零</strong>”的思路在 HTTP 协议里就是“<strong>chunked</strong>”分块传输编码，在响应报文里用头字段“<strong>Transfer-Encoding: chunked</strong>”来表示，<strong>意思是报文里的 body 部分不是一次性发过来的，而是分成了许多的块（chunk）逐个发送</strong>。</p>
+<p>这就好比是用魔法把大象变成“乐高积木”，拆散了逐个装进冰箱，到达目的地后再施法拼起来“满血复活”。</p>
+<p>分块传输也可以用于“<strong>流式数据</strong>”，例如由数据库动态生成的表单页面，这种情况下 body 数据的长度是未知的，<strong>无法在头字段“Content-Length”里给出确切的长度，所以也只能用 chunked 方式分块发送</strong>。</p>
+<p><strong>“Transfer-Encoding: chunked”和“Content-Length”这两个字段是互斥的，也就是说响应报文里这两个字段不能同时出现，一个响应报文的传输要么是长度已知，要么是长度未知（chunked），这一点你一定要记住</strong>。</p>
+<p>下面我们来看一下分块传输的编码规则，其实也很简单，同样采用了明文的方式，很类似响应头。</p>
+<ul>
+<li>每个分块包含两个部分，长度头和数据块；</li>
+<li>长度头是以 CRLF（回车换行，即\r\n）结尾的一行明文，用 16 进制数字表示长度；</li>
+<li>数据块紧跟在长度头后，最后也用 CRLF 结尾，但数据不包含 CRLF；</li>
+<li><strong>最后用一个长度为 0 的块表示结束</strong>，即“0\r\n\r\n”。、</li>
+</ul>
+<p>听起来好像有点难懂，看一下图就好理解了：</p>
+<img src="/2356874721.github.io/2021/05/13/http-15/15-1.png" class>
+
+<p>响应报文里的 chunked 数据格式：先是一行 16 进制长度，然后是数据，然后再是 16 进制长度和数据，如此重复，最后是 0 长度分块结束。</p>
+<img src="/2356874721.github.io/2021/05/13/http-15/15-2.png" class>
+
+<h3 id="范围请求"><a href="#范围请求" class="headerlink" title="范围请求"></a>范围请求</h3><p>有了分块传输编码，服务器就可以轻松地收发大文件了，但对于<strong>上 G</strong> 的超大文件，还有一些问题需要考虑。</p>
+<p>比如，你在看当下正热播的某穿越剧，想跳过片头，直接看正片，或者有段剧情很无聊，想拖动进度条快进几分钟，<strong>这实际上是想获取一个大文件其中的片段数据，而分块传输并没有这个能力</strong>。</p>
+<p>HTTP 协议为了满足这样的需求，提出了“<strong>范围请求</strong>”（range requests）的概念，<strong>允许客户端在请求头里使用专用字段来表示只获取文件的一部分，相当于是客户端的“化整为零”</strong>。</p>
+<p>范围请求不是 Web 服务器必备的功能，可以实现也可以不实现，所以服务器必须在响应头里使用字段<strong>“Accept-Ranges: bytes</strong>”明确告知客户端：“我是支持范围请求的”。</p>
+<p>如果不支持的话该怎么办呢？服务器可以发送“<strong>Accept-Ranges: none</strong>”，或者<strong>干脆不发送“Accept-Ranges”字段，这样客户端就认为服务器没有实现范围请求功能，只能老老实实地收发整块文件了。</strong></p>
+<p><strong>请求头 Range</strong> 是 HTTP 范围请求的专用字段，格式是<strong>“bytes=x-y</strong>”，其中的 x 和 y 是以字节为单位的数据范围。</p>
+<p>要注意 x、y 表示的是“偏移量”，范围必须从 0 计数，例如前 10 个字节表示为“0-9”，第二个 10 字节表示为“10-19”，而“0-10”实际上是前 11 个字节。</p>
+<p>Range 的格式也很灵活，起点 x 和终点 y 可以省略，能够很方便地表示正数或者倒数的范围。假设文件是 100 个字节，那么：</p>
+<ul>
+<li>“0-”表示从文档起点到文档终点，相当于“0-99”，即整个文件；</li>
+<li>“10-”是从第 10 个字节开始到文档末尾，相当于“10-99”；</li>
+<li>“-1”是文档的最后一个字节，相当于“99-99”；</li>
+<li>“-10”是从文档末尾倒数 10 个字节，相当于“90-99”。</li>
+</ul>
+<p>服务器收到 Range 字段后，需要做四件事。</p>
+<p><strong>第一，它必须检查范围是否合法</strong>，比如文件只有 100 个字节，但请求“200-300”，这就是<strong>范围越界</strong>了。服务器就会返回状态码 <strong>416</strong>，意思是“你的范围请求有误，我无法处理，请再检查一下”。</p>
+<p><strong>第二，如果范围正确</strong>，服务器就可以根据 Range 头计算偏移量，<strong>读取文件的片段</strong>了，返回状态码“<strong>206 Partial Content</strong>”，和 200 的意思差不多，但<strong>表示 body 只是原数据的一部分</strong>。</p>
+<p><strong>第三，服务器要添加一个响应头字段 Content-Range</strong>，告诉片段的<strong>实际偏移量和资源的总大小</strong>，格式是“<strong>bytes x-y/length</strong>”，与 Range 头区别在没有“=”，范围后多了总长度。例如，对于“0-10”的范围请求，值就是“bytes 0-10/100”。</p>
+<p>最后剩下的就是发送数据了，直接把片段用 TCP 发给客户端，一个范围请求就算是处理完了。</p>
+<p>有了范围请求之后，HTTP 处理大文件就更加轻松了，看视频时可以根据时间点计算出文件的 Range，不用下载整个文件，直接精确获取片段所在的数据内容。</p>
+<p><strong>不仅看视频的拖拽进度需要范围请求，常用的下载工具里的多段下载、断点续传也是基于它实现的，要点是：</strong></p>
+<ul>
+<li>先发个 HEAD，看服务器是否支持范围请求，同时获取文件的大小；</li>
+<li>开 N 个线程，每个线程使用 Range 字段划分出各自负责下载的片段，发请求传输数据；</li>
+<li>下载意外中断也不怕，不必重头再来一遍，只要根据上次的下载记录，用 Range 请求剩下的那一部分就可以了。</li>
+</ul>
+<h3 id="多段数据"><a href="#多段数据" class="headerlink" title="多段数据"></a>多段数据</h3><p>刚才说的范围请求一次只获取一个片段，其实它还支持在 Range 头里使用多个“x-y”，一次性获取多个片段数据。</p>
+<p>这种情况需要使用一种特殊的 MIME 类型：“<strong>multipart/byteranges</strong>”，表示报文的 body 是由多段字节序列组成的，并且还要用一个参数“<strong>boundary=xxx</strong>”给出段之间的分隔标记。</p>
+<p>多段数据的格式与分块传输也比较类似，但它需要用分隔标记 boundary 来区分不同的片段，可以通过图来对比一下。</p>
+<img src="/2356874721.github.io/2021/05/13/http-15/15-3.png" class>
+
+<p><strong>每一个分段必须以“- -boundary”开始（前面加两个“-”），之后要用“Content-Type”和“Content-Range”标记这段数据的类型和所在范围，然后就像普通的响应头一样以回车换行结束，再加上分段数据，最后用一个“- -boundary- -”（前后各有两个“-”）表示所有的分段结束。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /<span class="number">16</span><span class="number">-2</span> HTTP/<span class="number">1.1</span></span><br><span class="line">Host: www.chrono.com</span><br><span class="line">Range: bytes=<span class="number">0</span><span class="number">-9</span>, <span class="number">20</span><span class="number">-29</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">206</span> Partial Content</span><br><span class="line">Content-Type: multipart/byteranges; boundary=<span class="number">00000000001</span></span><br><span class="line">Content-Length: <span class="number">189</span></span><br><span class="line">Connection: keep-alive</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-<span class="number">-00000000001</span></span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Content-Range: bytes <span class="number">0</span><span class="number">-9</span>/<span class="number">96</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// this is</span></span><br><span class="line">-<span class="number">-00000000001</span></span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Content-Range: bytes <span class="number">20</span><span class="number">-29</span>/<span class="number">96</span></span><br><span class="line"></span><br><span class="line">ext json d</span><br><span class="line">-<span class="number">-00000000001</span>--</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li><strong>压缩 HTML</strong> 等文本文件是传输大文件最基本的方法；</li>
+<li><strong>分块传输</strong>可以流式收发数据，节约内存和带宽，使用响应头字段“Transfer-Encoding: chunked”来表示，分块的格式是 16 进制长度头 + 数据块；</li>
+<li><strong>范围请求</strong>可以只获取部分数据，即“分块请求”，实现视频拖拽或者断点续传，使用请求头字段“Range”和响应头字段“Content-Range”，响应状态码必须是 206；</li>
+<li>也可以一次<strong>请求多个范围</strong>，这时候响应报文的数据类型是“multipart/byteranges”，body 里的多个部分会用 boundary 字符串分隔。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/08/http-14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2021/05/08/http-14/" class="post-title-link" itemprop="url">14 | 海纳百川：HTTP的实体数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-08 11:30:55" itemprop="dateCreated datePublished" datetime="2021-05-08T11:30:55+08:00">2021-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-12 15:02:02" itemprop="dateModified" datetime="2021-09-12T15:02:02+08:00">2021-09-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在前面我们了解了 HTTP 报文的结构，知道一个 HTTP 报文是由“header+body”组成的。但那时我们主要研究的是 header，没有涉及到 body。</p>
+<h3 id="数据类型与编码"><a href="#数据类型与编码" class="headerlink" title="数据类型与编码"></a>数据类型与编码</h3><p>在 TCP/IP 协议栈里，传输数据基本上都是“header+body”的格式。但 TCP、UDP 因为是传输层的协议，它们不会关心 body 数据是什么，只要把数据发送到对方就算是完成了任务。</p>
+<p>而 HTTP 协议则不同，它是应用层的协议，数据到达之后工作只能说是完成了一半，还必须要告诉上层应用这是什么数据才行，否则上层应用就会“不知所措”。</p>
+<p>你可以设想一下，假如 HTTP 没有告知数据类型的功能，服务器把“一大坨”数据发给了浏览器，浏览器看到的是一个“黑盒子”，这时候该怎么办呢？</p>
+<p>当然，它可以“猜”。因为很多数据都是有固定格式的，所以通过检查数据的前几个字节也许就能知道这是个 GIF 图片、或者是个 MP3 音乐文件，但这种方式无疑十分低效，而且有很大几率会检查不出来文件类型。</p>
+<p>幸运的是，早在 HTTP 协议诞生之前就已经有了针对这种问题的解决方案，不过它是用在电子邮件系统里的，让电子邮件可以发送 ASCII 码以外的任意数据，方案的名字叫做“<strong>多用途互联网邮件扩展</strong>”（Multipurpose Internet Mail Extensions），简称为 <strong>MIME</strong>。</p>
+<p>MIME 是一个很大的标准规范，但 HTTP 只“顺手牵羊”取了其中的一部分，用来标记 body 的数据类型，这就是我们平常总能听到的“<strong>MIME type</strong>”。</p>
+<p>MIME 把数据分成了<strong>八大类，每个大类下再细分出多个子类，形式是“type/subtype”</strong>的字符串，巧得很，刚好也符合了 HTTP 明文的特点，所以能够很容易地纳入 HTTP 头字段里。</p>
+<p>这里简单列举一下在 HTTP 里经常遇到的几个类别：</p>
+<ul>
+<li>text：即文本格式的可读数据，我们最熟悉的应该就是 text/html 了，表示超文本文档，此外还有纯文本 text/plain、样式表 text/css 等。</li>
+<li>image：即图像文件，有 image/gif、image/jpeg、image/png 等。</li>
+<li>audio/video：音频和视频数据，例如 audio/mpeg、video/mp4 等。</li>
+<li>application：数据格式不固定，可能是文本也可能是二进制，必须由上层应用程序来解释。常见的有 application/json，application/javascript、application/pdf 等，另外，如果实在是不知道数据是什么类型，像刚才说的“黑盒”，就会是 application/octet-stream，即不透明的二进制数据。</li>
+</ul>
+<p>但仅有 MIME type 还不够，因为 HTTP 在传输时为了<strong>节约带宽</strong>，有时候还会<strong>压缩数据</strong>，为了不要让浏览器继续“猜”，还需要有一个“<strong>Encoding type</strong>”，告诉数据是用的什么<strong>编码格式</strong>，这样对方才能正确解压缩，还原出原始的数据。</p>
+<p>比起 MIME type 来说，Encoding type 就少了很多，常用的只有下面三种：</p>
+<ul>
+<li>gzip：GNU zip 压缩格式，也是互联网上最流行的压缩格式；</li>
+<li>deflate：zlib（deflate）压缩格式，流行程度仅次于 gzip；</li>
+<li>br：一种专门为 HTTP 优化的新压缩算法（Brotli）。</li>
+</ul>
+<h3 id="数据类型使用的头字段"><a href="#数据类型使用的头字段" class="headerlink" title="数据类型使用的头字段"></a>数据类型使用的头字段</h3><p>有了 MIME type 和 Encoding type，无论是浏览器还是服务器就都可以轻松识别出 body 的类型，也就能够正确处理数据了。</p>
+<p>HTTP 协议为此定义了两个 Accept 请求头字段和两个 Content 实体头字段，用于<strong>客户端和服务器进行“内容协商”</strong>。也就是说，客户端用 Accept 头告诉服务器希望接收什么样的数据，而服务器用 Content 头告诉客户端实际发送了什么样的数据。</p>
+<img src="/2356874721.github.io/2021/05/08/http-14/14-1.png" class>
+
+<p>Accept 字段标记的是客户端可理解的 MIME type，可以用“,”做分隔符列出多个类型，让服务器有更多的选择余地，例如下面的这个头：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept: text/html,application/xml,image/webp,image/png</span><br></pre></td></tr></table></figure>
+
+<p>这就是告诉服务器：“我能够看懂 HTML、XML 的文本，还有 webp 和 png 的图片，请给我这四类格式的数据”。</p>
+<p>相应的，服务器会在响应报文里用头字段 Content-Type 告诉实体数据的真实类型：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Content-Type: text/html</span><br><span class="line">Content-Type: image/png</span><br></pre></td></tr></table></figure>
+
+<p>这样浏览器看到报文里的类型是“text/html”就知道是 HTML 文件，会调用排版引擎渲染出页面，看到“image/png”就知道是一个 PNG 文件，就会在页面上显示出图像。</p>
+<p><strong>Accept-Encoding</strong> <strong>字段标记的是客户端支持的压缩格式</strong>，例如上面说的 gzip、deflate 等，同样也可以用“,”列出多个，服务器可以选择其中一种来压缩数据，<strong>实际使用的压缩格式放在响应头字段 Content-Encoding 里</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Content-Encoding: gzip</span><br></pre></td></tr></table></figure>
+
+<p>不过这两个字段是可以省略的，<strong>如果请求报文里没有 Accept-Encoding 字段，就表示客户端不支持压缩数据；如果响应报文里没有 Content-Encoding 字段，就表示响应数据没有被压缩</strong>。</p>
+<h3 id="语言类型与编码"><a href="#语言类型与编码" class="headerlink" title="语言类型与编码"></a>语言类型与编码</h3><p>MIME type 和 Encoding type 解决了计算机理解 body 数据的问题，但互联网遍布全球，不同国家不同地区的人使用了很多不同的语言，虽然都是 text/html，但如何让浏览器显示出每个人都可理解可阅读的语言文字呢？这实际上就是“<strong>国际化</strong>”的问题。HTTP 采用了与数据类型相似的解决方案，又引入了两个概念：<strong>语言类型与字符集</strong>。</p>
+<p>所谓的“语言类型”就是人类使用的自然语言，例如英语、汉语、日语等，而这些自然语言可能还有下属的地区性方言，所以在需要明确区分的时候也要使用“<strong>type-subtype</strong>”的形式，不过这里的格式与数据类型不同，<strong>分隔符不是“/”，而是“-”</strong>。</p>
+<p>举几个例子：<strong>en 表示任意的英语，en-US 表示美式英语，en-GB 表示英式英语，而 zh-CN 就表示我们最常使用的汉语</strong>。</p>
+<p>关于自然语言的计算机处理还有一个更麻烦的东西叫做“字符集”。</p>
+<p>在计算机发展的早期，各个国家和地区的人们“各自为政”，发明了许多字符编码方式来处理文字，比如英语世界用的 ASCII、汉语世界用的 GBK、BIG5，日语世界用的 Shift_JIS 等。同样的一段文字，用一种编码显示正常，换另一种编码后可能就会变得一团糟。</p>
+<p>所以后来就出现了 Unicode 和 UTF-8，把世界上所有的语言都容纳在一种编码方案里，<strong>遵循 UTF-8 字符编码方式的 Unicode 字符集也成为了互联网上的标准字符集</strong>。</p>
+<h3 id="语言类型使用的头字段"><a href="#语言类型使用的头字段" class="headerlink" title="语言类型使用的头字段"></a>语言类型使用的头字段</h3><p>同样的，HTTP 协议也使用 Accept 请求头字段和 Content 实体头字段，用于<strong>客户端和服务器就语言与编码进行“内容协商”</strong>。</p>
+<p><strong>Accept-Language</strong> 字段标记了客户端可理解的自然语言，也允许用“,”做分隔符列出多个类型，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Language: zh-CN, zh, en</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个请求头会告诉服务器：“最好给我 zh-CN 的汉语文字，如果没有就用其他的汉语方言，如果还没有就给英文”。</strong></p>
+<p>相应的，服务器应该在响应报文里用头字段 <strong>Content-Language</strong> 告诉客户端实体数据使用的实际语言类型：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Language: zh-CN</span><br></pre></td></tr></table></figure>
+
+<p><strong>字符集在 HTTP 里使用的请求头字段是 Accept-Charset</strong>，<strong>但响应头里却没有对应的 Content-Charset，而是在 Content-Type 字段的数据类型后面用“charset=xxx”来表示，这点需要特别注意</strong>。</p>
+<p>例如，浏览器请求 GBK 或 UTF-8 的字符集，然后服务器返回的是 UTF-8 编码，就是下面这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Accept-Charset: gbk, utf<span class="number">-8</span></span><br><span class="line">Content-Type: text/html; charset=utf<span class="number">-8</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><u>不过现在的浏览器都支持多种字符集，通常不会发送 Accept-Charset，而服务器也不会发送 Content-Language，因为使用的语言完全可以由字符集推断出来，所以在请求头里一般只会有 Accept-Language 字段，响应头里只会有 Content-Type 字段。</u></strong></p>
+<h3 id="内容协商的质量值"><a href="#内容协商的质量值" class="headerlink" title="内容协商的质量值"></a>内容协商的质量值</h3><p>在 HTTP 协议里用 Accept、Accept-Encoding、Accept-Language 等请求头字段进行内容协商的时候，还可以用一种特殊的<strong>“q”参数表示权重来设定优先级</strong>，这里的“q”是“quality factor”的意思。</p>
+<p><strong>权重的最大值是 1，最小值是 0.01，<u>默认值是 1</u>，如果值是 0 就表示拒绝。具体的形式是在数据类型或语言代码后面加一个“;”，然后是“q=value”。</strong></p>
+<p><strong>这里要提醒的是“;”的用法，在大多数编程语言里“;”的断句语气要强于“,”，而在 HTTP 的内容协商里却恰好反了过来，“;”的意义是小于“,”的。</strong></p>
+<p>例如下面的 Accept 字段：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept: text/html,application/xml;q=<span class="number">0.9</span>,*<span class="comment">/*;q=0.8</span></span><br></pre></td></tr></table></figure>
+
+<p>它表示浏览器最希望使用的是 HTML 文件，权重是 1，其次是 XML 文件，权重是 0.9，最后是任意数据类型，权重是 0.8。服务器收到请求头后，就会计算权重，再根据自己的实际情况优先输出 HTML 或者 XML。</p>
+<h3 id="内容协商的结果"><a href="#内容协商的结果" class="headerlink" title="内容协商的结果"></a>内容协商的结果</h3><p>内容协商的过程是不透明的，每个 Web 服务器使用的算法都不一样。但有的时候，服务器会在响应头里多加一个 <strong>Vary</strong> 字段，记录服务器在内容协商时参考的请求头字段，给出一点信息，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vary: Accept-Encoding,User-Agent,Accept</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个 Vary 字段表示服务器依据了 Accept-Encoding、User-Agent 和 Accept 这三个头字段，然后决定了发回的响应报文。</strong></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>今天我们学习了 HTTP 里的数据类型和语言类型，在这里为今天的内容做个小结。</p>
+<img src="/2356874721.github.io/2021/05/08/http-14/14-2.png" class>
+
+<ol>
+<li>数据类型表示实体数据的内容是什么，使用的是 MIME type，相关的头字段是 Accept 和 Content-Type；</li>
+<li>数据编码表示实体数据的压缩方式，相关的头字段是 Accept-Encoding 和 Content-Encoding；</li>
+<li>语言类型表示实体数据的自然语言，相关的头字段是 Accept-Language 和 Content-Language；</li>
+<li>字符集表示实体数据的编码方式，相关的头字段是 Accept-Charset 和 Content-Type；</li>
+<li>客户端需要在请求头里使用 Accept 等头字段与服务器进行“内容协商”，要求服务器返回最合适的数据；</li>
+<li>Accept 等头字段可以用“,”顺序列出多个可能的选项，还可以用“;q=”参数来精确指定权重。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/22/http-13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +472,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2356874721.github.io/2021/04/22/http-13/" class="post-title-link" itemprop="url">HTTP有哪些优点？又有哪些缺点？</a>
+            <a href="/2356874721.github.io/2021/04/22/http-13/" class="post-title-link" itemprop="url">13 | HTTP有哪些优点？又有哪些缺点？</a>
         </h2>
 
         <div class="post-meta">
@@ -192,7 +489,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-24 20:54:51" itemprop="dateModified" datetime="2021-04-24T20:54:51+08:00">2021-04-24</time>
+                <time title="修改时间：2021-09-12 15:02:02" itemprop="dateModified" datetime="2021-09-12T15:02:02+08:00">2021-09-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1202,264 +1499,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-04/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2021/03/30/http-04/" class="post-title-link" itemprop="url">04 | HTTP世界全览（下）：与HTTP相关的各种协议</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-30 21:40:03 / 修改时间：21:45:49" itemprop="dateCreated datePublished" datetime="2021-03-30T21:40:03+08:00">2021-03-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在上一讲中，我介绍了与 HTTP 相关的浏览器、服务器、CDN、网络爬虫等应用技术。今天要讲的则是比较偏向于理论的各种 HTTP 相关协议，重点是 TCP/IP、DNS、URI、HTTPS 等，希望能够帮你理清楚它们与 HTTP 的关系。</p>
-<img src="/2356874721.github.io/2021/03/30/http-04/4-1.png" class>
-
-<h3 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h3><p>TCP/IP 协议实际上是<strong>一系列网络通信协议的统称</strong>，其中最核心的两个协议是 TCP 和 IP，其他的还有 <strong>UDP、ICMP、ARP</strong> 等等，共同构成了一个复杂但有层次的协议栈。</p>
-<p>这个协议栈有<strong>四层，最上层是“应用层”，最下层是“链接层”</strong>，TCP 和 IP 则在中间：TCP 属于“<strong>传输层</strong>”，IP 属于“<strong>网际层</strong>”。协议的层级关系模型非常重要，我会在下一讲中再专门讲解，这里先暂时放一放。</p>
-<p><strong><u>IP 协议是“Internet Protocol”的缩写，主要目的是解决寻址和路由问题，以及如何在两点间传送数据包。</u></strong>IP 协议使用“<strong>IP 地址</strong>”的概念来定位互联网上的每一台计算机。可以对比一下现实中的电话系统，你拿着的手机相当于互联网上的计算机，而要打电话就必须接入电话网，由通信公司给你分配一个号码，这个号码就相当于 IP 地址。</p>
-<p>现在我们使用的 IP 协议大多数是 v4 版，地址是四个用“.”分隔的数字，例如“192.168.0.1”，总共有 2^32，大约 42 亿个可以分配的地址。看上去好像很多，但互联网的快速发展让地址的分配管理很快就“捉襟见肘”。所以，就又出现了 v6 版，使用 8 组“:”分隔的数字作为地址，容量扩大了很多，有 2^128 个，在未来的几十年里应该是足够用了。</p>
-<p><strong><u>TCP 协议是“Transmission Control Protocol”的缩写，意思是“传输控制协议”，它位于 IP 协议之上，基于 IP 协议提供可靠的、字节流形式的通信，是 HTTP 协议得以实现的基础。</u></strong></p>
-<p><strong>“可靠”是指保证数据不丢失，“字节流”是指保证数据完整</strong>，<strong>所以在 TCP 协议的两端可以如同操作文件一样访问传输的数据，就像是读写在一个密闭的管道里“流动”的字节。</strong></p>
-<p><strong>HTTP 是一个”传输协议”，但它不关心寻址、路由、数据完整性等传输细节，而要求这些工作都由下层来处理</strong>。因为互联网上最流行的是 TCP/IP 协议，而它刚好满足 HTTP 的要求，所以互联网上的 HTTP 协议就运行在了 TCP/IP 上，HTTP 也就可以更准确地称为“<strong>HTTP over TCP/IP</strong>”。</p>
-<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>在 TCP/IP 协议中使用 IP 地址来标识计算机，数字形式的地址对于计算机来说是方便了，但对于人类来说却既难以记忆又难以输入。</p>
-<p>于是“<strong>域名系统</strong>”（<strong>Domain Name System</strong>）出现了，<strong>用有意义的名字来作为 IP 地址的等价替代</strong>。设想一下，你是愿意记“95.211.80.227”这样枯燥的数字，还是“nginx.org”这样的词组呢？</p>
-<p>在 DNS 中，<strong>“域名”（Domain Name）又称为“主机名”（Host）</strong>，为了更好地标记不同国家或组织的主机，让名字更好记，所以被设计成了一个有层次的结构。</p>
-<p>域名用“.”分隔成多个单词，<strong>级别从左到右逐级升高</strong>，最右边的被称为“顶级域名”。对于顶级域名，可能你随口就能说出几个，例如表示商业公司的“com”、表示教育机构的“edu”，表示国家的“cn”“uk”等，买火车票时的域名还记得吗？是“<a href="http://www.12306.cn”。" target="_blank" rel="noopener">www.12306.cn”。</a></p>
-<p><strong><u>但想要使用 TCP/IP 协议来通信仍然要使用 IP 地址，所以需要把域名做一个转换，“映射”到它的真实 IP，这就是所谓的“域名解析”。</u></strong></p>
-<p>继续用刚才的打电话做个比喻，你想要打电话给小明，但不知道电话号码，就得在手机里的号码簿里一项一项地找，直到找到小明那一条记录，然后才能查到号码。这里的“小明”就相当于域名，而“电话号码”就相当于 IP 地址，这个查找的过程就是域名解析。</p>
-<p>域名解析的实际操作要比刚才的例子复杂很多，因为互联网上的电脑实在是太多了。目前全世界有 13 组根 DNS 服务器，下面再有许多的顶级 DNS、权威 DNS 和更小的本地 DNS，逐层递归地实现域名查询。</p>
-<p>HTTP 协议中并没有明确要求必须使用 DNS，但实际上为了方便访问互联网上的 Web 服务器，通常都会使用 DNS 来定位或标记主机名，间接地把 DNS 与 HTTP 绑在了一起。</p>
-<h3 id="URI-URL"><a href="#URI-URL" class="headerlink" title="URI/URL"></a>URI/URL</h3><p>有了 TCP/IP 和 DNS，是不是我们就可以任意访问网络上的资源了呢？</p>
-<p>还不行，DNS 和 IP 地址只是标记了互联网上的主机，但主机上有那么多文本、图片、页面，到底要找哪一个呢？就像小明管理了一大堆文档，你怎么告诉他是哪个呢？</p>
-<p>所以就出现了 <strong>URI（Uniform Resource Identifier）</strong>，中文名称是 <strong>统一资源标识符</strong>，使用它就能够<strong>唯一地标记互联网上资源</strong>。</p>
-<p>URI 另一个更常用的表现形式是 <strong>URL（Uniform Resource Locator）</strong>， <strong>统一资源定位符</strong>，也就是我们俗称的“网址”，它实际上<strong>是 URI 的一个子集</strong>，不过因为这两者几乎是相同的，差异不大，所以通常不会做严格的区分。</p>
-<p>我就拿 Nginx 网站来举例，看一下 URI 是什么样子的。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//nginx.org/en/download.html</span></span><br></pre></td></tr></table></figure>
-
-<p>你可以看到，<strong>URI 主要有三个基本的部分构成</strong>：</p>
-<p><strong>协议名</strong>：即访问该资源应当使用的协议，在这里是“http”；</p>
-<p><strong>主机名</strong>：即互联网上主机的标记，可以是域名或 IP 地址，在这里是“nginx.org”；</p>
-<p><strong>路径</strong>：即资源在主机上的位置，使用“/”分隔多级目录，在这里是“/en/download.html”。</p>
-<p>还是用打电话来做比喻，你通过电话簿找到了小明，让他把昨天做好的宣传文案快递过来。那么这个过程中你就完成了一次 URI 资源访问，“小明”就是“主机名”，“昨天做好的宣传文案”就是“路径”，而“快递”，就是你要访问这个资源的“协议名”。</p>
-<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>在 TCP/IP、DNS 和 URI 的“加持”之下，HTTP 协议终于可以自由地穿梭在互联网世界里，顺利地访问任意的网页了，真的是“好生快活”。</p>
-<p>但且慢，互联网上不仅有“美女”，还有很多的“野兽”。假设你打电话找小明要一份广告创意，很不幸，电话被商业间谍给窃听了，他立刻动用种种手段偷窃了你的快递，就在你还在等包裹的时候，他抢先发布了这份广告，给你的公司造成了无形或有形的损失。</p>
-<p>有没有什么办法能够防止这种情况的发生呢？确实有。你可以使用“加密”的方法，比如这样打电话：</p>
-<p>你：“喂，小明啊，接下来我们改用火星文通话吧。”</p>
-<p>小明：“好啊好啊，就用火星文吧。”</p>
-<p>你：“巴拉巴拉巴拉巴拉……”</p>
-<p>小明：“巴拉巴拉巴拉巴拉……”</p>
-<p>如果你和小明说的火星文只有你们两个才懂，那么即使窃听到了这段谈话，他也不会知道你们到底在说什么，也就无从破坏你们的通话过程。HTTPS 就相当于这个比喻中的“火星文”，它的全称是“<strong>HTTP over SSL/TLS</strong>”，<strong>也就是运行在 SSL/TLS 协议上的 HTTP</strong>。</p>
-<p>注意它的名字，这里是 <strong>SSL/TLS</strong>，而不是 TCP/IP，它是一个<strong>负责加密通信的安全协议</strong>，<strong>建立在 TCP/IP 之上，所以也是个可靠的传输协议</strong>，可以被用作 HTTP 的下层。</p>
-<p>因为 <u><strong>HTTPS 相当于“HTTP+SSL/TLS+TCP/IP”</strong></u>，其中的“HTTP”和“TCP/IP”我们都已经明白了，只要再了解一下 SSL/TLS，HTTPS 也就能够轻松掌握。</p>
-<p>SSL 的全称是“<strong>Secure Socket Layer</strong>”，由网景公司发明，当发展到 3.0 时被标准化，改名为 <strong>TLS，即“Transport Layer Security”</strong>，但由于历史的原因还是有很多人称之为 SSL/TLS，或者直接简称为 SSL。</p>
-<p>SSL 使用了许多密码学最先进的研究成果，综合了对称加密、非对称加密、摘要算法、数字签名、数字证书等技术，能够在不安全的环境中为通信的双方创建出一个秘密的、安全的传输通道，为 HTTP 套上一副坚固的盔甲。</p>
-<p>你可以在今后上网时留心看一下浏览器地址栏，如果有一个小锁头标志，那就表明网站启用了安全的 HTTPS 协议，而 URI 里的协议名，也从“http”变成了“https”。</p>
-<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>代理（Proxy）是 HTTP 协议中请求方和应答方中间的一个环节，作为“中转站”，<strong>既可以转发客户端的请求，也可以转发服务器的应答</strong>。</p>
-<p>代理有很多的种类，常见的有：</p>
-<p><strong>匿名代理</strong>：完全“隐匿”了被代理的机器，外界看到的只是代理服务器；</p>
-<p><strong>透明代理</strong>：顾名思义，它在传输过程中是“透明开放”的，外界既知道代理，也知道客户端；</p>
-<p><strong>正向代理</strong>：靠近客户端，代表客户端向服务器发送请求；</p>
-<p><strong>反向代理</strong>：靠近服务器端，代表服务器响应客户端的请求；</p>
-<p>上一讲提到的 CDN，实际上就是一种代理，它代替源站服务器响应客户端的请求，通常扮演着透明代理和反向代理的角色。</p>
-<p>由于代理在传输过程中插入了一个“中间层”，所以可以在这个环节做很多有意思的事情，比如：</p>
-<p><strong>负载均衡</strong>：把访问请求均匀分散到多台机器，实现访问集群化；</p>
-<p><strong>内容缓存</strong>：暂存上下行的数据，减轻后端的压力；</p>
-<p><strong>安全防护</strong>：隐匿 IP, 使用 WAF 等工具抵御网络攻击，保护被代理的机器；</p>
-<p><strong>数据处理</strong>：提供压缩、加密等额外的功能。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这次我介绍了与 HTTP 相关的各种协议，在这里简单小结一下今天的内容。</p>
-<ol>
-<li>TCP/IP 是网络世界最常用的协议，HTTP 通常运行在 TCP/IP 提供的可靠传输基础上；</li>
-<li>DNS 域名是 IP 地址的等价替代，需要用域名解析实现到 IP 地址的映射；</li>
-<li>URI 是用来标记互联网上资源的一个名字，由“协议名 + 主机名 + 路径”构成，俗称 URL；</li>
-<li>HTTPS 相当于“HTTP+SSL/TLS+TCP/IP”，为 HTTP 套了一个安全的外壳；</li>
-<li>代理是 HTTP 传输过程中的“中转站”，可以实现缓存加速、负载均衡等功能。</li>
-</ol>
-<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
-<li><p>DNS 与 URI 有什么关系？</p>
-<p>DNS专门用于域名解析，作用是简化人类记忆数据的复杂度。URI专门用于标识互联网世界中的资源，作用是帮助找到对应的互联网中资源。互联网中的电脑通过IP地址来表示，DNS可以把一个域名变成一个IP地址，IP地址是标识资源的一部分，仅定位了具体的电脑，还有继续定位在电脑上的具体位置。</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/30/http-03/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2021/03/30/http-03/" class="post-title-link" itemprop="url">03 | HTTP世界全览（上）：与HTTP相关的各种概念</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-30 21:38:14 / 修改时间：21:45:54" itemprop="dateCreated datePublished" datetime="2021-03-30T21:38:14+08:00">2021-03-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <img src="/2356874721.github.io/2021/03/30/http-03/3-1.png" class>
-
-<p>图左边的部分是与 HTTP 有关系的各种协议，比较偏向于理论；而右边的部分是与 HTTP 有关系的各种应用技术，偏向于实际应用。</p>
-<p>我希望借助这张图帮你澄清与 HTTP 相关的各种概念和角色，让你在实际工作中清楚它们在链路中的位置和作用，知道发起一个 HTTP 请求会有哪些角色参与，会如何影响请求的处理，做到“手中有粮，心中不慌”。</p>
-<p>因为那张图比较大，所以我会把左右两部分拆开来分别讲，今天先讲右边的部分，也就是与 HTTP 相关的各种应用，着重介绍互联网、浏览器、Web 服务器等常见且重要的概念。</p>
-<img src="/2356874721.github.io/2021/03/30/http-03/3-2.png" class>
-
-<h3 id="网络世界"><a href="#网络世界" class="headerlink" title="网络世界"></a>网络世界</h3><p>互联网世界更像是由数不清的大小岛屿组成的“千岛之国”。</p>
-<p>互联网的正式名称是 <strong>Internet</strong>，里面存储着无穷无尽的信息资源，我们通常所说的“上网”实际上访问的只是互联网的一个子集“<strong>万维网</strong>”（World Wide Web），它基于 HTTP 协议，传输 HTML 等超文本资源，能力也就被限制在 HTTP 协议之内。</p>
-<p>互联网上还有许多<strong>万维网之外的资源</strong>，例如常用的<strong>电子邮件、BT 和 Magnet 点对点下载、FTP 文件下载、SSH 安全登录、各种即时通信服务</strong>等等，它们需要用各自的专有协议来访问。</p>
-<p>不过由于 HTTP 协议非常灵活、易于扩展，而且“超文本”的表述能力很强，所以很多其他原本不属于 HTTP 的资源也可以“包装”成 HTTP 来访问，这就是我们为什么能够总看到各种“网页应用”——例如“微信网页版”“邮箱网页版”——的原因。</p>
-<p><strong>综合起来看，现在的互联网 90% 以上的部分都被万维网，也就是 HTTP 所覆盖，所以把互联网约等于万维网或 HTTP 应该也不算大错。</strong></p>
-<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>上网就要用到浏览器，常见的浏览器有 Google 的 Chrome、Mozilla 的 Firefox、Apple 的 Safari、Microsoft 的 IE 和 Edge，还有小众的 Opera 以及国内的各种“换壳”的“极速”“安全”浏览器。</p>
-<p>那么你想过没有，所谓的“浏览器”到底是个什么东西呢？浏览器的正式名字叫<strong>“Web Browser</strong>”，顾名思义，就是<strong>检索、查看互联网上网页资源的应用程序</strong>，名字里的 Web，实际上指的就是“World Wide Web”，也就是万维网。</p>
-<p><strong>浏览器本质上是一个 HTTP 协议中的请求方</strong>，使用 HTTP 协议获取网络上的各种资源。当然，为了让我们更好地检索查看网页，它还集成了很多额外的功能。</p>
-<p>例如，HTML 排版引擎用来展示页面，JavaScript 引擎用来实现动态化效果，甚至还有开发者工具用来调试网页，以及五花八门的各种插件和扩展。</p>
-<p><strong>在 HTTP 协议里，浏览器的角色被称为“User Agent”即“用户代理</strong>”，<strong>意思是作为访问者的“代理”来发起 HTTP 请求</strong>。不过在不引起混淆的情况下，我们通常都简单地称之为“<strong>客户端</strong>”。</p>
-<h3 id="Web-服务器"><a href="#Web-服务器" class="headerlink" title="Web 服务器"></a>Web 服务器</h3><p>刚才说的浏览器是 HTTP 里的请求方，那么在协议另一端的<strong>应答方（响应方）</strong>又是什么呢？这个你一定也很熟悉，答案就是<strong>服务器</strong>，Web Server。</p>
-<p>Web 服务器是一个很大也很重要的概念，它是 <strong>HTTP 协议里响应请求的主体</strong>，通常也<strong>把控着绝大多数的网络资源</strong>，<strong>在网络世界里处于强势地位</strong>。</p>
-<p>当我们谈到“Web 服务器”时有两个层面的含义：硬件和软件。</p>
-<h4 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h4><p>硬件含义就是<strong>物理形式或“云”形式的机器</strong>，在大多数情况下它可能不是一台服务器，而是利用反向代理、负载均衡等技术组成的庞大<strong>集群</strong>。但从外界看来，它仍然表现为一台机器，但这个形象是“虚拟的”。</p>
-<h4 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h4><p>软件含义的 Web 服务器可能我们更为关心，它就是<strong>提供 Web 服务的应用程序</strong>，通常会运行在硬件含义的服务器上。它利用强大的硬件能力响应海量的客户端 HTTP 请求，处理磁盘上的网页、图片等静态文件，或者把请求转发给后面的 Tomcat、Node.js 等业务应用，返回动态的信息。</p>
-<p>比起层出不穷的各种 Web 浏览器，Web 服务器就要少很多了，一只手的手指头就可以数得过来。</p>
-<p><strong>Apache</strong> 是老牌的服务器，功能相当完善，相关的资料很多，学习门槛低，是许多创业者建站的入门产品。<strong>Nginx</strong> 是 Web 服务器里的后起之秀，特点是高性能、高稳定，且易于扩展。自 2004 年推出后就不断蚕食 Apache 的市场份额，在高流量的网站里更是不二之选。此外，还有 Windows 上的 <strong>IIS</strong>、Java 的 <strong>Jetty/Tomcat</strong> 等，因为性能不是很高，所以在互联网上应用得较少。</p>
-<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>浏览器和服务器是 HTTP 协议的两个端点，那么，在这两者之间还有别的什么东西吗？当然有了。浏览器通常不会直接连到服务器，中间会经过“重重关卡”，其中的一个重要角色就叫做 CDN。</p>
-<p>CDN，全称是“<strong>Content Delivery Network</strong>”，翻译过来就是“<strong>内容分发网络</strong>”。它应用了 HTTP 协议里的<strong>缓存</strong>和<strong>代理</strong>技术，<strong>代替源站响应客户端的请求</strong>。</p>
-<p>CDN 有什么好处呢？</p>
-<p><u><strong>简单来说，它可以缓存源站的数据，让浏览器的请求不用“千里迢迢”地到达源站服务器，直接在“半路”就可以获取响应。如果 CDN 的调度算法很优秀，更可以找到离用户最近的节点，大幅度缩短响应时间。</strong></u></p>
-<p>CDN 也是现在互联网中的一项重要基础设施，<strong>除了基本的网络加速外，还提供负载均衡、安全防护、边缘计算、跨运营商网络等功能</strong>，能够成倍地“放大”源站服务器的服务能力，很多云服务商都把 CDN 作为产品的一部分。</p>
-<h3 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h3><p>前面说到过浏览器，它是一种用户代理，代替我们访问互联网。</p>
-<p>但 <strong>HTTP 协议并没有规定用户代理后面必须是“真正的人类”</strong>，它也完全可以是“<strong>机器人</strong>”，这些“机器人”的正式名称就叫做“爬虫”（Crawler），<strong>实际上是一种可以自动访问 Web 资源的应用程序</strong>。</p>
-<p>“爬虫”这个名字非常形象，它们就像是一只只不知疲倦的、辛勤的蚂蚁，在无边无际的网络上爬来爬去，不停地在网站间奔走，搜集抓取各种信息。</p>
-<p>据估计，互联网上至少有 50% 的流量都是由爬虫产生的，某些特定领域的比例还会更高，也就是说，如果你的网站今天的访问量是十万，那么里面至少有五六万是爬虫机器人，而不是真实的用户。</p>
-<p>爬虫是怎么来的呢？</p>
-<p>绝大多数是由各大搜索引擎“放”出来的，抓取网页存入庞大的数据库，再建立关键字索引，这样我们才能够在搜索引擎中快速地搜索到互联网角落里的页面。</p>
-<p>爬虫也有不好的一面，它会<strong>过度消耗网络资源，占用服务器和带宽，影响网站对真实数据的分析，甚至导致敏感信息泄漏</strong>。所以，又出现了“反爬虫”技术，通过各种手段来限制爬虫。其中一项就是“君子协定”robots.txt，约定哪些该爬，哪些不该爬。无论是“爬虫”还是“反爬虫”，用到的基本技术都是两个，一个是 HTTP，另一个就是 HTML。</p>
-<h3 id="HTML-WebService-WAF"><a href="#HTML-WebService-WAF" class="headerlink" title="HTML/WebService/WAF"></a>HTML/WebService/WAF</h3><p>到现在我已经说完了图中右边的五大部分，而左边的 HTML、WebService、WAF 等由于与 HTTP 技术上实质关联不太大，所以就简略地介绍一下，不再过多展开。</p>
-<p><strong>HTML 是 HTTP 协议传输的主要内容之一</strong>，它描述了超文本页面，用各种“标签”定义文字、图片等资源和排版布局，最终由浏览器“渲染”出可视化页面。HTML 目前有两个主要的标准，HTML4 和 HTML5。广义上的 HTML 通常是指 HTML、JavaScript、CSS 等前端技术的组合，能够实现比传统静态页面更丰富的动态页面。</p>
-<p><strong>Web Service 是一种由 W3C 定义的应用服务开发规范</strong>，使用 client-server 主从架构，通常使用 WSDL 定义服务接口，使用 HTTP 协议传输 XML 或 SOAP 消息，也就是说，它是一个基于 Web（HTTP）的服务架构技术，既可以运行在内网，也可以在适当保护后运行在外网。因为采用了 HTTP 协议传输数据，所以在 Web Service 架构里服务器和客户端可以采用不同的操作系统或编程语言开发。例如服务器端用 Linux+Java，客户端用 Windows+C#，具有跨平台跨语言的优点。</p>
-<p><strong>WAF</strong> 是近几年比较“火”的一个词，意思是“<strong>网络应用防火墙</strong>”。与硬件“防火墙”类似，它是应用层面的“防火墙”，专门检测 HTTP 流量，是防护 Web 应用的安全技术。WAF 通常位于 Web 服务器之前，可以阻止如 SQL 注入、跨站脚本等攻击，目前应用较多的一个开源项目是 ModSecurity，它能够完全集成进 Apache 或 Nginx。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>今天我详细介绍了与 HTTP 有关系的各种应用技术，在这里简单小结一下要点。</p>
-<ol>
-<li>互联网上绝大部分资源都使用 HTTP 协议传输；</li>
-<li>浏览器是 HTTP 协议里的请求方，即 User Agent；</li>
-<li>服务器是 HTTP 协议里的应答方，常用的有 Apache 和 Nginx；</li>
-<li>CDN 位于浏览器和服务器之间，主要起到缓存加速的作用；</li>
-<li>爬虫是另一类 User Agent，是自动访问网络资源的程序。</li>
-</ol>
-<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
-<li><p>你觉得 CDN 在对待浏览器和爬虫时会有差异吗？为什么？</p>
-<p>CDN在对待浏览器和爬虫时没有差异，都被视为User Agent</p>
-</li>
-<li><p>你怎么理解 WebService 与 Web Server 这两个非常相似的词？</p>
-<p>Webservice是服务，Web Server是服务器</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1529,7 +1568,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1542,7 +1581,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
