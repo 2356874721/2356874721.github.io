@@ -161,6 +161,128 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/20/shlee-cli/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2022/02/20/shlee-cli/" class="post-title-link" itemprop="url">从零搭建前端脚手架工具</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-20 17:05:40 / 修改时间：17:06:45" itemprop="dateCreated datePublished" datetime="2022-02-20T17:05:40+08:00">2022-02-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/%E8%84%9A%E6%89%8B%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">脚手架</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>随着业务的发展，团队会维护好多项目，因此根据团队的需要量身打造一款脚手架工具十分必要，真正的做到开箱即用，节省了在项目开发前期，项目搭建、环境配置等等所耗费的大量时间，让开发者把更多的精力放在业务和个人成长上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">环境版本：</span><br><span class="line">node -- v14.17.0</span><br><span class="line">npm -- 6.14.6</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、项目搭建"><a href="#二、项目搭建" class="headerlink" title="二、项目搭建"></a>二、项目搭建</h3><ul>
+<li><p>新建shlee-cli文件夹</p>
+</li>
+<li><p>在文件夹下执行 npm init -y</p>
+</li>
+<li><p>安装如下依赖，可以直接复制到package中，执行npm install</p>
+<p>axios：网络请求</p>
+<p>chalk：粉笔，输出有颜色的字体</p>
+<p>cli-table2：输出表格</p>
+<p>commander：命令行工具</p>
+<p>download-git-repo：从github拉取模板</p>
+<p>figlet：绘制图形</p>
+<p>fs-extra：文件读写操作</p>
+<p>inquirer：交互式命令</p>
+<p>ora：loading动画</p>
+<p>util：公共方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">  &quot;axios&quot;: &quot;^0.25.0&quot;,</span><br><span class="line">  &quot;chalk&quot;: &quot;^4.1.2&quot;,</span><br><span class="line">  &quot;cli-table2&quot;: &quot;^0.2.0&quot;,</span><br><span class="line">  &quot;commander&quot;: &quot;^9.0.0&quot;,</span><br><span class="line">  &quot;download-git-repo&quot;: &quot;^3.0.2&quot;,</span><br><span class="line">  &quot;figlet&quot;: &quot;^1.5.2&quot;,</span><br><span class="line">  &quot;fs-extra&quot;: &quot;^10.0.0&quot;,</span><br><span class="line">  &quot;inquirer&quot;: &quot;^8.2.0&quot;,</span><br><span class="line">  &quot;ora&quot;: &quot;^5.4.1&quot;,</span><br><span class="line">  &quot;util&quot;: &quot;^0.12.4&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h3><ul>
+<li><p>新建程序的主入口文件bin/index.js，后面再写内容</p>
+</li>
+<li><p>在package.json中配置脚本命令，执行npm link，将shlee挂载到全局，在终端执行shlee时，就会执行/bin/index.js里面的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;bin&quot;: &#123;</span><br><span class="line">  &quot;shlee&quot;: &quot;.&#x2F;bin&#x2F;index.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="bin-index-js"><a href="#bin-index-js" class="headerlink" title="bin/index.js"></a>bin/index.js</h4><p>下面开始实现主入口的逻辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env node</span><br><span class="line">const figlet &#x3D; require(&#39;figlet&#39;) &#x2F;&#x2F; 绘制图形</span><br><span class="line">const program &#x3D; require(&#39;commander&#39;) &#x2F;&#x2F; 命令行工具</span><br><span class="line">program.usage(&#39;&lt;command&gt;&#39;)</span><br><span class="line">program.version(require(&#39;..&#x2F;package.json&#39;).version) &#x2F;&#x2F; 获取版本号</span><br><span class="line">const chalk &#x3D; require(&#39;chalk&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 定义脚手架命令</span><br><span class="line">program.command(&#39;list&#39;)</span><br><span class="line">  .description(&#39;显示模板列表&#39;)</span><br><span class="line">  .action(() &#x3D;&gt; &#123; require(&#39;..&#x2F;commands&#x2F;list&#39;)() &#125;)</span><br><span class="line"></span><br><span class="line">program.command(&#39;init&#39;)</span><br><span class="line">  .description(&#39;初始化一个模板&#39;)</span><br><span class="line">  .option(&#39;-f, --force&#39;, &#39;如果目录已存在，则覆盖&#39;)</span><br><span class="line">  .action(options &#x3D;&gt; &#123; require(&#39;..&#x2F;commands&#x2F;init&#39;)(options) &#125;) &#x2F;&#x2F; options: &#123;force: true&#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 输入shlee -h时显示logo</span><br><span class="line">program</span><br><span class="line">  .on(&#39;--help&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;\r\n&#39; + figlet.textSync(&#39;shlee-cli&#39;, &#123;</span><br><span class="line">      horizontalLayout: &#39;full&#39;,</span><br><span class="line">      verticalLayout: &#39;full&#39;,</span><br><span class="line">      width: 100,</span><br><span class="line">      whitespaceBreak: false</span><br><span class="line">    &#125;))</span><br><span class="line">    console.log(&#96;\r\nRun $&#123;chalk.cyan(&#96;shlee &lt;command&gt; --help&#96;)&#125; for detailed usage of given command.\r\n&#96;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
+
+<h4 id="commands-list-js"><a href="#commands-list-js" class="headerlink" title="commands/list.js"></a>commands/list.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const &#123; getTemplateList &#125; &#x3D; require(&#39;..&#x2F;lib&#x2F;https&#39;)</span><br><span class="line">const Table &#x3D; require(&#39;cli-table2&#39;)</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; async function () &#123;</span><br><span class="line">  let table &#x3D; new Table(&#123;</span><br><span class="line">    head: [&#39;模板名称&#39;, &#39;模板描述&#39;, &#39;git仓库地址&#39;]</span><br><span class="line">  &#125;)</span><br><span class="line">  let tempalteList &#x3D; await getTemplateList()</span><br><span class="line">  tempalteList.map(item &#x3D;&gt; &#123;</span><br><span class="line">    table.push([item.name, item.description, item.html_url])</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(table.toString())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="commands-init-js"><a href="#commands-init-js" class="headerlink" title="commands/init.js"></a>commands/init.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs-extra&#39;)</span><br><span class="line">const path &#x3D; require(&#39;path&#39;)</span><br><span class="line">const inquirer &#x3D; require(&#39;inquirer&#39;) &#x2F;&#x2F; 和用户的交互</span><br><span class="line">const Generator &#x3D; require(&#39;..&#x2F;lib&#x2F;generator&#39;)</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; async function (options) &#123;</span><br><span class="line">  &#x2F;&#x2F; 输入项目的名称、描述、创建者</span><br><span class="line">  const inquirerParams &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;input&#39;,</span><br><span class="line">      name: &#39;name&#39;,</span><br><span class="line">      message: &#39;项目名称&#39;,</span><br><span class="line">      default: &#39;project-name&#39;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;input&#39;,</span><br><span class="line">      name: &#39;author&#39;,</span><br><span class="line">      message: &#39;你的名字&#39;,</span><br><span class="line">      default: &#39;author&#39;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;input&#39;,</span><br><span class="line">      name: &#39;description&#39;,</span><br><span class="line">      message: &#39;项目描述&#39;,</span><br><span class="line">      default: &#39;description&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  let inquirerData &#x3D; await inquirer.prompt(inquirerParams)</span><br><span class="line"></span><br><span class="line">  const newDir &#x3D; path.join(process.cwd(), inquirerData.name)</span><br><span class="line">  &#x2F;&#x2F; 创建的目录已经存在</span><br><span class="line">  if (fs.existsSync(newDir)) &#123;</span><br><span class="line">    if (options.force) &#123; &#x2F;&#x2F; --force直接覆盖创建，不进行询问</span><br><span class="line">      await fs.remove(newDir)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      &#x2F;&#x2F; 询问</span><br><span class="line">      const inquirerParams &#x3D; [</span><br><span class="line">        &#123;</span><br><span class="line">          name: &#39;action&#39;,</span><br><span class="line">          type: &#39;list&#39;,</span><br><span class="line">          message: &#96;目录$&#123;newDir&#125;已存在，请选择如下操作：&#96;,</span><br><span class="line">          choices: [</span><br><span class="line">            &#123;</span><br><span class="line">              name: &#39;删除已有目录&#39;,</span><br><span class="line">              value: &#39;remove&#39;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              name: &#39;取消当前操作&#39;,</span><br><span class="line">              value: &#39;cancel&#39;</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">      let inquirerData &#x3D; await inquirer.prompt(inquirerParams) &#x2F;&#x2F; &#123; action: &#39;cancel&#39; &#125;</span><br><span class="line">      if (inquirerData.action &#x3D;&#x3D; &#39;cancel&#39;) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125; else if (inquirerData.action &#x3D;&#x3D; &#39;remove&#39;) &#123;</span><br><span class="line">        console.log(&#39;\r\n正在删除...&#39;)</span><br><span class="line">        await fs.remove(newDir)</span><br><span class="line">        console.log(&#39;\r\n删除成功！\r\n&#39;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建项目</span><br><span class="line">  const generator &#x3D; new Generator(inquirerData, newDir)</span><br><span class="line">  generator.create()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="lib-https-js"><a href="#lib-https-js" class="headerlink" title="lib/https.js"></a>lib/https.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const axios &#x3D; require(&#39;axios&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 响应拦截</span><br><span class="line">axios.interceptors.response.use(res &#x3D;&gt; &#123;</span><br><span class="line">  return res.data</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 拉取github中的模板列表</span><br><span class="line">async function getTemplateList() &#123;</span><br><span class="line">  return axios.get(&#39;https:&#x2F;&#x2F;api.github.com&#x2F;orgs&#x2F;shlee-cli&#x2F;repos&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  getTemplateList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="lib-generator-js"><a href="#lib-generator-js" class="headerlink" title="lib/generator.js"></a>lib/generator.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">const &#123; getTemplateList &#125; &#x3D; require(&#39;.&#x2F;https&#39;)</span><br><span class="line">const chalk &#x3D; require(&#39;chalk&#39;) &#x2F;&#x2F; 粉笔，输出有颜色的字体</span><br><span class="line">const ora &#x3D; require(&#39;ora&#39;) &#x2F;&#x2F; loading动画</span><br><span class="line">const inquirer &#x3D; require(&#39;inquirer&#39;)</span><br><span class="line">const util &#x3D; require(&#39;util&#39;)</span><br><span class="line">const downloadGitRepo &#x3D; require(&#39;download-git-repo&#39;)</span><br><span class="line">const path &#x3D; require(&#39;path&#39;)</span><br><span class="line">const fs &#x3D; require(&#39;fs-extra&#39;)</span><br><span class="line"></span><br><span class="line">class Generator &#123;</span><br><span class="line">  constructor(inquirerData, newDir) &#123;</span><br><span class="line">    this.inquirerData &#x3D; inquirerData</span><br><span class="line">    this.name &#x3D; inquirerData.name</span><br><span class="line">    this.newDir &#x3D; newDir</span><br><span class="line">    this.downloadTemplates &#x3D; util.promisify(downloadGitRepo)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建项目</span><br><span class="line">  async create() &#123;</span><br><span class="line">    const template &#x3D; await this.getTemplate()</span><br><span class="line">    await this.download(template)</span><br><span class="line">    console.log(&#39;\r\n***************************&#39;)</span><br><span class="line">    console.log(&#96;您成功的创建了项目： $&#123;chalk.cyan(this.name)&#125;&#96;)</span><br><span class="line">    console.log(&#96;\r\ncd $&#123;chalk.cyan(this.name)&#125;&#96;)</span><br><span class="line">    console.log(&#96;\r\n$&#123;chalk.cyan(&#39;yarn install&#39;)&#125;&#96;)</span><br><span class="line">    console.log(&#96;\r\n$&#123;chalk.cyan(&#39;yarn start&#39;)&#125;&#96;)</span><br><span class="line">    console.log(&#39;***************************\r\n&#39;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 获取用户选择的模板</span><br><span class="line">  async getTemplate() &#123;</span><br><span class="line">    const templateList &#x3D; await this.wrapLoading(getTemplateList, &#39;正在获取模板列表...&#39;, &#39;模板列表获取成功！&#39;)</span><br><span class="line">    if (!templateList) return</span><br><span class="line">    &#x2F;&#x2F; 获取模板名称</span><br><span class="line">    const templates &#x3D; templateList.map(item &#x3D;&gt; item.name)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 通过询问，获取用户选择的模板名称</span><br><span class="line">    const &#123; template &#125; &#x3D; await inquirer.prompt(&#123;</span><br><span class="line">      name: &#39;template&#39;,</span><br><span class="line">      type: &#39;list&#39;,</span><br><span class="line">      choices: templates,</span><br><span class="line">      message: &#39;请选择项目模板&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    return template</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 动画</span><br><span class="line">  async wrapLoading(fn, waittingmsg, successfulmsg, ...args) &#123;</span><br><span class="line">    &#x2F;&#x2F; 启动动画</span><br><span class="line">    const spinner &#x3D; ora(waittingmsg)</span><br><span class="line">    spinner.start()</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">      const result &#x3D; await fn(...args)</span><br><span class="line">      spinner.succeed(successfulmsg)</span><br><span class="line">      return result</span><br><span class="line">    &#125; catch (error) &#123;</span><br><span class="line">      spinner.fail(&#39;出错了请稍后再试!&#39;, error)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 下载模板</span><br><span class="line">  async download(template) &#123;</span><br><span class="line">    const requestUrl &#x3D; &#96;shlee-cli&#x2F;$&#123;template&#125;&#96;</span><br><span class="line">    await this.wrapLoading(</span><br><span class="line">      this.downloadTemplates,</span><br><span class="line">      &#39;正在下载模板...&#39;,</span><br><span class="line">      &#39;模板下载成功！&#39;,</span><br><span class="line">      requestUrl,</span><br><span class="line">      path.resolve(process.cwd(), this.newDir) &#x2F;&#x2F; 模板下载的位置</span><br><span class="line">    )</span><br><span class="line">    &#x2F;&#x2F; 替换模板package.json中的相关字段</span><br><span class="line">    const pkgPath &#x3D; path.resolve(process.cwd(), this.newDir)+&#39;&#x2F;package.json&#39;</span><br><span class="line">    let packageObj &#x3D; require(pkgPath)</span><br><span class="line">    if (packageObj) &#123;</span><br><span class="line">      packageObj &#x3D; &#123;...packageObj, ...this.inquirerData&#125;</span><br><span class="line">      fs.writeFileSync(pkgPath, JSON.stringify(packageObj, null, &#39;\t&#39;))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; Generator</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、发布到npm"><a href="#四、发布到npm" class="headerlink" title="四、发布到npm"></a>四、发布到npm</h3><ul>
+<li>执行npm login登录npm账号</li>
+<li>执行npm publish命令进行发布</li>
+</ul>
+<p>注意：发布之前，请确认package.json中已经配置以下字段，否则很可能发布失败；同时，也要保证name的唯一性，即在npm上不能有重名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;name&quot;: &quot;shlee-cli&quot;,</span><br><span class="line">&quot;version&quot;: &quot;0.0.2&quot;,</span><br><span class="line">&quot;description&quot;: &quot;定制脚手架&quot;,</span><br><span class="line">&quot;author&quot;: &quot;sheriff&quot;,</span><br><span class="line">&quot;license&quot;: &quot;ISC&quot;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、脚手架使用"><a href="#五、脚手架使用" class="headerlink" title="五、脚手架使用"></a>五、脚手架使用</h3><ul>
+<li>执行npm unlink解绑脚本命令 </li>
+<li>全局安装脚手架npm install shlee-cli -g</li>
+<li>执行 shlee list查看模板列表</li>
+<li>执行shlee init创建项目</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/20/vscode-plugin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,7 +297,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2356874721.github.io/2022/02/20/vscode-plugin/" class="post-title-link" itemprop="url">vscode-plugin</a>
+            <a href="/2356874721.github.io/2022/02/20/vscode-plugin/" class="post-title-link" itemprop="url">从零开发一款vscode插件小工具</a>
         </h2>
 
         <div class="post-meta">
@@ -186,7 +308,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-02-20 16:56:27 / 修改时间：17:02:57" itemprop="dateCreated datePublished" datetime="2022-02-20T16:56:27+08:00">2022-02-20</time>
+              <time title="创建时间：2022-02-20 16:56:27 / 修改时间：17:05:21" itemprop="dateCreated datePublished" datetime="2022-02-20T16:56:27+08:00">2022-02-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1409,138 +1531,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/31/http-06/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2021/03/31/http-06/" class="post-title-link" itemprop="url">06 | 域名里有哪些门道？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-31 17:53:05" itemprop="dateCreated datePublished" datetime="2021-03-31T17:53:05+08:00">2021-03-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-08 21:05:16" itemprop="dateModified" datetime="2021-04-08T21:05:16+08:00">2021-04-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在上一讲里，我们学习了 HTTP 协议使用的 TCP/IP 协议栈，知道了 HTTP 协议是运行在 TCP/IP 上的。</p>
-<p>IP 协议的职责是“网际互连”，它在 MAC 层之上，使用 IP 地址把 MAC 编号转换成了四位数字，这就对物理网卡的 MAC 地址做了一层抽象，发展出了许多的“新玩法”。</p>
-<p>但接入互联网的计算机越来越多，IP 地址的缺点也就暴露出来了，最主要的是它“对人不友好”，虽然比 MAC 的 16 进制数要好一点，但还是难于记忆和输入。</p>
-<p>怎么解决这个问题呢？</p>
-<p>那就“以其人之道还治其人之身”，<strong>在 IP 地址之上再来一次抽象，把数字形式的 IP 地址转换成更有意义更好记的名字</strong>，在字符串的层面上再增加“新玩法”。于是，<strong>DNS 域名系统</strong>就这么出现了。</p>
-<h3 id="域名的形式"><a href="#域名的形式" class="headerlink" title="域名的形式"></a>域名的形式</h3><p>域名是一个有层次的结构，是一串用“.”分隔的多个单词，<strong>最右边的被称为“顶级域名”，然后是“二级域名”，层级关系向左依次降低</strong>。</p>
-<p><strong>最左边的是主机名</strong>，通常用来表明主机的用途，比如“<strong>www”表示提供万维网服务</strong>、“mail”表示提供邮件服务，不过这也不是绝对的，名字的关键是要让我们容易记忆。</p>
-<p>看一下百度的域名“<a href="http://www.baidu.com”，这里的“com”就是顶级域名，“baidu”是二级域名，“www”则是主机名。使用这个域名，DNS" target="_blank" rel="noopener">www.baidu.com”，这里的“com”就是顶级域名，“baidu”是二级域名，“www”则是主机名。使用这个域名，DNS</a> 就会把它转换成相应的 IP 地址，你就可以访问百度的网站了。</p>
-<p>域名本质上还是个名字空间系统，<strong>使用多级域名就可以划分出不同的国家、地区、组织、公司、部门，每个域名都是独一无二的，可以作为一种身份的标识</strong>。</p>
-<p>举个例子吧，假设 A 公司里有个小明，B 公司里有个小强，于是他们就可以分别说是“小明.A 公司”，“小强.B 公司”，即使 B 公司里也有个小明也不怕，可以标记为“小明.B 公司”，很好地解决了<strong>重名问题</strong>。</p>
-<h3 id="域名的解析"><a href="#域名的解析" class="headerlink" title="域名的解析"></a>域名的解析</h3><p>就像 IP 地址必须转换成 MAC 地址才能访问主机一样，<strong>域名也必须要转换成 IP 地址，这个过程就是“域名解析”</strong>。</p>
-<p>目前全世界有几亿个站点，有几十亿网民，而每天网络上发生的 HTTP 流量更是天文数字。这些请求绝大多数都是基于域名来访问网站的，所以 DNS 就成了互联网的重要基础设施，必须要保证域名解析稳定可靠、快速高效。</p>
-<p>DNS 的核心系统是一个<strong>三层的树状、分布式服务</strong>，基本对应域名的结构：</p>
-<ol>
-<li>根域名服务器（Root DNS Server）：管理顶级域名服务器，返回“com”“net”“cn”等顶级域名服务器的 IP 地址；</li>
-<li>顶级域名服务器（Top-level DNS Server）：管理各自域名下的权威域名服务器，比如 com 顶级域名服务器可以返回 apple.com 域名服务器的 IP 地址；</li>
-<li>权威域名服务器（Authoritative DNS Server）：管理自己域名下主机的 IP 地址，比如 apple.com 权威域名服务器可以返回 <a href="http://www.apple.com" target="_blank" rel="noopener">www.apple.com</a> 的 IP 地址。</li>
-</ol>
-<img src="/2356874721.github.io/2021/03/31/http-06/6-1.png" class>
-
-<p>在这里<strong>根域名服务器是关键</strong>，它必须是众所周知的，否则下面的各级服务器就无从谈起了。目前全世界共有 <strong>13 组</strong>根域名服务器，又有数百台的镜像，保证一定能够被访问到。有了这个系统以后，任何一个域名都可以在这个树形结构里<strong>从顶至下进行查询</strong>，就好像是把<strong>域名从右到左顺序走了一遍</strong>，最终就获得了域名对应的 IP 地址。</p>
-<p>例如，你要访问“<a href="http://www.apple.com”，就要进行下面的三次查询：">www.apple.com”，就要进行下面的三次查询：</a></p>
-<ol>
-<li>访问根域名服务器，它会告诉你“com”顶级域名服务器的地址；</li>
-<li>访问“com”顶级域名服务器，它再告诉你“apple.com”域名服务器的地址；</li>
-<li>最后访问“apple.com”域名服务器，就得到了“<a href="http://www.apple.com”的地址。" target="_blank" rel="noopener">www.apple.com”的地址。</a></li>
-</ol>
-<p>虽然核心的 DNS 系统遍布全球，服务能力很强也很稳定，但如果全世界的网民都往这个系统里挤，即使不挤瘫痪了，访问速度也会很慢。</p>
-<p><strong>所以在核心 DNS 系统之外，还有两种手段用来减轻域名解析的压力，并且能够更快地获取结果，基本思路就是“缓存”。</strong></p>
-<p>首先，许多大公司、网络运行商都会<strong>建立自己的 DNS 服务器，作为用户 DNS 查询的代理，代替用户访问核心 DNS 系统</strong>。这些“野生”服务器被称为“<strong>非权威域名服务器</strong>”，可以<strong>缓存之前的查询结果，如果已经有了记录，就无需再向根服务器发起查询，直接返回对应的 IP 地址</strong>。这些 DNS 服务器的数量要比核心系统的服务器多很多，而且大多部署在离用户很近的地方。比较知名的 DNS 有 Google 的“8.8.8.8”，Microsoft 的“4.2.2.1”，还有 CloudFlare 的“1.1.1.1”等等。</p>
-<p>其次，<strong>操作系统里也会对 DNS 解析结果做缓存</strong>，如果你之前访问过“<a href="http://www.apple.com”，那么下一次在浏览器里再输入这个网址的时候就不会再跑到" target="_blank" rel="noopener">www.apple.com”，那么下一次在浏览器里再输入这个网址的时候就不会再跑到</a> DNS 那里去问了，直接在操作系统里就可以拿到 IP 地址。</p>
-<p>另外，操作系统里还有一个特殊的<strong>“主机映射”文件</strong>，通常是一个可编辑的文本，在 Linux 里是“/etc/hosts”，在 Windows 里是“C:\WINDOWS\system32\drivers\etc\hosts”，<strong>如果操作系统在缓存里找不到 DNS 记录，就会找这个文件</strong>。</p>
-<p>有了上面的<strong>“野生”DNS 服务器、操作系统缓存和 hosts 文件</strong>后，很多域名解析的工作就都不用“跋山涉水”了，直接在本地或本机就能解决，不仅方便了用户，也减轻了各级 DNS 服务器的压力，效率就大大提升了。</p>
-<p>下面的这张图比较完整地表示了现在的 DNS 架构。</p>
-<img src="/2356874721.github.io/2021/03/31/http-06/6-1.png" class>
-
-<h3 id="域名的“新玩法”"><a href="#域名的“新玩法”" class="headerlink" title="域名的“新玩法”"></a>域名的“新玩法”</h3><p>有了域名，又有了可以稳定工作的解析系统，于是我们就可以实现比 IP 地址更多的“新玩法”了。</p>
-<p>第一种，也是最简单的，“<strong>重定向</strong>”。<strong>因为域名代替了 IP 地址，所以可以让对外服务的域名不变，而主机的 IP 地址任意变动</strong>。当主机有情况需要下线、迁移时，可以更改 DNS 记录，让域名指向其他的机器。比如，你有一台“buy.tv”的服务器要临时停机维护，那你就可以通知 DNS 服务器：“我这个 buy.tv 域名的地址变了啊，原先是 1.2.3.4，现在是 5.6.7.8，麻烦你改一下。”DNS 于是就修改内部的 IP 地址映射关系，之后再有访问 buy.tv 的请求就不走 1.2.3.4 这台主机，改由 5.6.7.8 来处理，这样就可以保证业务服务不中断。</p>
-<p>第二种，因为域名是一个名字空间，所以可以使用 bind9 等开源软件<strong>搭建一个在内部使用的 DNS，作为名字服务器。这样我们开发的各种内部服务就都用域名来标记</strong>，比如数据库服务都用域名“mysql.inner.app”，商品服务都用“goods.inner.app”，发起网络通信时也就<strong>不必再使用写死的 IP 地址</strong>了，可以直接用域名，而且这种方式也兼具了第一种“玩法”的优势。</p>
-<p>第三种“玩法”包含了前两种，也就是<strong>基于域名实现的负载均衡</strong>。第一种方式，<strong>因为域名解析可以返回多个 IP 地址，所以一个域名可以对应多台主机，客户端收到多个 IP 地址后，就可以自己使用轮询算法依次向服务器发起请求，实现负载均衡</strong>。第二种方式，<strong>域名解析可以配置内部的策略，返回离客户端最近的主机，或者返回当前服务质量最好的主机，这样在 DNS 端把请求分发到不同的服务器，实现负载均衡</strong>。</p>
-<p>前面我们说的都是可信的 DNS，如果有一些<strong>不怀好意的 DNS</strong>，那么它也可以在域名这方面“做手脚”，弄一些比较“恶意”的“玩法”，举两个例子：</p>
-<ol>
-<li>“域名屏蔽”，对域名直接不解析，返回错误，让你无法拿到 IP 地址，也就无法访问网站；</li>
-<li>“域名劫持”，也叫“域名污染”，你要访问 A 网站，但 DNS 给了你 B 网站。</li>
-</ol>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
-<li>域名使用字符串来代替 IP 地址，方便用户记忆，本质上一个名字空间系统；</li>
-<li>DNS 就像是我们现实世界里的电话本、查号台，统管着互联网世界里的所有网站，是一个“超级大管家”；</li>
-<li>DNS 是一个树状的分布式查询系统，但为了提高查询效率，外围有多级的缓存；</li>
-<li>使用 DNS 可以实现基于域名的负载均衡。</li>
-</ol>
-<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
-<li><p>在浏览器地址栏里随便输入一个不存在的域名，比如就叫“www. 不存在.com”，试着解释一下它的 DNS 解析过程。</p>
-<p>查找过程：浏览器缓存-&gt;操作系统dnscache -&gt;hosts文件-&gt;非权威域名服务器-&gt;根域名服务器-&gt;顶级域名服务器-&gt;二级域名服务器-&gt;权威域名服务器。</p>
-</li>
-<li><p>如果因为某些原因，DNS 失效或者出错了，会出现什么后果？</p>
-<p>无法根据域名定位到ip地址，导致访问失败</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1610,20 +1600,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/2356874721.github.io/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

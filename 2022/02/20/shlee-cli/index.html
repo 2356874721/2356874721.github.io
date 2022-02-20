@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/2356874721.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/2356874721.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/2356874721.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/2356874721.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/2356874721.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/2356874721.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/2356874721.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、前言随着业务的发展，团队会维护好多项目，因此根据团队的需要量身打造一款脚手架工具十分必要，真正的做到开箱即用，节省了在项目开发前期，项目搭建、环境配置等等所耗费的大量时间，让开发者把更多的精力放在业务和个人成长上。 123环境版本：node -- v14.17.0npm -- 6.14.6  二、项目搭建 新建shlee-cli文件夹  在文件夹下执行 npm init -y  安装如下依赖，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零搭建前端脚手架工具">
+<meta property="og:url" content="http://yoursite.com/2022/02/20/shlee-cli/index.html">
+<meta property="og:site_name" content="警长的博客">
+<meta property="og:description" content="一、前言随着业务的发展，团队会维护好多项目，因此根据团队的需要量身打造一款脚手架工具十分必要，真正的做到开箱即用，节省了在项目开发前期，项目搭建、环境配置等等所耗费的大量时间，让开发者把更多的精力放在业务和个人成长上。 123环境版本：node -- v14.17.0npm -- 6.14.6  二、项目搭建 新建shlee-cli文件夹  在文件夹下执行 npm init -y  安装如下依赖，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-20T09:05:40.000Z">
+<meta property="article:modified_time" content="2022-02-20T09:06:45.976Z">
+<meta property="article:author" content="sheriff">
+<meta property="article:tag" content="脚手架">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2022/02/20/shlee-cli/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>从零搭建前端脚手架工具 | 警长的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/2356874721.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">警长的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活 记录成长</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/2356874721.github.io/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/2356874721.github.io/archives/" rel="section"><i class="archives fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/2356874721.github.io/categories/" rel="section"><i class="categories fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/2356874721.github.io/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/2356874721.github.io/about/" rel="section"><i class="about fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/20/shlee-cli/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零搭建前端脚手架工具
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-20 17:05:40 / 修改时间：17:06:45" itemprop="dateCreated datePublished" datetime="2022-02-20T17:05:40+08:00">2022-02-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/%E8%84%9A%E6%89%8B%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">脚手架</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>随着业务的发展，团队会维护好多项目，因此根据团队的需要量身打造一款脚手架工具十分必要，真正的做到开箱即用，节省了在项目开发前期，项目搭建、环境配置等等所耗费的大量时间，让开发者把更多的精力放在业务和个人成长上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">环境版本：</span><br><span class="line">node -- v14.17.0</span><br><span class="line">npm -- 6.14.6</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、项目搭建"><a href="#二、项目搭建" class="headerlink" title="二、项目搭建"></a>二、项目搭建</h3><ul>
+<li><p>新建shlee-cli文件夹</p>
+</li>
+<li><p>在文件夹下执行 npm init -y</p>
+</li>
+<li><p>安装如下依赖，可以直接复制到package中，执行npm install</p>
+<p>axios：网络请求</p>
+<p>chalk：粉笔，输出有颜色的字体</p>
+<p>cli-table2：输出表格</p>
+<p>commander：命令行工具</p>
+<p>download-git-repo：从github拉取模板</p>
+<p>figlet：绘制图形</p>
+<p>fs-extra：文件读写操作</p>
+<p>inquirer：交互式命令</p>
+<p>ora：loading动画</p>
+<p>util：公共方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">  &quot;axios&quot;: &quot;^0.25.0&quot;,</span><br><span class="line">  &quot;chalk&quot;: &quot;^4.1.2&quot;,</span><br><span class="line">  &quot;cli-table2&quot;: &quot;^0.2.0&quot;,</span><br><span class="line">  &quot;commander&quot;: &quot;^9.0.0&quot;,</span><br><span class="line">  &quot;download-git-repo&quot;: &quot;^3.0.2&quot;,</span><br><span class="line">  &quot;figlet&quot;: &quot;^1.5.2&quot;,</span><br><span class="line">  &quot;fs-extra&quot;: &quot;^10.0.0&quot;,</span><br><span class="line">  &quot;inquirer&quot;: &quot;^8.2.0&quot;,</span><br><span class="line">  &quot;ora&quot;: &quot;^5.4.1&quot;,</span><br><span class="line">  &quot;util&quot;: &quot;^0.12.4&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h3><ul>
+<li><p>新建程序的主入口文件bin/index.js，后面再写内容</p>
+</li>
+<li><p>在package.json中配置脚本命令，执行npm link，将shlee挂载到全局，在终端执行shlee时，就会执行/bin/index.js里面的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;bin&quot;: &#123;</span><br><span class="line">  &quot;shlee&quot;: &quot;.&#x2F;bin&#x2F;index.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="bin-index-js"><a href="#bin-index-js" class="headerlink" title="bin/index.js"></a>bin/index.js</h4><p>下面开始实现主入口的逻辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env node</span><br><span class="line">const figlet &#x3D; require(&#39;figlet&#39;) &#x2F;&#x2F; 绘制图形</span><br><span class="line">const program &#x3D; require(&#39;commander&#39;) &#x2F;&#x2F; 命令行工具</span><br><span class="line">program.usage(&#39;&lt;command&gt;&#39;)</span><br><span class="line">program.version(require(&#39;..&#x2F;package.json&#39;).version) &#x2F;&#x2F; 获取版本号</span><br><span class="line">const chalk &#x3D; require(&#39;chalk&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 定义脚手架命令</span><br><span class="line">program.command(&#39;list&#39;)</span><br><span class="line">  .description(&#39;显示模板列表&#39;)</span><br><span class="line">  .action(() &#x3D;&gt; &#123; require(&#39;..&#x2F;commands&#x2F;list&#39;)() &#125;)</span><br><span class="line"></span><br><span class="line">program.command(&#39;init&#39;)</span><br><span class="line">  .description(&#39;初始化一个模板&#39;)</span><br><span class="line">  .option(&#39;-f, --force&#39;, &#39;如果目录已存在，则覆盖&#39;)</span><br><span class="line">  .action(options &#x3D;&gt; &#123; require(&#39;..&#x2F;commands&#x2F;init&#39;)(options) &#125;) &#x2F;&#x2F; options: &#123;force: true&#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 输入shlee -h时显示logo</span><br><span class="line">program</span><br><span class="line">  .on(&#39;--help&#39;, () &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;\r\n&#39; + figlet.textSync(&#39;shlee-cli&#39;, &#123;</span><br><span class="line">      horizontalLayout: &#39;full&#39;,</span><br><span class="line">      verticalLayout: &#39;full&#39;,</span><br><span class="line">      width: 100,</span><br><span class="line">      whitespaceBreak: false</span><br><span class="line">    &#125;))</span><br><span class="line">    console.log(&#96;\r\nRun $&#123;chalk.cyan(&#96;shlee &lt;command&gt; --help&#96;)&#125; for detailed usage of given command.\r\n&#96;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">program.parse(process.argv)</span><br></pre></td></tr></table></figure>
+
+<h4 id="commands-list-js"><a href="#commands-list-js" class="headerlink" title="commands/list.js"></a>commands/list.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const &#123; getTemplateList &#125; &#x3D; require(&#39;..&#x2F;lib&#x2F;https&#39;)</span><br><span class="line">const Table &#x3D; require(&#39;cli-table2&#39;)</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; async function () &#123;</span><br><span class="line">  let table &#x3D; new Table(&#123;</span><br><span class="line">    head: [&#39;模板名称&#39;, &#39;模板描述&#39;, &#39;git仓库地址&#39;]</span><br><span class="line">  &#125;)</span><br><span class="line">  let tempalteList &#x3D; await getTemplateList()</span><br><span class="line">  tempalteList.map(item &#x3D;&gt; &#123;</span><br><span class="line">    table.push([item.name, item.description, item.html_url])</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(table.toString())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="commands-init-js"><a href="#commands-init-js" class="headerlink" title="commands/init.js"></a>commands/init.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs-extra&#39;)</span><br><span class="line">const path &#x3D; require(&#39;path&#39;)</span><br><span class="line">const inquirer &#x3D; require(&#39;inquirer&#39;) &#x2F;&#x2F; 和用户的交互</span><br><span class="line">const Generator &#x3D; require(&#39;..&#x2F;lib&#x2F;generator&#39;)</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; async function (options) &#123;</span><br><span class="line">  &#x2F;&#x2F; 输入项目的名称、描述、创建者</span><br><span class="line">  const inquirerParams &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;input&#39;,</span><br><span class="line">      name: &#39;name&#39;,</span><br><span class="line">      message: &#39;项目名称&#39;,</span><br><span class="line">      default: &#39;project-name&#39;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;input&#39;,</span><br><span class="line">      name: &#39;author&#39;,</span><br><span class="line">      message: &#39;你的名字&#39;,</span><br><span class="line">      default: &#39;author&#39;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      type: &#39;input&#39;,</span><br><span class="line">      name: &#39;description&#39;,</span><br><span class="line">      message: &#39;项目描述&#39;,</span><br><span class="line">      default: &#39;description&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  let inquirerData &#x3D; await inquirer.prompt(inquirerParams)</span><br><span class="line"></span><br><span class="line">  const newDir &#x3D; path.join(process.cwd(), inquirerData.name)</span><br><span class="line">  &#x2F;&#x2F; 创建的目录已经存在</span><br><span class="line">  if (fs.existsSync(newDir)) &#123;</span><br><span class="line">    if (options.force) &#123; &#x2F;&#x2F; --force直接覆盖创建，不进行询问</span><br><span class="line">      await fs.remove(newDir)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      &#x2F;&#x2F; 询问</span><br><span class="line">      const inquirerParams &#x3D; [</span><br><span class="line">        &#123;</span><br><span class="line">          name: &#39;action&#39;,</span><br><span class="line">          type: &#39;list&#39;,</span><br><span class="line">          message: &#96;目录$&#123;newDir&#125;已存在，请选择如下操作：&#96;,</span><br><span class="line">          choices: [</span><br><span class="line">            &#123;</span><br><span class="line">              name: &#39;删除已有目录&#39;,</span><br><span class="line">              value: &#39;remove&#39;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              name: &#39;取消当前操作&#39;,</span><br><span class="line">              value: &#39;cancel&#39;</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">      let inquirerData &#x3D; await inquirer.prompt(inquirerParams) &#x2F;&#x2F; &#123; action: &#39;cancel&#39; &#125;</span><br><span class="line">      if (inquirerData.action &#x3D;&#x3D; &#39;cancel&#39;) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125; else if (inquirerData.action &#x3D;&#x3D; &#39;remove&#39;) &#123;</span><br><span class="line">        console.log(&#39;\r\n正在删除...&#39;)</span><br><span class="line">        await fs.remove(newDir)</span><br><span class="line">        console.log(&#39;\r\n删除成功！\r\n&#39;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建项目</span><br><span class="line">  const generator &#x3D; new Generator(inquirerData, newDir)</span><br><span class="line">  generator.create()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="lib-https-js"><a href="#lib-https-js" class="headerlink" title="lib/https.js"></a>lib/https.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const axios &#x3D; require(&#39;axios&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 响应拦截</span><br><span class="line">axios.interceptors.response.use(res &#x3D;&gt; &#123;</span><br><span class="line">  return res.data</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 拉取github中的模板列表</span><br><span class="line">async function getTemplateList() &#123;</span><br><span class="line">  return axios.get(&#39;https:&#x2F;&#x2F;api.github.com&#x2F;orgs&#x2F;shlee-cli&#x2F;repos&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  getTemplateList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="lib-generator-js"><a href="#lib-generator-js" class="headerlink" title="lib/generator.js"></a>lib/generator.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">const &#123; getTemplateList &#125; &#x3D; require(&#39;.&#x2F;https&#39;)</span><br><span class="line">const chalk &#x3D; require(&#39;chalk&#39;) &#x2F;&#x2F; 粉笔，输出有颜色的字体</span><br><span class="line">const ora &#x3D; require(&#39;ora&#39;) &#x2F;&#x2F; loading动画</span><br><span class="line">const inquirer &#x3D; require(&#39;inquirer&#39;)</span><br><span class="line">const util &#x3D; require(&#39;util&#39;)</span><br><span class="line">const downloadGitRepo &#x3D; require(&#39;download-git-repo&#39;)</span><br><span class="line">const path &#x3D; require(&#39;path&#39;)</span><br><span class="line">const fs &#x3D; require(&#39;fs-extra&#39;)</span><br><span class="line"></span><br><span class="line">class Generator &#123;</span><br><span class="line">  constructor(inquirerData, newDir) &#123;</span><br><span class="line">    this.inquirerData &#x3D; inquirerData</span><br><span class="line">    this.name &#x3D; inquirerData.name</span><br><span class="line">    this.newDir &#x3D; newDir</span><br><span class="line">    this.downloadTemplates &#x3D; util.promisify(downloadGitRepo)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建项目</span><br><span class="line">  async create() &#123;</span><br><span class="line">    const template &#x3D; await this.getTemplate()</span><br><span class="line">    await this.download(template)</span><br><span class="line">    console.log(&#39;\r\n***************************&#39;)</span><br><span class="line">    console.log(&#96;您成功的创建了项目： $&#123;chalk.cyan(this.name)&#125;&#96;)</span><br><span class="line">    console.log(&#96;\r\ncd $&#123;chalk.cyan(this.name)&#125;&#96;)</span><br><span class="line">    console.log(&#96;\r\n$&#123;chalk.cyan(&#39;yarn install&#39;)&#125;&#96;)</span><br><span class="line">    console.log(&#96;\r\n$&#123;chalk.cyan(&#39;yarn start&#39;)&#125;&#96;)</span><br><span class="line">    console.log(&#39;***************************\r\n&#39;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 获取用户选择的模板</span><br><span class="line">  async getTemplate() &#123;</span><br><span class="line">    const templateList &#x3D; await this.wrapLoading(getTemplateList, &#39;正在获取模板列表...&#39;, &#39;模板列表获取成功！&#39;)</span><br><span class="line">    if (!templateList) return</span><br><span class="line">    &#x2F;&#x2F; 获取模板名称</span><br><span class="line">    const templates &#x3D; templateList.map(item &#x3D;&gt; item.name)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 通过询问，获取用户选择的模板名称</span><br><span class="line">    const &#123; template &#125; &#x3D; await inquirer.prompt(&#123;</span><br><span class="line">      name: &#39;template&#39;,</span><br><span class="line">      type: &#39;list&#39;,</span><br><span class="line">      choices: templates,</span><br><span class="line">      message: &#39;请选择项目模板&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    return template</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 动画</span><br><span class="line">  async wrapLoading(fn, waittingmsg, successfulmsg, ...args) &#123;</span><br><span class="line">    &#x2F;&#x2F; 启动动画</span><br><span class="line">    const spinner &#x3D; ora(waittingmsg)</span><br><span class="line">    spinner.start()</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">      const result &#x3D; await fn(...args)</span><br><span class="line">      spinner.succeed(successfulmsg)</span><br><span class="line">      return result</span><br><span class="line">    &#125; catch (error) &#123;</span><br><span class="line">      spinner.fail(&#39;出错了请稍后再试!&#39;, error)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 下载模板</span><br><span class="line">  async download(template) &#123;</span><br><span class="line">    const requestUrl &#x3D; &#96;shlee-cli&#x2F;$&#123;template&#125;&#96;</span><br><span class="line">    await this.wrapLoading(</span><br><span class="line">      this.downloadTemplates,</span><br><span class="line">      &#39;正在下载模板...&#39;,</span><br><span class="line">      &#39;模板下载成功！&#39;,</span><br><span class="line">      requestUrl,</span><br><span class="line">      path.resolve(process.cwd(), this.newDir) &#x2F;&#x2F; 模板下载的位置</span><br><span class="line">    )</span><br><span class="line">    &#x2F;&#x2F; 替换模板package.json中的相关字段</span><br><span class="line">    const pkgPath &#x3D; path.resolve(process.cwd(), this.newDir)+&#39;&#x2F;package.json&#39;</span><br><span class="line">    let packageObj &#x3D; require(pkgPath)</span><br><span class="line">    if (packageObj) &#123;</span><br><span class="line">      packageObj &#x3D; &#123;...packageObj, ...this.inquirerData&#125;</span><br><span class="line">      fs.writeFileSync(pkgPath, JSON.stringify(packageObj, null, &#39;\t&#39;))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; Generator</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、发布到npm"><a href="#四、发布到npm" class="headerlink" title="四、发布到npm"></a>四、发布到npm</h3><ul>
+<li>执行npm login登录npm账号</li>
+<li>执行npm publish命令进行发布</li>
+</ul>
+<p>注意：发布之前，请确认package.json中已经配置以下字段，否则很可能发布失败；同时，也要保证name的唯一性，即在npm上不能有重名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;name&quot;: &quot;shlee-cli&quot;,</span><br><span class="line">&quot;version&quot;: &quot;0.0.2&quot;,</span><br><span class="line">&quot;description&quot;: &quot;定制脚手架&quot;,</span><br><span class="line">&quot;author&quot;: &quot;sheriff&quot;,</span><br><span class="line">&quot;license&quot;: &quot;ISC&quot;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、脚手架使用"><a href="#五、脚手架使用" class="headerlink" title="五、脚手架使用"></a>五、脚手架使用</h3><ul>
+<li>执行npm unlink解绑脚本命令 </li>
+<li>全局安装脚手架npm install shlee-cli -g</li>
+<li>执行 shlee list查看模板列表</li>
+<li>执行shlee init创建项目</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/2356874721.github.io/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/" rel="tag"># 脚手架</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2356874721.github.io/2022/02/20/vscode-plugin/" rel="prev" title="从零开发一款vscode插件小工具">
+      <i class="fa fa-chevron-left"></i> 从零开发一款vscode插件小工具
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、前言"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、项目搭建"><span class="nav-number">2.</span> <span class="nav-text">二、项目搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码实现"><span class="nav-number">3.</span> <span class="nav-text">三、代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bin-index-js"><span class="nav-number">3.1.</span> <span class="nav-text">bin&#x2F;index.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commands-list-js"><span class="nav-number">3.2.</span> <span class="nav-text">commands&#x2F;list.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commands-init-js"><span class="nav-number">3.3.</span> <span class="nav-text">commands&#x2F;init.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib-https-js"><span class="nav-number">3.4.</span> <span class="nav-text">lib&#x2F;https.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib-generator-js"><span class="nav-number">3.5.</span> <span class="nav-text">lib&#x2F;generator.js</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、发布到npm"><span class="nav-number">4.</span> <span class="nav-text">四、发布到npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、脚手架使用"><span class="nav-number">5.</span> <span class="nav-text">五、脚手架使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sheriff</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/2356874721.github.io/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/2356874721.github.io/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/2356874721.github.io/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sheriff</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/2356874721.github.io/lib/anime.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/2356874721.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/2356874721.github.io/js/utils.js"></script>
+
+<script src="/2356874721.github.io/js/motion.js"></script>
+
+
+<script src="/2356874721.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/2356874721.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
