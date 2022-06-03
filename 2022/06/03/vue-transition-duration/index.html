@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h2v5m5z62bj20fy0x00t8.jpg">
 <meta property="article:published_time" content="2022-06-03T07:56:58.000Z">
-<meta property="article:modified_time" content="2022-06-03T09:27:49.153Z">
+<meta property="article:modified_time" content="2022-06-03T09:55:49.271Z">
 <meta property="article:author" content="sheriff">
 <meta property="article:tag" content="过渡">
 <meta name="twitter:card" content="summary">
@@ -193,7 +193,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-06-03 15:56:58 / 修改时间：17:27:49" itemprop="dateCreated datePublished" datetime="2022-06-03T15:56:58+08:00">2022-06-03</time>
+              <time title="创建时间：2022-06-03 15:56:58 / 修改时间：17:55:49" itemprop="dateCreated datePublished" datetime="2022-06-03T15:56:58+08:00">2022-06-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,7 +235,6 @@
 
 <p>下面分情况讨论duration对组件过渡动画的影响</p>
 <h3 id="1-不设置duration"><a href="#1-不设置duration" class="headerlink" title="1. 不设置duration"></a>1. 不设置duration</h3><p>不设置duration时，在父组件完成过渡后就认为完成进场效果了，随后立即调用after-enter钩子，此时如果子组件的过渡动画没有执行或没有执行完，也不再执行了，立即变成页面最终要展示的样式。</p>
-<p><video src="/Users/liwenjing/Desktop/%E5%B1%8F%E5%B9%95%E5%BD%95%E5%88%B62022-06-03%20%E4%B8%8B%E5%8D%885.07.51.mov"></video></p>
 <h3 id="2-设置duration"><a href="#2-设置duration" class="headerlink" title="2. 设置duration"></a>2. 设置duration</h3><p>为了解决1中子元素没有过渡动画的情况，需要设置duration，并且duration的值应该是子组件最后完成过渡动画所需要的时间。钩子函数after-enter将会在duration时间后调用，如本例子中的4000ms后调用，4000ms恰好是子组件child完成过渡所需要的时间。</p>
 <h4 id="1-duration设置的比子组件过渡时间大"><a href="#1-duration设置的比子组件过渡时间大" class="headerlink" title="1.duration设置的比子组件过渡时间大"></a>1.duration设置的比子组件过渡时间大</h4><p>duration可以设置的比子组件过渡时间大，如5000ms，这对子组件过渡动画的执行没有影响；但需要注意的是， 钩子函数after-enter会在5000ms时间后才执行。</p>
 <h4 id="2-duration设置的比组件过渡时间小"><a href="#2-duration设置的比组件过渡时间小" class="headerlink" title="2. duration设置的比组件过渡时间小"></a>2. duration设置的比组件过渡时间小</h4><p>duration若设置的比组件过渡时间小，如1000ms，那么意味着1000ms后，不管组件是否已经完成过渡动画，都要完成进场，达到页面最终要展示的样式。例如父组件和子组件过渡动画共需要4s，但只能执行1s，就直接中断进入下一个状态了。</p>
