@@ -161,6 +161,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/18/css-position/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2020/07/18/css-position/" class="post-title-link" itemprop="url">position</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-18 11:17:00" itemprop="dateCreated datePublished" datetime="2020-07-18T11:17:00+08:00">2020-07-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="position取值"><a href="#position取值" class="headerlink" title="position取值"></a>position取值</h2><p>position：static | relative | absolute | fixed | sticky | initial | inherit | unset</p>
+<p>其中最常用的是 static 、relative、absolute、fixed 和 sticky，下面依次来介绍下</p>
+<p><strong>position: static</strong></p>
+<p>默认值，在正常流中，对设置的 top 、left、right、bottom、z-index 一应忽略</p>
+<p><strong>position: relative</strong></p>
+<p>相对定位，相对于自己原来的位置偏移，空间不释放</p>
+<p><strong>position: absolute</strong></p>
+<p>绝对定位，若祖先元素有设置 position: static 以外的属性值，则相对该祖先元素绝对定位；否则，相对浏览器视口绝对定位，空间释放</p>
+<p><strong>position: fixed</strong></p>
+<p>固定定位，相对浏览器窗口固定定位，不随滚动条滚动，空间释放</p>
+<p><strong>position: sticky(有兼容性问题)</strong></p>
+<p>它的表现类似position:relative和position:fixed的合体，元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位，如：吸顶的效果。须指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。</p>
+<p><u>需要注意的是：</u></p>
+<p>•设定为 position:sticky 元素的任意父节点的 overflow 属性必须是 visible，否则 position:sticky 不会生效。这里需要解释一下：</p>
+<p>•如果 position:sticky 元素的任意父节点定位设置为 overflow:hidden，则父容器无法进行滚动，所以 position:sticky 元素也不会有滚动然后固定的情况。</p>
+<p>•如果 position:sticky 元素的任意父节点定位设置为 position:relative | absolute | fixed，则元素相对父元素进行定位，而不会相对 viewprot 定位。</p>
+<p>达到设定的阀值，这个还算好理解，也就是设定了 position:sticky 的元素表现为 relative 还是 fixed 是根据元素是否达到设定了的阈值决定的。</p>
+<p><strong>position: initial</strong></p>
+<p>initial 关键字用于设置CSS属性为它的默认值（在这里也就是 position: static）</p>
+<p><strong>position: inherit</strong></p>
+<p>继承父元素的position属性</p>
+<p><strong>position: unset</strong></p>
+<p>unset 关键字是 initial 和inherit 的组合</p>
+<p><u>需要注意的是</u>：</p>
+<p>•如果该属性是默认继承属性，则该值等同于 inherit</p>
+<p>•如果该属性是非继承属性，则该值等同于 initial</p>
+<p><u>解释一下：</u></p>
+<p>unset 可以理解为<strong>不设置</strong>，举个例子，可继承属性：color，不可继承属性border，当给子元素设置了unset后，它表现出来的是对于color属性，继承了祖先元素的值，border则不继承。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/18/js-arrow-fn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1136,87 +1237,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/11/js-create-object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2020/07/11/js-create-object/" class="post-title-link" itemprop="url">创建对象的方式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-11 17:28:03" itemprop="dateCreated datePublished" datetime="2020-07-11T17:28:03+08:00">2020-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 23:13:03" itemprop="dateModified" datetime="2020-08-08T23:13:03+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="new-Object"><a href="#new-Object" class="headerlink" title="new Object()"></a>new Object()</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object()</span><br></pre></td></tr></table></figure>
-<p>上面两种方式都能创建对象，但是如果创建多个对象，会造成代码冗余，因此要封装一下，由此有了工程模式</p>
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> createObject(name,age,sex)&#123;</span><br><span class="line">  var o = &#123;&#125;</span><br><span class="line">  o.name = name</span><br><span class="line">  o.age = age</span><br><span class="line">  o.sex = sex</span><br><span class="line">  <span class="built_in">return</span> o</span><br><span class="line">&#125;</span><br><span class="line">var obj = createObject(<span class="string">'sheriff'</span>,20,<span class="string">'femail'</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">  this.age = age</span><br><span class="line">  this.say = <span class="function"><span class="title">function</span></span>()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person()</span><br></pre></td></tr></table></figure>
-<h2 id="构造函数与工厂模式的对比"><a href="#构造函数与工厂模式的对比" class="headerlink" title="构造函数与工厂模式的对比"></a>构造函数与工厂模式的对比</h2><p>优点：<br>  •构造函数没有显示的创建对象<br>  •没有return语句<br>  •可以判断对象的类型<br>缺点：每一个实例上都会创建say方法，有多少个实例，就会创建多少个，这会占用很多不必要的内存</p>
-<h2 id="原型创建对象"><a href="#原型创建对象" class="headerlink" title="原型创建对象"></a>原型创建对象</h2><p>优点：方法只创建一次，所有的实例都可以用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name,age)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  say: <span class="function"><span class="title">function</span></span>()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1286,7 +1306,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1299,7 +1319,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

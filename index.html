@@ -161,6 +161,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/03/vue-transition-duration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
+      <meta itemprop="name" content="sheriff">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="警长的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2356874721.github.io/2022/06/03/vue-transition-duration/" class="post-title-link" itemprop="url">transition组件的duration属性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-03 15:56:58 / 修改时间：17:27:49" itemprop="dateCreated datePublished" datetime="2022-06-03T15:56:58+08:00">2022-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/2356874721.github.io/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>在项目中我们经常会用到vue的transition组件，来实现一些过渡动画效果。transition有很多的属性，如：name、css、appear、mode、duration等，也提供了很多方便的钩子函数，如经常使用的before-enter、enter、after-enter、before-leave、leave、after-leave等。上述这些属性方法在官网上都有很好的示例和解释，但是其中的duration属性和其他属性比起来，我们不常用到，看官网的解释也很难理解它的应用场景，下面的内容就是对duration的一些更通俗的理解。</p>
+<h2 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h2><p>为了搞清楚duration的应用场景，我们写个组件来实验一下。组件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;demo&quot;&gt;</span><br><span class="line">    &lt;h4&gt;transition duration&lt;&#x2F;h4&gt;</span><br><span class="line">    &lt;transition</span><br><span class="line">      appear</span><br><span class="line">      :duration&#x3D;&quot;&#123; enter: 4000 &#125;&quot;</span><br><span class="line">      @before-enter&#x3D;&quot;beforeEnter&quot;</span><br><span class="line">      @enter&#x3D;&quot;enter&quot;</span><br><span class="line">      @after-enter&#x3D;&quot;afterEnter&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;parent&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;transition&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    beforeEnter () &#123;</span><br><span class="line">      console.log(&#39;before enter&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line">    enter () &#123;</span><br><span class="line">      console.log(&#39;enter&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line">    afterEnter () &#123;</span><br><span class="line">      console.log(&#39;after-enter&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang&#x3D;&quot;less&quot; scoped&gt;</span><br><span class="line">.demo &#123;</span><br><span class="line">  width: 242px;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">  .parent &#123;</span><br><span class="line">    background-color: gold;</span><br><span class="line">    height: 20px;</span><br><span class="line">    width: 100%;</span><br><span class="line">    position: relative;</span><br><span class="line">  &#125;</span><br><span class="line">  .child &#123;</span><br><span class="line">    height: 20px;</span><br><span class="line">    width: 100%;</span><br><span class="line">    background-color: blueviolet;</span><br><span class="line">    position: absolute;</span><br><span class="line">    left: 0;</span><br><span class="line">    bottom: -40px;</span><br><span class="line">  &#125;</span><br><span class="line">  .v-enter &#123;</span><br><span class="line">    width: 0px;</span><br><span class="line">    .child &#123;</span><br><span class="line">      width: 0px;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  .v-enter-active &#123;</span><br><span class="line">    transition: width 2s ease; &#x2F;&#x2F; 父组件完成过渡共需要2s</span><br><span class="line">    .child &#123;</span><br><span class="line">      transition: width 2s 2s ease; &#x2F;&#x2F; 子组件延迟2s执行，过渡耗费2s，所以子组件完成过渡共需时间4s</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面组件实现的效果是两个进度条，这两个进度条在dom结构上属于父子关系。transition组件包裹着parent，parent包裹着child，如下图所示：</p>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h2v5m5z62bj20fy0x00t8.jpg" alt="image-20220603165203499" style="zoom:50%;">
+
+<p>可以看到css代码中parent过渡需要2s，child过渡需要4s，在transition标签上duration，我们设置的时间为4000ms即4s。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* css *&#x2F;</span><br><span class="line">.v-enter-active &#123;</span><br><span class="line">  transition: width 2s ease; &#x2F;&#x2F; 父组件完成过渡共需要2s</span><br><span class="line">  .child &#123;</span><br><span class="line">    transition: width 2s 2s ease; &#x2F;&#x2F; 子组件延迟2s执行，过渡耗费2s，所以子组件完成过渡共需时间4s</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* html *&#x2F; </span><br><span class="line">:duration&#x3D;&quot;&#123; enter: 4000 &#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>下面分情况讨论duration对组件过渡动画的影响</p>
+<h3 id="1-不设置duration"><a href="#1-不设置duration" class="headerlink" title="1. 不设置duration"></a>1. 不设置duration</h3><p>不设置duration时，在父组件完成过渡后就认为完成进场效果了，随后立即调用after-enter钩子，此时如果子组件的过渡动画没有执行或没有执行完，也不再执行了，立即变成页面最终要展示的样式。</p>
+<p><video src="/Users/liwenjing/Desktop/%E5%B1%8F%E5%B9%95%E5%BD%95%E5%88%B62022-06-03%20%E4%B8%8B%E5%8D%885.07.51.mov"></video></p>
+<h3 id="2-设置duration"><a href="#2-设置duration" class="headerlink" title="2. 设置duration"></a>2. 设置duration</h3><p>为了解决1中子元素没有过渡动画的情况，需要设置duration，并且duration的值应该是子组件最后完成过渡动画所需要的时间。钩子函数after-enter将会在duration时间后调用，如本例子中的4000ms后调用，4000ms恰好是子组件child完成过渡所需要的时间。</p>
+<h4 id="1-duration设置的比子组件过渡时间大"><a href="#1-duration设置的比子组件过渡时间大" class="headerlink" title="1.duration设置的比子组件过渡时间大"></a>1.duration设置的比子组件过渡时间大</h4><p>duration可以设置的比子组件过渡时间大，如5000ms，这对子组件过渡动画的执行没有影响；但需要注意的是， 钩子函数after-enter会在5000ms时间后才执行。</p>
+<h4 id="2-duration设置的比组件过渡时间小"><a href="#2-duration设置的比组件过渡时间小" class="headerlink" title="2. duration设置的比组件过渡时间小"></a>2. duration设置的比组件过渡时间小</h4><p>duration若设置的比组件过渡时间小，如1000ms，那么意味着1000ms后，不管组件是否已经完成过渡动画，都要完成进场，达到页面最终要展示的样式。例如父组件和子组件过渡动画共需要4s，但只能执行1s，就直接中断进入下一个状态了。</p>
+<h2 id="三、结论"><a href="#三、结论" class="headerlink" title="三、结论"></a>三、结论</h2><p>duration跟子组件的过渡或动画时长有关，个人理解应该叫做max-duration更贴切，类似于height于max-height的关系，当height和max-height同时存在时，只要height &lt;= max-height都以height为准，但是如果height &gt; max-height，就只能以max-height为准。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/20/shlee-cli/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1367,170 +1451,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/31/http-08/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/2356874721.github.io/images/avatar.gif">
-      <meta itemprop="name" content="sheriff">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="警长的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2356874721.github.io/2021/03/31/http-08/" class="post-title-link" itemprop="url">08 | HTTP报文是什么样子的？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-31 18:16:43" itemprop="dateCreated datePublished" datetime="2021-03-31T18:16:43+08:00">2021-03-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-08 21:05:16" itemprop="dateModified" datetime="2021-04-08T21:05:16+08:00">2021-04-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/2356874721.github.io/categories/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>HTTP 的工作模式是非常简单的，由于 TCP/IP 协议负责底层的具体传输工作，HTTP 协议基本上不用在这方面操心太多。单从这一点上来看，所谓的“超文本传输协议”其实并不怎么管“传输”的事情，有点“名不副实”。</p>
-<p>那么 HTTP 协议的<strong>核心部分</strong>是什么呢？</p>
-<p>答案就是它传输的<strong>报文内容</strong>。</p>
-<h3 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h3><p>你也许对 TCP/UDP 的报文格式有所了解，拿 TCP 报文来举例，它在实际要传输的数据之前附加了一个 20 字节的头部数据，存储 TCP 协议必须的额外信息，例如发送方的端口号、接收方的端口号、包序号、标志位等等。有了这个附加的 TCP 头，数据包才能够正确传输，到了目的地后把头部去掉，就可以拿到真正的数据。</p>
-<p>HTTP 协议也是与 TCP/UDP 类似，同样也需要在实际传输的数据前附加一些头数据，不过与 TCP/UDP 不同的是，它是一个“<strong>纯文本</strong>”的协议，所以头数据都是 <strong>ASCII 码的文本</strong>，可以很容易地用肉眼阅读，不用借助程序解析也能够看懂。</p>
-<p>HTTP 协议的请求报文和响应报文的结构基本相同，由三大部分组成：</p>
-<ol>
-<li>起始行（start line）：描述请求或响应的基本信息；</li>
-<li>头部字段集合（header）：使用 key-value 形式更详细地说明报文；</li>
-<li>消息正文（entity）：实际传输的数据，它不一定是纯文本，可以是图片、视频等二进制数据。</li>
-</ol>
-<p>这其中前两部分<strong>起始行和头部字段经常又合称为“请求头”或“响应头”</strong>，<strong>消息正文又称为“实体”</strong>，但与“header”对应，很多时候就直接称为“<strong>body</strong>”。</p>
-<p><strong>HTTP 协议规定报文必须有 header，但可以没有 body，而且在 header 之后必须要有一个“空行”，也就是“CRLF”</strong>。</p>
-<p>所以，一个完整的 HTTP 报文就像是下图的这个样子，注意在 header 和 body 之间有一个“空行”。</p>
-<img src="/2356874721.github.io/2021/03/31/http-08/8-1.png" class>
-
-<p>在下面这个浏览器发出的请求报文里，第一行“GET / HTTP/1.1”就是请求行，而后面的“Host”“Connection”等等都属于 header，报文的最后是一个空白行结束，没有 body。</p>
-<img src="/2356874721.github.io/2021/03/31/http-08/8-2.png" class>
-
-<p>在很多时候，特别是浏览器发送 GET 请求的时候都是这样，HTTP 报文经常是只有 header 而没 body，相当于只发了一个超级“大头”过来，你可以想象的出来：每时每刻网络上都会有数不清的“大头儿子”在跑来跑去。不过这个“大头”也不能太大，虽然 HTTP 协议对 header 的大小没有做限制，但各个 Web 服务器都不允许过大的请求头，因为头部太大可能会占用大量的服务器资源，影响运行效率。</p>
-<h3 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h3><p>了解了 HTTP 报文的基本结构后，我们来看看<strong>请求报文里的起始行</strong>也就是<strong>请求行（request line）</strong>，它<strong>简要地描述了客户端想要如何操作服务器端的资源</strong>。</p>
-<p>请求行由三部分构成：</p>
-<ol>
-<li>请求方法：是一个动词，如 GET/POST，表示对资源的操作；</li>
-<li>请求目标：通常是一个 URI，标记了请求方法要操作的资源；</li>
-<li>版本号：表示报文使用的 HTTP 协议版本。</li>
-</ol>
-<p>这三个部分通常使用空格（space）来分隔，最后要用 CRLF 换行表示结束。</p>
-<img src="/2356874721.github.io/2021/03/31/http-08/8-3.png" class>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/<span class="number">1.1</span></span><br></pre></td></tr></table></figure>
-
-<p>在这个请求行里，“GET”是请求方法，“/”是请求目标，“HTTP/1.1”是版本号，把这三部分连起来，意思就是“服务器你好，我想获取网站根目录下的默认文件，我用的协议版本号是 1.1，请不要用 1.0 或者 2.0 回复我。”</p>
-<h3 id="状态行"><a href="#状态行" class="headerlink" title="状态行"></a>状态行</h3><p>看完了请求行，我们再看<strong>响应报文里的起始行</strong>，在这里它不叫“响应行”，而是叫“<strong>状态行”（status line）</strong>，意思是服务器响应的状态。</p>
-<p>比起请求行来说，状态行要简单一些，同样也是由三部分构成：</p>
-<ol>
-<li>版本号：表示报文使用的 HTTP 协议版本；</li>
-<li>状态码：一个三位数，用代码的形式表示处理的结果，比如 200 是成功，500 是服务器错误；</li>
-<li>原因：作为数字状态码补充，是更详细的解释文字，帮助人理解原因。</li>
-</ol>
-<img src="/2356874721.github.io/2021/03/31/http-08/8-4.png" class>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br></pre></td></tr></table></figure>
-
-<p>意思就是：“浏览器你好，我已经处理完了你的请求，这个报文使用的协议版本号是 1.1，状态码是 200，一切 OK。”</p>
-<h3 id="头部字段"><a href="#头部字段" class="headerlink" title="头部字段"></a>头部字段</h3><p>请求行或状态行再加上头部字段集合就构成了 HTTP 报文里完整的请求头或响应头，我画了两个示意图，你可以看一下。</p>
-<img src="/2356874721.github.io/2021/03/31/http-08/8-5.png" class>
-
-<img src="/2356874721.github.io/2021/03/31/http-08/8-6.png" class>
-
-<p>头部字段是 key-value 的形式，key 和 value 之间用“:”分隔，最后用 CRLF 换行表示字段结束。</p>
-<p>HTTP 头字段非常灵活，不仅可以使用标准里的 Host、Connection 等已有头，也可以任意添加自定义头，这就给 HTTP 协议带来了无限的扩展可能。</p>
-<p>不过使用头字段需要注意下面几点：</p>
-<ol>
-<li>字段名不区分大小写，例如“Host”也可以写成“host”，但首字母大写的可读性更好；</li>
-<li>字段名里不允许出现空格，可以使用连字符“-”，但不能使用下划线“_”。例如，“test-name”是合法的字段名，而“test name”“test_name”是不正确的字段名；</li>
-<li>字段名后面必须紧接着“:”，不能有空格，而“:”后的字段值前可以有多个空格；</li>
-<li>字段的顺序是没有意义的，可以任意排列不影响语义；</li>
-<li>字段原则上不能重复，除非这个字段本身的语义允许，例如 Set-Cookie。</li>
-</ol>
-<h3 id="常用头字段"><a href="#常用头字段" class="headerlink" title="常用头字段"></a>常用头字段</h3><p>HTTP 协议规定了非常多的头部字段，实现各种各样的功能，但基本上可以分为四大类：</p>
-<ol>
-<li>通用字段：在请求头和响应头里都可以出现；</li>
-<li>请求字段：仅能出现在请求头里，进一步说明请求信息或者额外的附加条件；</li>
-<li>响应字段：仅能出现在响应头里，补充说明响应报文的信息；</li>
-<li>实体字段：它实际上属于通用字段，但专门描述 body 的额外信息。</li>
-</ol>
-<p>对 HTTP 报文的解析和处理实际上主要就是对头字段的处理，理解了头字段也就理解了 HTTP 报文。今天先讲几个最基本的头，看完了它们你就应该能够读懂大多数 HTTP 报文了。</p>
-<h4 id="请求字段-Host"><a href="#请求字段-Host" class="headerlink" title="请求字段 Host"></a>请求字段 Host</h4><p>首先要说的是 Host 字段，它属于请求字段，<strong>只能出现在请求头里，它同时也是唯一一个 HTTP/1.1 规范里要求必须出现的字段</strong>，也就是说，如果请求头里没有 Host，那这就是一个错误的报文。</p>
-<p>Host 字段告诉服务器这个请求应该由哪个主机来处理，当一台计算机上托管了多个虚拟主机的时候，服务器端就需要用 Host 字段来选择，有点像是一个简单的“路由重定向”。(<em>host字段是给Web服务器（Apache，Nginx）用的。 解析出ip后，请求到达Nginx，因为上面运行了很多的虚拟主机，比如a.com/b.com/c.com，那么应该进那个呢？ 这个时候就要用到host字段了。如果host=b.com，那么Nginx就会使用b.com的配置提供服务。</em>)</p>
-<h4 id="请求字段-User-Agent"><a href="#请求字段-User-Agent" class="headerlink" title="请求字段 User-Agent"></a>请求字段 User-Agent</h4><p>User-Agent 是请求字段，只出现在请求头里。它<strong>使用一个字符串来描述发起 HTTP 请求的客户端</strong>，服务器可以依据它来返回最合适此浏览器显示的页面。但由于历史的原因，User-Agent 非常混乱，每个浏览器都自称是“Mozilla”“Chrome”“Safari”，企图使用这个字段来互相“伪装”，导致 User-Agent 变得越来越长，最终变得毫无意义。不过有的比较“诚实”的<strong>爬虫</strong>会在 User-Agent 里用“<strong>spider</strong>”标明自己是爬虫，所以可以利用这个字段实现简单的反爬虫策略。</p>
-<h4 id="通用字段-Date"><a href="#通用字段-Date" class="headerlink" title="通用字段 Date"></a>通用字段 Date</h4><p>Date 字段是一个通用字段，但<strong>通常出现在响应头里</strong>，<strong>表示 HTTP 报文创建的时间</strong>，客户端可以使用这个时间再搭配其他字段<strong>决定缓存策略</strong>。</p>
-<h4 id="响应字段-Server"><a href="#响应字段-Server" class="headerlink" title="响应字段 Server"></a>响应字段 Server</h4><p>Server 字段是响应字段，只能出现在响应头里。它<strong>告诉客户端当前正在提供 Web 服务的软件名称和版本号</strong>。Server 字段也不是必须要出现的，因为这会把服务器的一部分信息暴露给外界，如果这个版本恰好存在 bug，那么黑客就有可能利用 bug 攻陷服务器。所以，有的网站响应头里要么没有这个字段，要么就给出一个完全无关的描述信息。</p>
-<h4 id="实体字段-Content-Length"><a href="#实体字段-Content-Length" class="headerlink" title="实体字段 Content-Length"></a>实体字段 Content-Length</h4><p>实体字段里要说的一个是 Content-Length，它<strong>表示报文里 body 的长度</strong>，也就是请求头或响应头空行后面数据的长度。服务器看到这个字段，就知道了后续有多少数据，可以直接接收。<strong>如果没有这个字段，那么 body 就是不定长的，需要使用 chunked 方式分段传输</strong>。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
-<li>HTTP 报文结构就像是“大头儿子”，由“起始行 + 头部 + 空行 + 实体”组成，简单地说就是“header+body”；</li>
-<li>HTTP 报文可以没有 body，但必须要有 header，而且 header 后也必须要有空行，形象地说就是“大头”必须要带着“脖子”；</li>
-<li>请求头由“请求行 + 头部字段”构成，响应头由“状态行 + 头部字段”构成；</li>
-<li>请求行有三部分：请求方法，请求目标和版本号；</li>
-<li>状态行也有三部分：版本号，状态码和原因字符串；</li>
-<li>头部字段是 key-value 的形式，用“:”分隔，不区分大小写，顺序任意，除了规定的标准头，也可以任意添加自定义字段，实现功能扩展；</li>
-<li>HTTP/1.1 里唯一要求必须提供的头字段是 Host，它必须出现在请求头里，标记虚拟主机名。</li>
-</ol>
-<h3 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a>课下作业</h3><ol>
-<li><p>如果拼 HTTP 报文的时候，在头字段后多加了一个 CRLF，导致出现了一个空行，会发生什么？</p>
-<p>在header 下面第一个空行以后都会被当作body 体</p>
-</li>
-<li><p>讲头字段时说“:”后的空格可以有多个，那为什么绝大多数情况下都只使用一个空格呢？</p>
-<p>头部多一个空格就会多一个传输的字节，去掉无用的信息，保证传输的头部字节数尽量小</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1600,7 +1520,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/2356874721.github.io/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1613,7 +1533,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/2356874721.github.io/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
