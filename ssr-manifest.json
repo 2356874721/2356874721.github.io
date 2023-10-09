@@ -1,0 +1,62 @@
+{
+  "\u0000plugin-vue:export-helper": [
+  ],
+  "\u0000vite/modulepreload-polyfill": [
+  ],
+  "\u0000vite/preload-helper": [
+  ],
+  "../../../../../@vite-plugin-pages/generated-pages?id=pages-generated": [
+  ],
+  "index.html": [
+  ],
+  "node_modules/.pnpm/@unhead+dom@1.7.4/node_modules/@unhead/dom/dist/index.mjs": [
+  ],
+  "node_modules/.pnpm/@unhead+shared@1.7.4/node_modules/@unhead/shared/dist/index.mjs": [
+  ],
+  "node_modules/.pnpm/@unhead+vue@1.7.4_vue@3.3.4/node_modules/@unhead/vue/dist/shared/vue.cf295fb1.mjs": [
+  ],
+  "node_modules/.pnpm/@vue+reactivity@3.3.4/node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js": [
+  ],
+  "node_modules/.pnpm/@vue+runtime-core@3.3.4/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js": [
+  ],
+  "node_modules/.pnpm/@vue+runtime-dom@3.3.4/node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js": [
+  ],
+  "node_modules/.pnpm/@vue+shared@3.3.4/node_modules/@vue/shared/dist/shared.esm-bundler.js": [
+  ],
+  "node_modules/.pnpm/hookable@5.5.3/node_modules/hookable/dist/index.mjs": [
+  ],
+  "node_modules/.pnpm/unhead@1.7.4/node_modules/unhead/dist/index.mjs": [
+  ],
+  "node_modules/.pnpm/vite-ssg@0.23.3_vite@4.4.11_vue-router@4.0.13_vue@3.3.4/node_modules/vite-ssg/dist/index.mjs": [
+  ],
+  "node_modules/.pnpm/vite-ssg@0.23.3_vite@4.4.11_vue-router@4.0.13_vue@3.3.4/node_modules/vite-ssg/dist/shared/vite-ssg.5912142e.mjs": [
+  ],
+  "node_modules/.pnpm/vite-ssg@0.23.3_vite@4.4.11_vue-router@4.0.13_vue@3.3.4/node_modules/vite-ssg/dist/shared/vite-ssg.a009fbf1.mjs": [
+  ],
+  "node_modules/.pnpm/vue-router@4.0.13_vue@3.3.4/node_modules/vue-router/dist/vue-router.esm-bundler.js": [
+  ],
+  "pages/index.md?vue&type=script&setup=true&lang.ts": [
+  ],
+  "pages/life/cooking.md": [
+    "/assets/cooking-ef423b24.js"
+  ],
+  "pages/life/cooking.md?vue&type=script&setup=true&lang.ts": [
+    "/assets/cooking-ef423b24.js"
+  ],
+  "pages/life/index.md": [
+    "/assets/index-6e2c92c1.js"
+  ],
+  "pages/life/index.md?vue&type=script&setup=true&lang.ts": [
+    "/assets/index-6e2c92c1.js"
+  ],
+  "pages/technology/index.md": [
+    "/assets/index-95568411.js"
+  ],
+  "pages/technology/index.md?vue&type=script&setup=true&lang.ts": [
+    "/assets/index-95568411.js"
+  ],
+  "src/App.vue": [
+  ],
+  "src/main.ts": [
+  ]
+}
