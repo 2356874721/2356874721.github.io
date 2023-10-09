@@ -1,5 +1,3 @@
-pnpm install
-
 pnpm run build
 
 git add .
