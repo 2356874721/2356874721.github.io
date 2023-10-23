@@ -1,3 +1,1 @@
-# Hi, Markdown
-
-life
+<List route-name="life" />

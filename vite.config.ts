@@ -6,10 +6,15 @@ import fs from 'fs-extra';
 import matter from 'gray-matter';
 import ViteMarkdown from 'vite-plugin-md';
 import ViteComponents from 'unplugin-vue-components/vite';
-import WindiCSS from 'vite-plugin-windicss';
+import Prism from 'markdown-it-prism';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@/': `${resolve(__dirname, 'src')}/`
+    }
+  },
   plugins: [
     vue({ include: [/\.vue$/, /\.md$/] }),
     VitePages({
@@ -23,11 +28,15 @@ export default defineConfig({
         return route;
       }
     }),
-    ViteMarkdown(),
+    ViteMarkdown({
+      wrapperComponent: 'Detail',
+      markdownItSetup: (md) => {
+        md.use(Prism);
+      }
+    }),
     ViteComponents({
       extensions: ['vue', 'md'],
       include: [/\.vue$/, /\.md$/]
-    }),
-    WindiCSS()
+    })
   ]
 });

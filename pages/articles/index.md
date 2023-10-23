@@ -1,0 +1,1 @@
+<List route-name="articles" />

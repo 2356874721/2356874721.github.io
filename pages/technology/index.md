@@ -1,3 +1,1 @@
-# Hi, Markdown
-
-technology
+<List route-name="technology" />

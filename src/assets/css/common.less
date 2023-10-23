@@ -1,0 +1,249 @@
+:root {
+  --font-size-xsmall: 10px;
+  --font-size-small: 12px;
+  --font-size-middle: 15px;
+  --font-size-large: 16px;
+  --font-size-xlarge: 22px;
+  --background-color: rgb(244, 243, 239);
+  --text-color: #333;
+  --label-color: #000;
+  --title-color: rgba(0, 0, 0, 0.75);
+  --date-color: rgba(0, 0, 0, 0.55);
+  --active-color: #007bff;
+  --active-background-color: #007bff;
+  --box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.08);
+  --dark-label-color: #ffffff;
+  --dark-background-color: #050505;
+  --dark-text-color: #bbbbbb;
+  --dark-active-color: #ffffff;
+  --dark-active-background-color: #ffffff;
+  --dark-box-shadow: 0 2px 5px 2px rgba(255, 255, 255, 0.1);
+}
+
+// 正常模式
+html {
+  background-color: var(--background-color);
+  // blog-header
+  .blog {
+    &-header {
+      box-shadow: var(--box-shadow);
+      &__nav {
+        &-item {
+          font-size: var(--font-size-large);
+          color: var(--text-color);
+          &.active {
+            color: var(--active-color);
+          }
+          &.active::after {
+            background-color: var(--active-background-color);
+          }
+        }
+      }
+    }
+    &-list {
+    }
+    &-item {
+      &__title {
+        font-size: var(--font-size-middle);
+        color: var(--title-color);
+      }
+      &__badge {
+        font-size: var(--font-size-xsmall);
+        color: var(--text-color);
+      }
+      &__date {
+        font-size: var(--font-size-small);
+        color: var(--date-color);
+      }
+      &___duration {
+        font-size: var(--font-size-small);
+        color: var(--date-color);
+      }
+    }
+    &-detail {
+      &__title {
+        font-size: var(--font-size-xlarge);
+      }
+      &__tag {
+        font-size: var(--font-size-small);
+      }
+      &__date {
+        font-size: var(--font-size-small);
+        color: var(--date-color);
+      }
+      &__subtitle {
+        font-size: var(--font-size-small);
+        color: var(--date-color);
+      }
+    }
+    &-footer {
+      color: var(--text-color);
+      font-size: var(--font-size-middle);
+    }
+  }
+  .markdown-body {
+    color: var(--text-color);
+    font-size: var(--font-size-middle);
+    h2 {
+      color: var(--label-color);
+      font-weight: bold;
+      font-size: var(--font-size-large);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    center p {
+      line-height: 2.5;
+    }
+  }
+}
+// 夜间模式
+html.dark {
+  background-color: var(--dark-background-color);
+  // blog-header
+  .blog {
+    &-header {
+      box-shadow: var(--dark-box-shadow);
+      &__nav {
+        &-item {
+          color: var(--dark-text-color);
+          &.active {
+            color: var(--dark-active-color);
+          }
+          &.active::after {
+            background-color: var(--dark-active-background-color);
+          }
+        }
+      }
+    }
+
+    &-item {
+      &__title {
+        color: var(--dark-text-color);
+      }
+      &__badge {
+        color: var(--dark-text-color);
+      }
+      &__date {
+        color: var(--dark-text-color);
+      }
+      &___duration {
+        color: var(--dark-text-color);
+      }
+    }
+
+    &-detail {
+      &__title {
+        color: var(--dark-label-color);
+      }
+      &__date {
+        color: var(--dark-text-color);
+      }
+      &__subtitle {
+        font-size: var(--font-size-small);
+        color: var(--dark-text-color);
+      }
+    }
+
+    &-footer {
+      color: var(--dark-text-color);
+    }
+  }
+  .markdown-body {
+    color: var(--dark-text-color);
+    h2 {
+      color: var(--dark-label-color);
+    }
+  }
+}
+
+// 0.5px border
+[class*='--border'] {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border-style: solid;
+    border-color: currentColor;
+    border-width: 1px;
+    transform: scale(0.5);
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+[class*='--border-top'] {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border-style: solid;
+    border-color: currentColor;
+    border-top-width: 1px;
+    transform: scale(0.5);
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+[class*='--border-right'] {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border-style: solid;
+    border-color: currentColor;
+    border-right-width: 1px;
+    transform: scale(0.5);
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+[class*='--border-bottom'] {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border-style: solid;
+    border-color: currentColor;
+    border-bottom-width: 1px;
+    transform: scale(0.5);
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+[class*='--border-left'] {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border-style: solid;
+    border-color: currentColor;
+    border-left-width: 1px;
+    transform: scale(0.5);
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
