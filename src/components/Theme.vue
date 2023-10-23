@@ -32,6 +32,9 @@ const toogleDark = () => {
 
 <style lang="less" scoped>
 .blog-theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &__icon {
     width: 26px;
     height: 26px;

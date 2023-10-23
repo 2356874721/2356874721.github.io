@@ -4,7 +4,7 @@ import VitePages from 'vite-plugin-pages';
 import { resolve } from 'path';
 import fs from 'fs-extra';
 import matter from 'gray-matter';
-import ViteMarkdown from 'vite-plugin-md';
+import ViteMarkdown from 'vite-plugin-vue-markdown';
 import ViteComponents from 'unplugin-vue-components/vite';
 import Prism from 'markdown-it-prism';
 
@@ -36,7 +36,8 @@ export default defineConfig({
     }),
     ViteComponents({
       extensions: ['vue', 'md'],
-      include: [/\.vue$/, /\.md$/]
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      dts: './components.d.ts'
     })
   ]
 });
