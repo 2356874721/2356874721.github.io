@@ -1,0 +1,1 @@
+import{d as o,r as a,o as n,c as s,w as r,a as c}from"./app-6734a01c.js";const _=c("div",{class:"markdown-body"},null,-1),d={},f="",u=o({__name:"1",setup(p,{expose:e}){return e({frontmatter:{},excerpt:void 0}),(l,m)=>{const t=a("detail");return n(),s(t,{frontmatter:d},{default:r(()=>[_]),_:1})}}});export{u as default,f as excerpt,d as frontmatter};
