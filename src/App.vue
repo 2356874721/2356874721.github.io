@@ -3,8 +3,8 @@
     <Header></Header>
     <div :class="classes.main">
       <router-view></router-view>
+      <Footer></Footer>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ const classes = reactive({
   &__main {
     flex: 1;
     padding: 0 16px;
+    box-sizing: border-box;
     overflow-x: scroll;
   }
 }

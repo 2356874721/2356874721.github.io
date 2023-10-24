@@ -1,12 +1,20 @@
 <template>
   <div :class="classes.root">
-    <img :class="classes.avatar" src="@/assets/img/avatar.jpg" alt="" />
+    <img
+      :class="classes.avatar"
+      src="@/assets/img/avatar.jpg"
+      alt=""
+      @click="goHome"
+    />
     <ul :class="classes.nav">
       <router-link
         v-for="(item, index) in navList"
         :to="item.path"
         :key="index"
-        :class="[classes['nav-item'], { active: item.active }]"
+        :class="[
+          classes['nav-item'],
+          { active: item.active, hide: !item.display }
+        ]"
         >{{ item.title }}</router-link
       >
       <Theme></Theme>
@@ -16,7 +24,7 @@
 
 <script setup lang="ts">
 import { reactive, computed, watchEffect, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useNamespace } from '@/hooks';
 
 const activePath = ref('');
@@ -37,17 +45,20 @@ const navList = computed(() => {
     {
       title: '技术',
       path: '/technology',
-      active: false
+      active: false,
+      display: false
     },
     {
       title: '日常',
       path: '/life',
-      active: false
+      active: false,
+      display: false
     },
     {
       title: '文章',
       path: '/articles',
-      active: false
+      active: false,
+      display: true
     }
   ];
   let firstLevelPath = `/${activePath.value.split('/')[1]}`;
@@ -60,6 +71,11 @@ const navList = computed(() => {
   });
   return routes;
 });
+
+const router = useRouter();
+const goHome = () => {
+  router.push('/');
+};
 </script>
 
 <style lang="less" scoped>
@@ -94,6 +110,9 @@ const navList = computed(() => {
       left: 0;
       bottom: -3px;
     }
+  }
+  &__nav-item.hide {
+    display: none;
   }
 }
 </style>

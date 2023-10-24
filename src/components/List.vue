@@ -33,7 +33,9 @@ const routes = router
   .getRoutes()
   .filter(
     (item) =>
-      item.path.startsWith(`/${routeName.value}`) && getFrontmatter(item).date
+      item.path.startsWith(`/${routeName.value}`) &&
+      getFrontmatter(item).display &&
+      getFrontmatter(item).date
   )
   .sort(
     (a: any, b: any) =>
