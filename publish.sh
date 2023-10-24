@@ -5,7 +5,7 @@
 # git commit -m "update"
 
 
-git subtree push -f --prefix=dist origin gh-pages
+git subtree push --prefix=dist origin gh-pages
 
 # git subtree split --prefix dist -b gh-pages
 # git push -f origin gh-pages:gh-pages

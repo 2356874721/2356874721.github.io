@@ -1,0 +1,1 @@
+import{o as n,c as s,w as _,_ as c,a as o}from"./app-ebed127a.js";const r=o("div",{class:"markdown-body"},[o("h1",null,"Hi, Cooking")],-1),u={__name:"1",setup(p,{expose:e}){const t={};return e({frontmatter:t}),(i,l)=>{const a=c;return n(),s(a,{frontmatter:t},{default:_(()=>[r]),_:1})}}};export{u as default};
