@@ -30,6 +30,8 @@ const classes = reactive({
     padding: 0 16px;
     box-sizing: border-box;
     overflow-x: scroll;
+    width: 375px;
+    margin: 0 auto;
   }
 }
 </style>

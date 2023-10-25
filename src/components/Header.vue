@@ -46,7 +46,7 @@ const navList = computed(() => {
       title: '技术',
       path: '/technology',
       active: false,
-      display: false
+      display: true
     },
     {
       title: '日常',
