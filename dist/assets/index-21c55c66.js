@@ -1,0 +1,1 @@
+import{o as a,c as s,w as _,_ as c,a as r,b as m}from"./app-9ae950a6.js";import{_ as p}from"./List-e428652b.js";const i={class:"markdown-body"},h={__name:"index",setup(u,{expose:e}){const t={};return e({frontmatter:t}),(d,l)=>{const o=p,n=c;return a(),s(n,{frontmatter:t},{default:_(()=>[r("div",i,[m(o,{"route-name":"articles"})])]),_:1})}}};export{h as default};

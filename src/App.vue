@@ -21,16 +21,17 @@ const classes = reactive({
 
 <style lang="less" scoped>
 .blog-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
+  // min-height: 100vh;
+  background-color: inherit;
   &__main {
-    flex: 1;
-    padding: 0 16px;
+    // flex: 1;
+    padding: 0 5%;
     box-sizing: border-box;
-    overflow-x: scroll;
-    width: 375px;
+    // overflow-x: scroll;
+    width: 100%;
     margin: 0 auto;
   }
 }

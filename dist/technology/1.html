@@ -3,11 +3,34 @@
     <link rel="icon" type="image/svg+xml" href="/logo.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>警长的博客</title>
-    <script type="module" crossorigin="" src="/assets/app-ebed127a.js"></script>
-    <link rel="stylesheet" href="/assets/index-948acdcc.css">
-  <link rel="modulepreload" crossorigin="" href="/assets/1-ed6eee48.js"></head>
+    <script type="module" crossorigin="" src="/assets/app-9ae950a6.js"></script>
+    <link rel="stylesheet" href="/assets/index-af877241.css">
+  <link rel="modulepreload" crossorigin="" href="/assets/1-a2f07d8f.js"></head>
   <body>
-    <div id="app" data-server-rendered="true"><div class="blog-wrap" data-v-69a5ed9d=""><div class="blog-header" data-v-69a5ed9d="" data-v-2c1b3e91=""><img class="blog-header__avatar" src="/assets/avatar-bffa5f85.jpg" alt="" data-v-2c1b3e91=""><ul class="blog-header__nav" data-v-2c1b3e91=""><!--[--><a href="/technology" class="blog-header__nav-item active hide" data-v-2c1b3e91="">技术</a><a href="/life" class="blog-header__nav-item hide" data-v-2c1b3e91="">日常</a><a href="/articles" class="blog-header__nav-item" data-v-2c1b3e91="">文章</a><!--]--><div class="blog-theme" data-v-2c1b3e91="" data-v-4d5d5aaf=""><img class="blog-theme__icon" style="" src="/assets/sun-07916e66.png" alt="" data-v-4d5d5aaf=""><img class="blog-theme__icon" style="display:none;" src="/assets/moon-f8bf2bcb.png" alt="" data-v-4d5d5aaf=""></div></ul></div><div class="blog-wrap__main" data-v-69a5ed9d=""><!--[--><!----><!--[--><div class="markdown-body"></div><!--]--><!--]--><div class="blog-footer" data-v-69a5ed9d="" data-v-8987bae3=""><span class="blog-footer__copyright" data-v-8987bae3="">世界那么大，一起去看看 © Sheriff</span></div></div></div></div>
+    <div id="app" data-server-rendered="true"><div class="blog-wrap" data-v-7c3c1202=""><div class="blog-header" data-v-7c3c1202="" data-v-b1f83df6=""><img class="blog-header__avatar" src="/assets/avatar-bffa5f85.jpg" alt="" data-v-b1f83df6=""><ul class="blog-header__nav" data-v-b1f83df6=""><!--[--><a href="/technology" class="blog-header__nav-item active" data-v-b1f83df6="">技术</a><a href="/life" class="blog-header__nav-item hide" data-v-b1f83df6="">日常</a><a href="/articles" class="blog-header__nav-item" data-v-b1f83df6="">文章</a><!--]--><div class="blog-theme" data-v-b1f83df6="" data-v-4d5d5aaf=""><img class="blog-theme__icon" style="" src="/assets/sun-07916e66.png" alt="" data-v-4d5d5aaf=""><img class="blog-theme__icon" style="display:none;" src="/assets/moon-f8bf2bcb.png" alt="" data-v-4d5d5aaf=""></div></ul></div><div class="blog-wrap__main" data-v-7c3c1202=""><!--[--><div class="blog-detail" data-v-ee2bd85d=""><div class="blog-detail__title" data-v-ee2bd85d="">深入浅出vite 基础概念</div><div class="blog-detail__tags" data-v-ee2bd85d=""><!--[--><span class="blog-detail__tag blog-detail__tag--border" style="color:#41b883;border-color:#41b883;" data-v-ee2bd85d="">vite</span><span class="blog-detail__tag blog-detail__tag--border" style="color:#34495e;border-color:#34495e;" data-v-ee2bd85d="">vue</span><!--]--></div><div class="blog-detail__date" data-v-ee2bd85d="">Oct 25, 2023 · <span class="blog-detail__duration" data-v-ee2bd85d="">5min</span></div><p class="blog-detail__subtitle" data-v-ee2bd85d="">《深入浅出Vite》读书笔记</p></div><!--[--><div class="markdown-body"><h2>入口文件</h2><p>Vite 默认会把项目根目录下的index.html作为入口文件。入口文件的路径可以更改。</p><pre class="language-ts"><code class="language-ts"><span class="token comment">// vite.config.ts</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> defineConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vite'</span>
+<span class="token keyword">import</span> path <span class="token keyword">from</span> <span class="token string">'path'</span>
+<span class="token keyword">import</span> react <span class="token keyword">from</span> <span class="token string">'@vitejs/plugin-react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">defineConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment">// 重新指定项目根目录位置</span>
+  root<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'src'</span><span class="token punctuation">)</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">react</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre><h2>构建命令</h2><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"tsc &amp;&amp; vite build"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 省略其他配置</span>
+    <span class="token comment">// 1. noEmit 表示只做类型检查，而不会输出产物文件</span>
+    <span class="token comment">// 2. 这行配置与 tsc --noEmit 命令等效</span>
+    <span class="token property">"noEmit"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre><p>tsc 作为 TypeScript 的官方编译命令，可以用来编译 TypeScript 代码并进行类型检查，而这里的作用主要是用来做类型检查。虽然 Vite 提供了开箱即用的 TypeScript 以及 JSX 的编译能力，但实际上底层并没有实现 TypeScript 的类型校验系统，因此需要借助 tsc 来完成类型校验(在 Vue 项目中使用 vue-tsc 这个工具来完成)，在打包前提早暴露出类型相关的问题，保证代码的健壮性。</p><h2>重点</h2><p>一个 import 语句代表一个 HTTP 请求。正是 Vite 的 Dev Server 来接收这些请求、进行文件转译以及返回浏览器可以运行的代码，从而让项目正常运行。</p></div><!--]--><!--]--><div class="blog-footer" data-v-7c3c1202="" data-v-8987bae3=""><span class="blog-footer__copyright" data-v-8987bae3="">世界那么大，一起去看看 © Sheriff</span></div></div></div></div>
     
   
 

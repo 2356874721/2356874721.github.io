@@ -4,7 +4,7 @@
   --font-size-middle: 15px;
   --font-size-large: 16px;
   --font-size-xlarge: 22px;
-  --background-color: rgb(244, 243, 239);
+  --background-color: #f4f3ef;
   --text-color: #333;
   --label-color: #000;
   --title-color: rgba(0, 0, 0, 0.75);
@@ -49,7 +49,7 @@ html {
   // blog-header
   .blog {
     &-header {
-      box-shadow: var(--box-shadow);
+      // box-shadow: var(--box-shadow);
       &__nav {
         &-item {
           font-size: var(--font-size-large);
@@ -57,9 +57,9 @@ html {
           &.active {
             color: var(--active-color);
           }
-          &.active::after {
-            background-color: var(--active-background-color);
-          }
+          // &.active::after {
+          //   background-color: var(--active-background-color);
+          // }
         }
       }
     }
@@ -125,16 +125,16 @@ html.dark {
   // blog-header
   .blog {
     &-header {
-      box-shadow: var(--dark-box-shadow);
+      // box-shadow: var(--dark-box-shadow);
       &__nav {
         &-item {
           color: var(--dark-text-color);
           &.active {
             color: var(--dark-active-color);
           }
-          &.active::after {
-            background-color: var(--dark-active-background-color);
-          }
+          // &.active::after {
+          //   background-color: var(--dark-active-background-color);
+          // }
         }
       }
     }

@@ -52,7 +52,7 @@ const navList = computed(() => {
       title: '日常',
       path: '/life',
       active: false,
-      display: false
+      display: true
     },
     {
       title: '文章',
@@ -83,7 +83,7 @@ const goHome = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 10px 5%;
   &__avatar {
     width: 40px;
     height: 40px;
@@ -99,18 +99,18 @@ const goHome = () => {
   &__nav-item {
     margin-right: 15px;
   }
-  &__nav-item.active {
-    position: relative;
-    &::after {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 2px;
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-    }
-  }
+  // &__nav-item.active {
+  //   position: relative;
+  //   &::after {
+  //     content: '';
+  //     display: block;
+  //     width: 100%;
+  //     height: 2px;
+  //     position: absolute;
+  //     left: 0;
+  //     bottom: -3px;
+  //   }
+  // }
   &__nav-item.hide {
     display: none;
   }
