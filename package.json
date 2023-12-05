@@ -37,7 +37,7 @@
     "prettier": "^3.0.0",
     "typescript": "^5.2.2",
     "unplugin-vue-components": "^0.25.2",
-    "vite": "^4.4.5",
+    "vite": "^4.4.12",
     "vite-plugin-pages": "^0.31.0",
     "vite-plugin-vue-markdown": "^0.22.1",
     "vite-ssg": "^0.23.3",
